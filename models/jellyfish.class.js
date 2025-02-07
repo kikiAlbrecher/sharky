@@ -6,6 +6,7 @@ class Jellyfish extends MovableObject {
         '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 2.png',
         '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 3.png',
         '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
+        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
     ];
 
     constructor() {
@@ -34,6 +35,6 @@ class Jellyfish extends MovableObject {
             if (this.y < -180 || this.y > 400) {
                 this.angleY = -this.angleY;
             }
-        }, 1000 / 15);
+        }, 1000 / 12);
     }
 }

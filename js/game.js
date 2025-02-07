@@ -38,8 +38,6 @@ window.addEventListener('keydown', (event) => {
         default:
             return; // Quit when this doesn't handle the key event.
     }
-    console.log(event);
-    console.log(keyboard);
 });
 
 window.addEventListener('keyup', (event) => {
@@ -71,6 +69,4 @@ window.addEventListener('keyup', (event) => {
         default:
             return; // Quit when this doesn't handle the key event.
     }
-    console.log(event);
-    console.log(keyboard);
 });
