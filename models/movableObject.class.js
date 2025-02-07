@@ -1,8 +1,8 @@
 class MovableObject {
     x = 0;
-    y = 80;
-    width = 280;
-    height = 280;
+    y = 0;
+    width = 720;
+    height = 480;
     img;
     imgCache = {};
     currentImage = 0;
@@ -22,9 +22,9 @@ class MovableObject {
         });
     }
 
-    moveRight() {
-        console.log('Moving right');
-    }
+    // moveRight() {
+    //     console.log('Moving right');
+    // }
 
     moveLeft() {
         setInterval(() => {

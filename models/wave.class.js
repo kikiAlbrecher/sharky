@@ -1,8 +1,5 @@
 class Wave extends MovableObject {
-    y = 0;
-    width = 720;
-    height = 480;
-    speed = 0.05;
+    speed = 0.08;
 
     constructor(imgPath, x) {
         super().loadImg(imgPath);
