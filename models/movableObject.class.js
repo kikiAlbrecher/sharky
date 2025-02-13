@@ -18,8 +18,15 @@ class MovableObject {
         imgArray.forEach(path => {
             let img = new Image();
             img.src = path;
-            this.imgCache[path] = img; 
+            this.imgCache[path] = img;
         });
+    }
+
+    playAnimation(images) {
+        let i = this.currentImage % this.IMAGES_SWIMMING.length;
+        let path = images[i];
+        this.img = this.imgCache[path];
+        this.currentImage++;
     }
 
     // moveRight() {

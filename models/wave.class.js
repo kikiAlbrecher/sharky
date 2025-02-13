@@ -1,5 +1,5 @@
 class Wave extends MovableObject {
-    speed = 0.08;
+    speed = 0.1;
 
     constructor(imgPath, x) {
         super().loadImg(imgPath);

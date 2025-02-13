@@ -22,17 +22,14 @@ class Jellyfish extends MovableObject {
 
     animateJellySwimming() {
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_SWIMMING.length;
-            let path = this.IMAGES_SWIMMING[i];
-            this.img = this.imgCache[path];
-            this.currentImage++;
+            this.playAnimation(this.IMAGES_SWIMMING);
             this.x += this.angleX * this.speed;
             this.y += this.angleY * this.speed;
-    
-            if (this.x < 0 || this.x > canvas.width - 60) {
+
+            if (this.x < 0 || this.x > 640) {
                 this.angleX = -this.angleX;
             }
-            if (this.y < -180 || this.y > 400) {
+            if (this.y < -180 || this.y > 390) {
                 this.angleY = -this.angleY;
             }
         }, 1000 / 12);
