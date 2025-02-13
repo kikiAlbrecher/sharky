@@ -1,8 +1,8 @@
 class Endboss extends MovableObject {
-    x = 370;
-    y = 60;
-    width =360;
-    height = 360;
+    x = 2140 + 200;
+    y = 40;
+    width = 400;
+    height = 400;
     speed = 16;
 
     IMAGES_INTRODUCING = [
@@ -61,10 +61,12 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
-        // this.animateSwimming();
+        this.animateSwimming();
     }
 
-    // animateSwimming() {
-    //     this.moveLeft();
-    // }
+    animateSwimming() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_SWIMMING);
+        }, 200);
+    }
 }
