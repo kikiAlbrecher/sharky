@@ -50,4 +50,12 @@ const level1 = new Level(
         new Sunbeam('../img/3.Background/Layers/1. Light/1.png', -1437),
         new Sunbeam('../img/3.Background/Layers/1. Light/2.png', 717)
     ],
+    [
+        new Poison(),
+        new Poison(),
+        new Poison(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+    ]
 );
