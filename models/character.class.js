@@ -3,6 +3,12 @@ class Character extends MovableObject {
     width = 280;
     height = 280;
     speed = 16;
+    offset = {
+        top: 132,
+        right: 56,
+        bottom: 68,
+        left: 56
+    };
 
     IMAGES_IDLE = [
         '../img/1.Sharkie/1.IDLE/1.png',
@@ -149,19 +155,23 @@ class Character extends MovableObject {
 
     animateSwimming() {
         setInterval(() => {
+            // this.swimming_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+                this.moveRight();
+                // this.swimming_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > -1420) {
-                this.x -= this.speed;
+                this.moveLeft();
+                // this.swimming_sound.play();
                 this.otherDirection = true;
             }
-            if(this.world.keyboard.UP && this.y > -110) {
-                this.y -= 5;
+            if (this.world.keyboard.UP && this.y > -110) {
+                this.moveUp();
+                // this.swimming_sound.play();
             }
-            if(this.world.keyboard.DOWN && this.isAboveGround()) {
-                this.y += 5;
+            if (this.world.keyboard.DOWN && this.isAboveGround()) {
+                this.moveDown();
+                // this.swimming_sound.play();
             }
             this.world.camera_x = -this.x;
         }, 1000 / 60);
@@ -173,7 +183,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
             }
-        }, 1000/12);
+        }, 1000 / 12);
     }
 
     isAboveGround() {

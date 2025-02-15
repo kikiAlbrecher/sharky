@@ -22,11 +22,9 @@ window.addEventListener('keydown', (event) => {
             break;
         case "ArrowLeft":
             keyboard.LEFT = true;
-            // this.moveLeft();
             break;
         case "ArrowRight":
             keyboard.RIGHT = true;
-            // this.moveRight;
             break;
         case "Enter":
             // Do something for "enter" or "return" key press.
@@ -36,7 +34,7 @@ window.addEventListener('keydown', (event) => {
             // Do something for "space" key press.
             break;
         default:
-            return; // Quit when this doesn't handle the key event.
+            return;
     }
 });
 
@@ -67,6 +65,6 @@ window.addEventListener('keyup', (event) => {
             // Do something for "space" key press.
             break;
         default:
-            return; // Quit when this doesn't handle the key event.
+            return;
     }
 });

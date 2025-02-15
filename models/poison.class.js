@@ -1,6 +1,12 @@
 class Poison extends MovableObject {
     width = 50;
     height = 60;
+    offset = {
+        top: 27,
+        right: 10,
+        bottom: 3,
+        left: 10
+    };
 
     IMAGES_POISON = [
         '../img/4.Marcadores/Posión/Animada/1.png',
