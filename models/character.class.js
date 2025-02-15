@@ -136,6 +136,7 @@ class Character extends MovableObject {
     ];
 
     world;
+    // swimming_sound = new Audio('audio/swimming.mp3');
 
     constructor() {
         super().loadImg(this.IMAGES_IDLE[0]);
@@ -156,14 +157,23 @@ class Character extends MovableObject {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
+            if(this.world.keyboard.UP && this.y > -110) {
+                this.y -= 5;
+            }
+            if(this.world.keyboard.DOWN && this.isAboveGround()) {
+                this.y += 5;
+            }
             this.world.camera_x = -this.x;
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+            }
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
             }
-        }, 1000 / 20);
+        }, 1000/12);
     }
 
     isAboveGround() {

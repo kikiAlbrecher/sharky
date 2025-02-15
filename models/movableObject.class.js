@@ -9,7 +9,7 @@ class MovableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 0.01;
+    acceleration = 0.001;
 
     loadImg(path) {
         this.img = new Image();
@@ -47,7 +47,7 @@ class MovableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() && !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP)) {
                 this.y += this.speedY;
                 this.speedY += this.acceleration;
             }
