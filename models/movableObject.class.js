@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     energyReduction = 5;
     lastHit = 0;
-    timeStart = new Date().getTime();
+    // timeStart = new Date().getTime();
     offset = {
         top: 0,
         right: 0,
@@ -75,6 +75,15 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
+    // collect() {
+    //     this.energy -= this.energyReduction;
+    //     if (this.energy <= 0) {
+    //         this.energy = 0;
+    //     } else {
+    //         this.lastHit = new Date().getTime();
+    //     }
+    // }
 
     isHurtPoison() {
         let timeNow = new Date().getTime();

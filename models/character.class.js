@@ -1,8 +1,8 @@
 class Character extends MovableObject {
-    y = 0;
     width = 280;
     height = 280;
     speed = 16;
+    idleTime = 0;
     offset = {
         top: 132,
         right: 56,
@@ -123,9 +123,9 @@ class Character extends MovableObject {
         '../img/1.Sharkie/6.Dead/1.Poisoned/7.png',
         '../img/1.Sharkie/6.Dead/1.Poisoned/8.png',
         '../img/1.Sharkie/6.Dead/1.Poisoned/9.png',
-        '../img/1.Sharkie/6.Dead/1.Poisoned/10.png',
-        '../img/1.Sharkie/6.Dead/1.Poisoned/11.png',
-        '../img/1.Sharkie/6.Dead/1.Poisoned/12.png'
+        // '../img/1.Sharkie/6.Dead/1.Poisoned/10.png',
+        // '../img/1.Sharkie/6.Dead/1.Poisoned/11.png',
+        // '../img/1.Sharkie/6.Dead/1.Poisoned/12.png'
     ];
 
     IMAGES_DEAD_ELECTRIC = [
@@ -162,7 +162,11 @@ class Character extends MovableObject {
     }
 
     isAboveGround() {
-        return this.y < 220;
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y <= 220;
+        }
     }
 
     animateSwimming() {
@@ -190,8 +194,9 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.isAboveGround()) {
-                if (this.timePassed < 5) {
+                if (this.idleTime > 0 && this.idleTime < 2.4) {
                     this.playAnimation(this.IMAGES_IDLE);
+                    this.idleTime += 1 / 12;
                 } else {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 }
@@ -208,7 +213,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             }
-        }, 1000 / 12);
+        }, 1000 / 15);
     }
 
 

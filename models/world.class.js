@@ -8,6 +8,7 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -15,7 +16,8 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
+        // this.checkItemsToCollect();
     }
 
     draw() {
@@ -23,9 +25,12 @@ class World {
         this.addObjectsToMap(this.level.waterMovements);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.camera_x / 2, 0);
         this.addObjectsToMap(this.level.sunbeams);
+        this.ctx.translate(this.camera_x / 2, 0);
         this.addObjectsToMap(this.level.objectsToCollect);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarLife);
@@ -61,16 +66,58 @@ class World {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBarLife.setPercentage(this.character.energy);
-                    console.log('Collision with character, energy: ', this.character.energy);
-                }
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
+
         }, 200);
     }
 
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBarLife.setPercentage(this.character.energy);
+                console.log('Collision with character, energy: ', this.character.energy);
+            }
+        });
+    }
+
+    // checkThrowObjects() {
+    //     if (this.keyboard.THROW) {
+    //         let bubble = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right, this.character.y + this.character.height - this.character.offset.top, this.character.otherDirection);
+    //         this.throwableObjects.push(bubble);
+    //     }
+    // }
+
+    checkThrowObjects() {
+        if (this.keyboard.THROW) {
+            let bubbleX, bubbleY;
+
+            if (!this.character.otherDirection) {
+                bubbleX = this.character.x + this.character.width - this.character.offset.right;
+            } else {
+                bubbleX = this.character.x + this.character.offset.left;
+            }
+
+            bubbleY = this.character.y + this.character.height - this.character.offset.top + 20;
+
+            let bubble = new ThrowableObject(bubbleX, bubbleY, this.character.otherDirection);
+            this.throwableObjects.push(bubble);
+        }
+    }
+    
+
+    // checkItemsToCollect() {
+    //     setInterval(() => {
+    //         this.level.objectsToCollect.forEach((object) => {
+    //             if (this.character.isColliding(object)) {
+    //                 this.character.collect();
+    //                 this.statusBarPoison.setPercentage(this.character.energy);
+    //                 console.log('Collision with character, energy: ', this.character.energy);
+    //             }
+    //         });
+    //     }, 200);
+    // }
 }
