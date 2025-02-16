@@ -5,6 +5,9 @@ class World {
     level = level1;
     keyboard;
     camera_x = 0;
+    statusBarLife = new StatusBarLife();
+    statusBarCoin = new StatusBarCoin();
+    statusBarPoison = new StatusBarPoison();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -25,6 +28,9 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarPoison);
 
         let self = this;
         requestAnimationFrame(() => {
@@ -59,10 +65,12 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    console.log('collision with Character: ', enemy);
+                    this.character.hit();
+                    this.statusBarLife.setPercentage(this.character.energy);
+                    console.log('Collision with character, energy: ', this.character.energy);
                 }
             });
         }, 200);
-
     }
+
 }

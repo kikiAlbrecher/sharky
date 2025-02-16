@@ -1,4 +1,5 @@
 class Pufferfish extends MovableObject {
+    energyReduction = 5;
     offset = {
         top: 3,
         right: 6,

@@ -100,7 +100,7 @@ class Character extends MovableObject {
         '../img/1.Sharkie/4.Attack/Fin slap/8.png'
     ];
 
-    IMAGES_HURT_POISONED = [
+    IMAGES_HURT_POISON = [
         '../img/1.Sharkie/5.Hurt/1.Poisoned/1.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/2.png',
         '../img/1.Sharkie/5.Hurt/1.Poisoned/3.png',
@@ -113,7 +113,7 @@ class Character extends MovableObject {
         '../img/1.Sharkie/5.Hurt/2.Electric shock/1.png'
     ];
 
-    IMAGES_DEAD_POISONED = [
+    IMAGES_DEAD_POISON = [
         '../img/1.Sharkie/6.Dead/1.Poisoned/1.png',
         '../img/1.Sharkie/6.Dead/1.Poisoned/2.png',
         '../img/1.Sharkie/6.Dead/1.Poisoned/3.png',
@@ -149,8 +149,20 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_SWIMMING);
+        this.loadImages(this.IMAGES_ATTACK_BUBBLE);
+        this.loadImages(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+        this.loadImages(this.IMAGES_ATTACK_POISONED_BUBBLE);
+        this.loadImages(this.IMAGES_ATTACK_FIN);
+        this.loadImages(this.IMAGES_HURT_POISON);
+        this.loadImages(this.IMAGES_HURT_ELECTRIC);
+        this.loadImages(this.IMAGES_DEAD_POISON);
+        this.loadImages(this.IMAGES_DEAD_ELECTRIC);
         this.applyGravity();
         this.animateSwimming();
+    }
+
+    isAboveGround() {
+        return this.y < 220;
     }
 
     animateSwimming() {
@@ -178,16 +190,28 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
+                if (this.timePassed < 5) {
+                    this.playAnimation(this.IMAGES_IDLE);
+                } else {
+                    this.playAnimation(this.IMAGES_LONG_IDLE);
+                }
             }
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
             }
+            if (this.isHurtPoison()) {
+                this.playAnimation(this.IMAGES_HURT_POISON);
+            }
+            // else if (this.isHurtElectric) {
+            //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
+            // } 
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD_POISON);
+            }
         }, 1000 / 12);
     }
 
-    isAboveGround() {
-        return this.y < 220;
-    }
+
+
 
 }

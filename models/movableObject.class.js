@@ -1,58 +1,18 @@
-class MovableObject {
-    x = 0;
-    y = 0;
-    width = 720;
-    height = 480;
-    img;
-    imgCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 0.001;
+    energy = 100;
+    energyReduction = 5;
+    lastHit = 0;
+    timeStart = new Date().getTime();
     offset = {
         top: 0,
         right: 0,
         bottom: 0,
         left: 0
     };
-
-    loadImg(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(imgArray) {
-        imgArray.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imgCache[path] = img;
-        });
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof PufferfishRose || this instanceof Jellyfish || this instanceof Endboss || this instanceof Coin || this instanceof Poison) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
-    drawOffsetFrame(ctx) {
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof PufferfishRose || this instanceof Jellyfish || this instanceof Endboss || this instanceof Coin || this instanceof Poison) {
-            ctx.beginPath();
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
-            ctx.stroke();
-        }
-    }
 
     isColliding(movableObject) {
         return (this.x + this.width - this.offset.right) > (movableObject.x + movableObject.offset.left) &&
@@ -62,7 +22,7 @@ class MovableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_SWIMMING.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imgCache[path];
         this.currentImage++;
@@ -107,11 +67,30 @@ class MovableObject {
         }, 1000 / 25);
     }
 
+    hit() {
+        this.energy -= this.energyReduction;
+        if (this.energy <= 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
 
+    isHurtPoison() {
+        let timeNow = new Date().getTime();
+        let timespan = (timeNow - this.lastHit) / 1000;
+        if (timespan == 0) {
+            return false;
+        } else if (timespan < 0.8) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-
-
-
+    isDead() {
+        return this.energy == 0;
+    }
 
 
 
