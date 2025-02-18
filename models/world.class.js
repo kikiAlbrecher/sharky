@@ -68,13 +68,14 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsEnemy();
             this.checkThrowObjects();
+            this.checkCollisionsCoin();
 
         }, 200);
     }
 
-    checkCollisions() {
+    checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -84,12 +85,15 @@ class World {
         });
     }
 
-    // checkThrowObjects() {
-    //     if (this.keyboard.THROW) {
-    //         let bubble = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right, this.character.y + this.character.height - this.character.offset.top, this.character.otherDirection);
-    //         this.throwableObjects.push(bubble);
-    //     }
-    // }
+    checkCollisionsCoin() {
+        this.level.objectsToCollect.forEach((item) => {
+            if (this.character.isColliding(item)) {
+                this.character.collect();
+                this.statusBarCoin.setPercentage(this.character.bubblesAmount);
+                console.log('Collision with character, coin: ', this.character.bubblesAmount);
+            }
+        });
+    }
 
     checkThrowObjects() {
         if (this.keyboard.THROW) {

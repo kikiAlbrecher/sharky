@@ -3,6 +3,8 @@ class Character extends MovableObject {
     height = 280;
     speed = 16;
     idleTime = 0;
+    bubblesAmount = 0;
+    bubblesDelta = 20;
     offset = {
         top: 132,
         right: 56,
@@ -207,6 +209,13 @@ class Character extends MovableObject {
             if (this.isHurtPoison()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
+            if (this.world.keyboard.THROW) {
+                if (this.bubblesAmount > 0) {
+                    this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+                } else {
+                    this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+                }
+            }
             // else if (this.isHurtElectric) {
             //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
             // } 
@@ -215,7 +224,15 @@ class Character extends MovableObject {
             }
         }, 1000 / 15);
     }
-
+    
+    collect() {
+        this.bubblesAmount += this.bubblesDelta;
+        if (this.bubblesAmount == 100) {
+            return;
+        } else {
+            this.bubblesAmount += this.bubblesDelta;
+        }
+    }
 
 
 
