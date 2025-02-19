@@ -3,14 +3,16 @@ class Level {
     waterMovements;
     backgroundObjects;
     sunbeams;
-    objectsToCollect;
+    coinsToCollect;
+    poisonToCollect;
     level_end_x = 2140;
 
-    constructor(enemies, waterMovements, backgroundObjects, sunbeams, objectsToCollect) {
+    constructor(enemies, waterMovements, backgroundObjects, sunbeams, coinsToCollect, poisonToCollect) {
         this.enemies = enemies;
         this.waterMovements = waterMovements;
         this.backgroundObjects = backgroundObjects;
         this.sunbeams = sunbeams;
-        this.objectsToCollect = objectsToCollect;
+        this.coinsToCollect = coinsToCollect;
+        this.poisonToCollect = poisonToCollect;
     }
 }

@@ -1,6 +1,6 @@
 class StatusBarCoin extends DrawableObject {
     x = 24;
-    y = 45;
+    y = 40;
     width = 200;
     height = 50;
     percentage = 0;
@@ -27,7 +27,8 @@ class StatusBarCoin extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage >= 100) {
+            this.percentage = 100;
             return 5;
         } else if (this.percentage > 80) {
             return 4;

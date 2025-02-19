@@ -8,7 +8,8 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
-    throwableObjects = [];
+    throwableBubble = [];
+    throwablePoison = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -17,7 +18,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        // this.checkItemsToCollect();
     }
 
     draw() {
@@ -28,9 +28,11 @@ class World {
         this.ctx.translate(-this.camera_x / 2, 0);
         this.addObjectsToMap(this.level.sunbeams);
         this.ctx.translate(this.camera_x / 2, 0);
-        this.addObjectsToMap(this.level.objectsToCollect);
+        this.addObjectsToMap(this.level.coinsToCollect);
+        this.addObjectsToMap(this.level.poisonToCollect);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.throwableBubble);
+        this.addObjectsToMap(this.throwablePoison);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarLife);
@@ -69,9 +71,10 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsEnemy();
-            this.checkThrowObjects();
             this.checkCollisionsCoin();
-
+            this.checkCollisionsPoison();
+            this.checkThrowBubbles();
+            this.checkThrowPoison();
         }, 200);
     }
 
@@ -85,31 +88,30 @@ class World {
         });
     }
 
-    // checkCollisionsEnemy() {
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (this.character.isColliding(enemy)) {
-    //             // Nur wenn der Charakter nicht durch Gift verletzt wird
-    //             if (!this.character.isHurtPoison()) {
-    //                 this.character.hit();  // Verringer die Energie des Charakters
-    //                 this.statusBarLife.setPercentage(this.character.energy);  // Aktualisiere die StatusBarLife
-    //                 console.log('Collision with character, energy: ', this.character.energy);
-    //             }
-    //         }
-    //     });
-    // }
-
-
     checkCollisionsCoin() {
-        this.level.objectsToCollect.forEach((item) => {
-            if (this.character.isColliding(item)) {
-                this.character.collect();
+        this.level.coinsToCollect.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoins();
+                this.statusBarCoin.setPercentage(this.character.coinAmount);
                 this.statusBarCoin.setPercentage(this.character.bubblesAmount);
-                console.log('Collision with character, coin: ', this.character.bubblesAmount);
+                console.log('Collision with character, coin: ', this.character.coinAmount);
+                console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
             }
         });
     }
 
-    checkThrowObjects() {
+    checkCollisionsPoison() {
+        this.level.poisonToCollect.forEach((poison) => {
+            if (this.character.isColliding(poison)) {
+                this.character.collectPoison();
+                this.statusBarPoison.setPercentage(this.character.poisonAmount);
+                console.log('Collision with character, poison: ', this.character.poisonAmount);
+                console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
+            }
+        });
+    }
+
+    checkThrowBubbles() {
         if (this.keyboard.THROW) {
             let bubbleX, bubbleY;
 
@@ -121,8 +123,25 @@ class World {
 
             bubbleY = this.character.y + this.character.height - this.character.offset.top;
 
-            let bubble = new ThrowableObject(bubbleX, bubbleY, this.character.otherDirection);
-            this.throwableObjects.push(bubble);
+            let bubble = new ThrowableBubble(bubbleX, bubbleY, this.character.otherDirection);
+            this.throwableBubble.push(bubble);
+        }
+    }
+
+    checkThrowPoison() {
+        if (this.keyboard.THROW_POISON) {
+            let bubbleX, bubbleY;
+
+            if (!this.character.otherDirection) {
+                bubbleX = this.character.x + this.character.width - this.character.offset.right;
+            } else {
+                bubbleX = this.character.x + this.character.offset.left;
+            }
+
+            bubbleY = this.character.y + this.character.height - this.character.offset.top;
+
+            let poison = new ThrowablePoison(bubbleX, bubbleY, this.character.otherDirection);
+            this.throwablePoison.push(poison);
         }
     }
 

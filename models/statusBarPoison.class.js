@@ -1,5 +1,6 @@
 class StatusBarPoison extends DrawableObject {
     x = 24;
+    y = 80;
     width = 200;
     height = 50;
     percentage = 0;
@@ -26,7 +27,8 @@ class StatusBarPoison extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.percentage >= 100) {
+            this.percentage = 100;
             return 5;
         } else if (this.percentage > 80) {
             return 4;

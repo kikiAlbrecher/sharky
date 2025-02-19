@@ -74,7 +74,9 @@ class Endboss extends MovableObject {
     }
 
     animateEndboss() {
-        this.playAnimation(this.IMAGES_INTRODUCING);
+        // if (this.world.character.x == 1800) {
+            this.playAnimation(this.IMAGES_INTRODUCING);
+        // }
     }
 
     animateSwimming() {

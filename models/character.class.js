@@ -3,8 +3,12 @@ class Character extends MovableObject {
     height = 280;
     speed = 16;
     idleTime = 0;
+    coinAmount = 0;
+    coinDelta = 20;
+    poisonAmount = 0;
+    poisonDelta = 20;
     bubblesAmount = 0;
-    bubblesDelta = 20;
+    bubblesDelta = 10;
     offset = {
         top: 132,
         right: 56,
@@ -164,7 +168,7 @@ class Character extends MovableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
+        if (this instanceof ThrowableBubble) {
             return true;
         } else {
             return this.y <= 220;
@@ -209,6 +213,9 @@ class Character extends MovableObject {
             if (this.isHurtPoison()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
+            // if (this.isHurtElectric) {
+            //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
+            // } 
             if (this.world.keyboard.THROW) {
                 if (this.bubblesAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
@@ -216,16 +223,43 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
                 }
             }
-            // else if (this.isHurtElectric) {
-            //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
-            // } 
+            if (this.world.keyboard.THROW_POISON) {
+                if (this.bubblesAmount > 0 && !this.isDead()) {
+                    this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
+                } else {
+                    this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+                }
+            }
+            if (this.world.keyboard.SPACE) {
+                this.playAnimation(this.IMAGES_ATTACK_FIN);
+            }
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             }
-        }, 1000 / 15);
+        }, 1000 / 10);
     }
-    
-    collect() {
+
+    collectCoins() {
+        // this.coinAmount += this.coinDelta;
+        if (this.coinAmount == 100) {
+            return;
+        } else {
+            this.coinAmount += this.coinDelta;
+            this.collectBubbles();
+        }
+    }
+
+    collectPoison() {
+        // this.poisonAmount += this.poisonDelta;
+        if (this.poisonAmount == 100) {
+            return;
+        } else {
+            this.poisonAmount += this.poisonDelta;
+            this.collectBubbles();
+        }
+    }
+
+    collectBubbles() {
         this.bubblesAmount += this.bubblesDelta;
         if (this.bubblesAmount == 100) {
             return;
@@ -233,7 +267,6 @@ class Character extends MovableObject {
             this.bubblesAmount += this.bubblesDelta;
         }
     }
-
 
 
 }

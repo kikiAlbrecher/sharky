@@ -1,4 +1,4 @@
-class ThrowableObject extends MovableObject {
+class ThrowableBubble extends MovableObject {
     width = 40;
     height = 40;
     speed = 16;
