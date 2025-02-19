@@ -1,9 +1,10 @@
 class StatusBarLife extends DrawableObject {
     x = 24;
-    y = 0;
+    y = 80;
     width = 200;
     height = 50;
     percentage = 100;
+
     IMAGES_LIFE = [
         '../img/4.Marcadores/green/Life/0_copia 3.png',
         '../img/4.Marcadores/green/Life/20_copia 4.png',
@@ -14,7 +15,7 @@ class StatusBarLife extends DrawableObject {
     ];
 
     constructor() {
-        super().loadImg(this.IMAGES_LIFE[5]);
+        super().loadImg(this.IMAGES_LIFE[0]);
         this.loadImages(this.IMAGES_LIFE);
         this.setPercentage(this.percentage);
     }
@@ -35,7 +36,7 @@ class StatusBarLife extends DrawableObject {
         } else if (this.percentage > 40) {
             return 2;
         } else if (this.percentage > 20) {
-            return 1
+            return 1;
         } else {
             return 0;
         }

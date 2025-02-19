@@ -210,7 +210,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
             if (this.world.keyboard.THROW) {
-                if (this.bubblesAmount > 0) {
+                if (this.bubblesAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);

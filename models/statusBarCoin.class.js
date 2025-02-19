@@ -1,9 +1,10 @@
 class StatusBarCoin extends DrawableObject {
     x = 24;
-    y = 35;
+    y = 45;
     width = 200;
     height = 50;
     percentage = 0;
+
     IMAGES_COIN = [
         '../img/4.Marcadores/green/Coin/0_copia 4.png',
         '../img/4.Marcadores/green/Coin/20_copia 2.png',
@@ -18,7 +19,7 @@ class StatusBarCoin extends DrawableObject {
         this.loadImages(this.IMAGES_COIN);
         this.setPercentage(this.percentage);
     }
-    
+
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_COIN[this.resolveImageIndex()];
@@ -35,7 +36,7 @@ class StatusBarCoin extends DrawableObject {
         } else if (this.percentage > 40) {
             return 2;
         } else if (this.percentage > 20) {
-            return 1
+            return 1;
         } else {
             return 0;
         }

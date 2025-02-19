@@ -79,9 +79,7 @@ class MovableObject extends DrawableObject {
     isHurtPoison() {
         let timeNow = new Date().getTime();
         let timespan = (timeNow - this.lastHit) / 1000;
-        if (timespan == 0) {
-            return false;
-        } else if (timespan < 0.8) {
+        if (timespan <= 0.8) {
             return true;
         } else {
             return false;

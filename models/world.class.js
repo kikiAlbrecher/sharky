@@ -85,6 +85,20 @@ class World {
         });
     }
 
+    // checkCollisionsEnemy() {
+    //     this.level.enemies.forEach((enemy) => {
+    //         if (this.character.isColliding(enemy)) {
+    //             // Nur wenn der Charakter nicht durch Gift verletzt wird
+    //             if (!this.character.isHurtPoison()) {
+    //                 this.character.hit();  // Verringer die Energie des Charakters
+    //                 this.statusBarLife.setPercentage(this.character.energy);  // Aktualisiere die StatusBarLife
+    //                 console.log('Collision with character, energy: ', this.character.energy);
+    //             }
+    //         }
+    //     });
+    // }
+
+
     checkCollisionsCoin() {
         this.level.objectsToCollect.forEach((item) => {
             if (this.character.isColliding(item)) {
@@ -105,13 +119,13 @@ class World {
                 bubbleX = this.character.x + this.character.offset.left;
             }
 
-            bubbleY = this.character.y + this.character.height - this.character.offset.top + 20;
+            bubbleY = this.character.y + this.character.height - this.character.offset.top;
 
             let bubble = new ThrowableObject(bubbleX, bubbleY, this.character.otherDirection);
             this.throwableObjects.push(bubble);
         }
     }
-    
+
 
     // checkItemsToCollect() {
     //     setInterval(() => {
