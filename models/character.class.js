@@ -9,6 +9,7 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
+
     offset = {
         top: 132,
         right: 56,
@@ -217,14 +218,14 @@ class Character extends MovableObject {
             //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
             // } 
             if (this.world.keyboard.THROW) {
-                if (this.bubblesAmount > 0 && !this.isDead()) {
+                if (this.coinAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
                 }
             }
             if (this.world.keyboard.THROW_POISON) {
-                if (this.bubblesAmount > 0 && !this.isDead()) {
+                if (this.poisonAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
@@ -240,7 +241,6 @@ class Character extends MovableObject {
     }
 
     collectCoins() {
-        // this.coinAmount += this.coinDelta;
         if (this.coinAmount == 100) {
             return;
         } else {
@@ -250,7 +250,6 @@ class Character extends MovableObject {
     }
 
     collectPoison() {
-        // this.poisonAmount += this.poisonDelta;
         if (this.poisonAmount == 100) {
             return;
         } else {

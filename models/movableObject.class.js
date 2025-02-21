@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     energyReduction = 5;
     lastHit = 0;
+
     // timeStart = new Date().getTime();
     offset = {
         top: 0,

@@ -51,10 +51,10 @@ class Endboss extends MovableObject {
     ];
 
     IMAGES_HURT = [
-        '.../img/2.Enemy/3 Final-enemy/Hurt/1.png',
-        '.../img/2.Enemy/3 Final-enemy/Hurt/2.png',
-        '.../img/2.Enemy/3 Final-enemy/Hurt/3.png',
-        '.../img/2.Enemy/3 Final-enemy/Hurt/4.png'
+        '../img/2.Enemy/3 Final-enemy/Hurt/1.png',
+        '../img/2.Enemy/3 Final-enemy/Hurt/2.png',
+        '../img/2.Enemy/3 Final-enemy/Hurt/3.png',
+        '../img/2.Enemy/3 Final-enemy/Hurt/4.png'
     ];
 
     IMAGES_DEAD = [
@@ -68,20 +68,44 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImg(this.IMAGES_INTRODUCING[0]);
         this.loadImages(this.IMAGES_INTRODUCING);
-        this.animateEndboss();
         this.loadImages(this.IMAGES_SWIMMING);
-        this.animateSwimming();
+        this.loadImages(this.IMAGES_ATTACKING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        this.animateBehaviorEndboss();
     }
 
-    animateEndboss() {
-        // if (this.world.character.x == 1800) {
-            this.playAnimation(this.IMAGES_INTRODUCING);
-        // }
-    }
-
-    animateSwimming() {
+    animateBehaviorEndboss() {
         setInterval(() => {
+            if (this.x == 1800) {
+                this.playAnimation(this.IMAGES_INTRODUCING);
+            } 
+            if (this.isHurtPoison()) {
+                this.playAnimation(this.IMAGES_HURT);
+            }
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }
             this.playAnimation(this.IMAGES_SWIMMING);
+
         }, 200);
     }
+
+
+    // checkCollisionsPoisonWithEndboss() {
+    //     this.throwablePoison.forEach((poison) => {
+    //         if (this.isColliding(poison)) {
+    //             this.hit();
+    //             this.energy -= this.energyReduction;
+    //             if (this.energy < 0) {
+    //                 this.energy = 0;
+    //             }
+    //             console.log('Endboss´ energy after hit: ', this.energy);
+
+    //             const poisonIndex = this.throwablePoison.indexOf(poison);
+    //             if (poisonIndex >= 0) this.throwablePoison.splice(poisonIndex, 1);
+    //         }
+    //     });
+    // }
+
 }

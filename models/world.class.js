@@ -5,16 +5,20 @@ class World {
     level = level1;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
     statusBarLife = new StatusBarLife();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
+    statusBarEndboss = new StatusBarEndboss();
     throwableBubble = [];
     throwablePoison = [];
+    endboss;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
         this.draw();
         this.setWorld();
         this.run();
@@ -35,9 +39,11 @@ class World {
         this.addObjectsToMap(this.throwablePoison);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarPoison);
+        this.addToMap(this.statusBarEndboss);
 
         let self = this;
         requestAnimationFrame(() => {
@@ -71,10 +77,11 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsEnemy();
-            this.checkCollisionsCoin();
-            this.checkCollisionsPoison();
-            this.checkThrowBubbles();
-            this.checkThrowPoison();
+            this.checkCollisionsPoisonWithEndboss();
+            this.checkCollectItems('coin');
+            this.checkCollectItems('poison');
+            this.checkThrowItem('bubble');
+            this.checkThrowItem('poison');
         }, 200);
     }
 
@@ -88,73 +95,138 @@ class World {
         });
     }
 
-    checkCollisionsCoin() {
-        this.level.coinsToCollect.forEach((coin) => {
-            if (this.character.isColliding(coin)) {
-                this.character.collectCoins();
-                this.statusBarCoin.setPercentage(this.character.coinAmount);
-                this.statusBarCoin.setPercentage(this.character.bubblesAmount);
-                console.log('Collision with character, coin: ', this.character.coinAmount);
-                console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
+    checkCollisionsPoisonWithEndboss() {
+        this.throwablePoison.forEach((poison) => {
+            if (this.endboss.isColliding(poison)) {
+                this.endboss.hit();
+                this.endboss.energy -= this.endboss.energyReduction;
+                if (this.endboss.energy < 0) {
+                    this.endboss.energy = 0;
+                }
+                console.log('Endboss´ energy after hit: ', this.endboss.energy);
+
+                const poisonIndex = this.throwablePoison.indexOf(poison);
+                if (poisonIndex >= 0) this.throwablePoison.splice(poisonIndex, 1);
             }
         });
     }
 
-    checkCollisionsPoison() {
-        this.level.poisonToCollect.forEach((poison) => {
-            if (this.character.isColliding(poison)) {
-                this.character.collectPoison();
-                this.statusBarPoison.setPercentage(this.character.poisonAmount);
-                console.log('Collision with character, poison: ', this.character.poisonAmount);
-                console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
-            }
-        });
-    }
-
-    checkThrowBubbles() {
-        if (this.keyboard.THROW) {
-            let bubbleX, bubbleY;
-
-            if (!this.character.otherDirection) {
-                bubbleX = this.character.x + this.character.width - this.character.offset.right;
-            } else {
-                bubbleX = this.character.x + this.character.offset.left;
-            }
-
-            bubbleY = this.character.y + this.character.height - this.character.offset.top;
-
-            let bubble = new ThrowableBubble(bubbleX, bubbleY, this.character.otherDirection);
-            this.throwableBubble.push(bubble);
-        }
-    }
-
-    checkThrowPoison() {
-        if (this.keyboard.THROW_POISON) {
-            let bubbleX, bubbleY;
-
-            if (!this.character.otherDirection) {
-                bubbleX = this.character.x + this.character.width - this.character.offset.right;
-            } else {
-                bubbleX = this.character.x + this.character.offset.left;
-            }
-
-            bubbleY = this.character.y + this.character.height - this.character.offset.top;
-
-            let poison = new ThrowablePoison(bubbleX, bubbleY, this.character.otherDirection);
-            this.throwablePoison.push(poison);
-        }
-    }
-
-
-    // checkItemsToCollect() {
-    //     setInterval(() => {
-    //         this.level.objectsToCollect.forEach((object) => {
-    //             if (this.character.isColliding(object)) {
-    //                 this.character.collect();
-    //                 this.statusBarPoison.setPercentage(this.character.energy);
-    //                 console.log('Collision with character, energy: ', this.character.energy);
-    //             }
-    //         });
-    //     }, 200);
+    // checkCollisionsCoin() {
+    //     this.level.coinsToCollect.forEach((coin) => {
+    //         if (this.character.isColliding(coin)) {
+    //             this.character.collectCoins();
+    //             this.statusBarCoin.setPercentage(this.character.coinAmount);
+    //             this.statusBarCoin.setPercentage(this.character.bubblesAmount);
+    //             console.log('Collision with character, coin: ', this.character.coinAmount);
+    //             console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
+    //         }
+    //     });
     // }
+
+    // checkCollisionsPoison() {
+    //     this.level.poisonToCollect.forEach((poison) => {
+    //         if (this.character.isColliding(poison)) {
+    //             this.character.collectPoison();
+    //             this.statusBarPoison.setPercentage(this.character.poisonAmount);
+    //             console.log('Collision with character, poison: ', this.character.poisonAmount);
+    //             console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
+    //         }
+    //     });
+    // }
+
+    checkCollectItems(itemType) {
+        const { itemsToCollect, collectMethod, statusBar, amountProperty } = this.getItemProperties(itemType);
+        this.processCollisions(itemsToCollect, collectMethod, statusBar, amountProperty);
+    }
+
+    getItemProperties(itemType) {
+        switch (itemType) {
+            case 'coin':
+                return {
+                    itemsToCollect: this.level.coinsToCollect,
+                    collectMethod: this.character.collectCoins,
+                    statusBar: this.statusBarCoin,
+                    amountProperty: 'coinAmount'
+                };
+            case 'poison':
+                return {
+                    itemsToCollect: this.level.poisonToCollect,
+                    collectMethod: this.character.collectPoison,
+                    statusBar: this.statusBarPoison,
+                    amountProperty: 'poisonAmount'
+                };
+        }
+    }
+
+    processCollisions(itemsToCollect, collectMethod, statusBar, amountProperty) {
+        itemsToCollect.forEach((item, index) => {
+            if (this.character.isColliding(item)) {
+                if (this.character[amountProperty] < 100) {
+                    collectMethod.call(this.character);
+                    statusBar.setPercentage(this.character[amountProperty]);
+                    console.log(`Collision with character, ${amountProperty}: `, this.character[amountProperty]);
+                    console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
+
+                    itemsToCollect.splice(index, 1);
+                }
+            }
+        });
+    }
+
+    checkThrowItem(itemType) {
+        const { itemX, itemY } = this.calculateThrowPosition();
+
+        switch (itemType) {
+            case 'bubble':
+                this.throwBubble(itemX, itemY);
+                break;
+            case 'poison':
+                this.throwPoison(itemX, itemY);
+                break;
+        }
+    }
+
+    calculateThrowPosition() {
+        let itemX, itemY;
+
+        if (!this.character.otherDirection) {
+            itemX = this.character.x + this.character.width - this.character.offset.right;
+        } else {
+            itemX = this.character.x + this.character.offset.left;
+        }
+
+        itemY = this.character.y + this.character.height - this.character.offset.top;
+
+        return { itemX, itemY };
+    }
+
+    throwBubble(itemX, itemY) {
+        if (this.keyboard.THROW && this.character.coinAmount > 0) {
+            let bubble = new ThrowableBubble(itemX, itemY, this.character.otherDirection);
+            this.throwableBubble.push(bubble);
+            console.log(this.throwableBubble, this.throwablePoison);
+            this.updateStatusbar('coin');
+        }
+    }
+
+    throwPoison(itemX, itemY) {
+        if (this.keyboard.THROW_POISON && this.character.poisonAmount > 0) {
+            let poison = new ThrowablePoison(itemX, itemY, this.character.otherDirection);
+            this.throwablePoison.push(poison);
+            this.updateStatusbar('poison');
+        }
+    }
+
+    updateStatusbar(type) {
+        let amount = this.character[`${type}Amount`];
+        let delta = this.character[`${type}Delta`];
+
+        if (amount > 0) {
+            this.character[`${type}Amount`] -= delta;
+            this.character.bubblesAmount -= this.character.bubblesDelta;
+            this[`statusBar${type.charAt(0).toUpperCase() + type.slice(1)}`].setPercentage(amount - delta);
+            console.log(`Throw ${type}, ${type}Amount: `, amount - delta);
+            console.log('Throw, bubbles: ', this.character.bubblesAmount);
+        }
+    }
 }
