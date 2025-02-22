@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     energyReduction = 5;
     lastHit = 0;
+    isDeadAnimationPlayed = false;
 
     // timeStart = new Date().getTime();
     offset = {
@@ -80,6 +81,7 @@ class MovableObject extends DrawableObject {
     isHurtPoison() {
         let timeNow = new Date().getTime();
         let timespan = (timeNow - this.lastHit) / 1000;
+        // timespan <= 1.2 ? true : false;
         if (timespan <= 0.8) {
             return true;
         } else {
@@ -87,9 +89,19 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     isDead() {
         return this.energy == 0;
     }
+
+    // isStriked() {
+    //     this.energy = 0;
+    // }
+
+    // isDangerMusic() {
+    //     this.danger_sound.play() ? true : false;
+    // }
+
 
 
 

@@ -65,6 +65,11 @@ class Endboss extends MovableObject {
         '../img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
     ];
 
+    IMAGES_DEAD_END = [
+        '../img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
+    ];
+
+
     constructor() {
         super().loadImg(this.IMAGES_INTRODUCING[0]);
         this.loadImages(this.IMAGES_INTRODUCING);
@@ -72,40 +77,46 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImg(this.IMAGES_DEAD_END);
         this.animateBehaviorEndboss();
     }
 
     animateBehaviorEndboss() {
         setInterval(() => {
-            if (this.x == 1800) {
-                this.playAnimation(this.IMAGES_INTRODUCING);
-            } 
-            if (this.isHurtPoison()) {
+            if
+                // (this.characterIsNear()) {
+                //     this.playAnimation(this.IMAGES_INTRODUCING);
+                // } else if 
+                (this.isHurtPoison() && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HURT);
-            }
-            if (this.isDead()) {
+            } else if (this.isDead() && !this.isDeadAnimationPlayed) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.isDeadAnimationPlayed = true;
+            } else if (this.isDead() && this.isDeadAnimationPlayed) {
+                // this.playAnimation(this.IMAGES_DEAD_END);
+                let timeSpent = 0;
+                let moveUpInterval = setInterval(() => {
+                    if (timeSpent < 5000) {
+                        this.playAnimation(this.IMAGES_DEAD_END);
+                        this.y -= 5;
+                        timeSpent += 100;
+                    } else if (timeSpent >= 5000) {
+                        clearInterval(moveUpInterval);
+                    }
+                }, 100);
+            } else if (!this.isDead()) {
+                this.playAnimation(this.IMAGES_SWIMMING);
             }
-            this.playAnimation(this.IMAGES_SWIMMING);
-
         }, 200);
     }
 
-
-    // checkCollisionsPoisonWithEndboss() {
-    //     this.throwablePoison.forEach((poison) => {
-    //         if (this.isColliding(poison)) {
-    //             this.hit();
-    //             this.energy -= this.energyReduction;
-    //             if (this.energy < 0) {
-    //                 this.energy = 0;
-    //             }
-    //             console.log('Endboss´ energy after hit: ', this.energy);
-
-    //             const poisonIndex = this.throwablePoison.indexOf(poison);
-    //             if (poisonIndex >= 0) this.throwablePoison.splice(poisonIndex, 1);
-    //         }
-    //     });
+    // characterIsNear() {
+    //     if (this.x - this.character.x < 480 && this.character.energy > 0) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
     // }
+
 
 }

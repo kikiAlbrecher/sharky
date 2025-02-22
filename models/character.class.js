@@ -9,7 +9,7 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
-
+    isSlapping = false;
     offset = {
         top: 132,
         right: 56,
@@ -165,7 +165,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_POISON);
         this.loadImages(this.IMAGES_DEAD_ELECTRIC);
         this.applyGravity();
-        this.animateSwimming();
+        this.animateCharacter();
     }
 
     isAboveGround() {
@@ -176,23 +176,20 @@ class Character extends MovableObject {
         }
     }
 
-    animateSwimming() {
+    animateCharacter() {
         setInterval(() => {
             // this.swimming_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 // this.swimming_sound.play();
-            }
-            if (this.world.keyboard.LEFT && this.x > -1420) {
+            } else if (this.world.keyboard.LEFT && this.x > -1420) {
                 this.moveLeft();
                 // this.swimming_sound.play();
                 this.otherDirection = true;
-            }
-            if (this.world.keyboard.UP && this.y > -110) {
+            } else if (this.world.keyboard.UP && this.y > -110) {
                 this.moveUp();
                 // this.swimming_sound.play();
-            }
-            if (this.world.keyboard.DOWN && this.isAboveGround()) {
+            } else if (this.world.keyboard.DOWN && this.isAboveGround()) {
                 this.moveDown();
                 // this.swimming_sound.play();
             }
@@ -201,41 +198,41 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.isAboveGround()) {
-                if (this.idleTime > 0 && this.idleTime < 2.4) {
+                if (this.idleTime > 0 && this.idleTime < 2400) {
                     this.playAnimation(this.IMAGES_IDLE);
-                    this.idleTime += 1 / 12;
+                    this.idleTime += 1000 / 12;
                 } else {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 }
-            }
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
-            }
-            if (this.isHurtPoison()) {
+            } else if (this.isHurtPoison()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
             // if (this.isHurtElectric) {
             //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
             // } 
-            if (this.world.keyboard.THROW) {
+            else if (this.world.keyboard.THROW) {
                 if (this.coinAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
                 }
-            }
-            if (this.world.keyboard.THROW_POISON) {
+            } else if (this.world.keyboard.THROW_POISON) {
                 if (this.poisonAmount > 0 && !this.isDead()) {
                     this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
                 }
-            }
+            } 
             if (this.world.keyboard.SPACE) {
+                this.isSlapping = true;
                 this.playAnimation(this.IMAGES_ATTACK_FIN);
-            }
-            if (this.isDead()) {
+                console.log(this.isSlapping);
+            } else if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
+            } else if (this.x > 1900) {
+                // this.danger_sound.play();
             }
         }, 1000 / 10);
     }
@@ -266,6 +263,5 @@ class Character extends MovableObject {
             this.bubblesAmount += this.bubblesDelta;
         }
     }
-
 
 }

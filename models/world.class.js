@@ -9,7 +9,6 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
-    statusBarEndboss = new StatusBarEndboss();
     throwableBubble = [];
     throwablePoison = [];
     endboss;
@@ -43,7 +42,6 @@ class World {
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarPoison);
-        this.addToMap(this.statusBarEndboss);
 
         let self = this;
         requestAnimationFrame(() => {
@@ -77,11 +75,13 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsEnemy();
-            this.checkCollisionsPoisonWithEndboss();
             this.checkCollectItems('coin');
             this.checkCollectItems('poison');
             this.checkThrowItem('bubble');
             this.checkThrowItem('poison');
+            this.checkCollisionsBubbleWithJelly();
+            this.checkCollisionsFinSlap();
+            this.checkCollisionsPoisonWithEndboss();
         }, 200);
     }
 
@@ -91,17 +91,64 @@ class World {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
                 console.log('Collision with character, energy: ', this.character.energy);
+                // if (this.character.energy <= 0) {
+                //     this.character.energy = 0;
+                // }
             }
         });
     }
+
+    checkCollisionsBubbleWithJelly() {
+        this.level.enemies.forEach(enemy => {
+            if (enemy instanceof Jellyfish) {
+                this.throwableBubble.forEach(bubble => {
+                    if (enemy.isColliding(bubble)) {
+                        console.log(enemy.energy);
+                        enemy.hit();
+                        if (enemy.energy <= 0) {
+                            enemy.energy = 0;
+                            enemy.playAnimation(enemy.IMAGES_DEAD);
+                        }
+                        console.log('jelly energy after hit: ', enemy.energy);
+
+                        const bubbleIndex = this.throwableBubble.indexOf(bubble);
+                        if (bubbleIndex >= 0) this.throwableBubble.splice(bubbleIndex, 1);
+                    }
+                });
+            }
+        });
+    }
+
+    checkCollisionsFinSlap() {
+        if (this.character.isSlapping) {
+            console.log(this.character.isSlapping);
+            this.level.enemies.forEach(enemy => {
+                if (enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
+                    if (enemy.isColliding(this.character)) {
+                        console.log(`Hit detected on ${enemy.constructor.name}`);
+                        enemy.hit();
+                        if (enemy.energy <= 0) {
+                            enemy.energy = 0;
+                            enemy.playAnimation(enemy.IMAGES_DEAD);
+                        }
+                        console.log('enemy energy after hit: ', enemy.energy);
+                    }
+                }
+            });
+        }
+    }
+
+
 
     checkCollisionsPoisonWithEndboss() {
         this.throwablePoison.forEach((poison) => {
             if (this.endboss.isColliding(poison)) {
                 this.endboss.hit();
-                this.endboss.energy -= this.endboss.energyReduction;
-                if (this.endboss.energy < 0) {
+                if (this.endboss.energy <= 0) {
                     this.endboss.energy = 0;
+                    this.endboss.playAnimation(this.endboss.IMAGES_DEAD);
+                } else {
+                    this.endboss.playAnimation(this.endboss.IMAGES_HURT);
                 }
                 console.log('Endboss´ energy after hit: ', this.endboss.energy);
 
@@ -229,4 +276,9 @@ class World {
             console.log('Throw, bubbles: ', this.character.bubblesAmount);
         }
     }
+
+
+
+
+
 }
