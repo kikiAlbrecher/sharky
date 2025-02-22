@@ -9,7 +9,6 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
-    isSlapping = false;
     offset = {
         top: 132,
         right: 56,
@@ -228,8 +227,12 @@ class Character extends MovableObject {
             if (this.world.keyboard.SPACE) {
                 this.isSlapping = true;
                 this.playAnimation(this.IMAGES_ATTACK_FIN);
-                console.log(this.isSlapping);
-            } else if (this.isDead()) {
+            } else {
+                this.isSlapping = false;
+            }
+
+                
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
             } else if (this.x > 1900) {
                 // this.danger_sound.play();

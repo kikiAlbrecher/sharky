@@ -51,8 +51,14 @@ class Jellyfish extends MovableObject {
                     this.angleY = -this.angleY;
                 }
             } else {
-                this.playAnimation(this.IMAGES_DEAD);
+                this.jellyDies();
             }
         }, 1000 / 12);
+    }
+
+    jellyDies() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.x = -5;
+        this.y = -5;
     }
 }

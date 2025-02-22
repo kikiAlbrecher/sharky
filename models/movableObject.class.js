@@ -6,7 +6,9 @@ class MovableObject extends DrawableObject {
     energy = 100;
     energyReduction = 5;
     lastHit = 0;
+    isSlapping = false;
     isDeadAnimationPlayed = false;
+
 
     // timeStart = new Date().getTime();
     offset = {
@@ -70,11 +72,13 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= this.energyReduction;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if (this.energy > 0 && !this.isSlapping) {
+            this.energy -= this.energyReduction;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
+            }
         }
     }
 

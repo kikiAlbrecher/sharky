@@ -74,45 +74,52 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisionsEnemy();
+            this.checkCharacterCollisionsWithEnemy();
             this.checkCollectItems('coin');
             this.checkCollectItems('poison');
             this.checkThrowItem('bubble');
             this.checkThrowItem('poison');
-            this.checkCollisionsBubbleWithJelly();
+            this.checkCollisionsWithThrowableObjects(Jellyfish, 'bubble');
+            this.checkCollisionsWithThrowableObjects(Endboss, 'poison');
             this.checkCollisionsFinSlap();
-            this.checkCollisionsPoisonWithEndboss();
         }, 200);
     }
 
-    checkCollisionsEnemy() {
+    checkCharacterCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBarLife.setPercentage(this.character.energy);
-                console.log('Collision with character, energy: ', this.character.energy);
-                // if (this.character.energy <= 0) {
-                //     this.character.energy = 0;
-                // }
+            if (enemy instanceof Jellyfish || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
+                if (this.character.isColliding(enemy) && !enemy.isDead()) {
+                    console.log(`Hit detected by ${enemy.constructor.name}`);
+                    this.character.hit();
+                    this.statusBarLife.setPercentage(this.character.energy);
+                    console.log('Collision with character, energy: ', this.character.energy);
+                    if (this.character.energy <= 0) {
+                        this.character.energy = 0;
+                        this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
+                    } else {
+                        this.character.playAnimation(this.character.IMAGES_HURT_POISON);
+                    }
+                    console.log('Character energy after hit: ', this.energy);
+                }
             }
         });
     }
 
-    checkCollisionsBubbleWithJelly() {
+    checkCollisionsWithThrowableObjects(enemyType, type) {
         this.level.enemies.forEach(enemy => {
-            if (enemy instanceof Jellyfish) {
-                this.throwableBubble.forEach(bubble => {
-                    if (enemy.isColliding(bubble)) {
-                        console.log(enemy.energy);
+            if (enemy instanceof enemyType) {
+                this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].forEach(object => {
+                    if (enemy.isColliding(object)) {
+                        console.log(`${enemy.constructor.name} energy: `, enemy.energy);
                         enemy.hit();
                         if (enemy.energy <= 0) {
                             enemy.energy = 0;
                             enemy.playAnimation(enemy.IMAGES_DEAD);
                         }
-                        console.log('jelly energy after hit: ', enemy.energy);
+                        console.log(`${enemy.constructor.name} energy after hit: `, enemy.energy);
 
-                        const bubbleIndex = this.throwableBubble.indexOf(bubble);
-                        if (bubbleIndex >= 0) this.throwableBubble.splice(bubbleIndex, 1);
+                        const objectIndex = this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].indexOf(object);
+                        if (objectIndex >= 0) this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].splice(objectIndex, 1);
                     }
                 });
             }
@@ -120,8 +127,7 @@ class World {
     }
 
     checkCollisionsFinSlap() {
-        if (this.character.isSlapping) {
-            console.log(this.character.isSlapping);
+        if (this.character.isSlapping && !this.character.isDead()) {
             this.level.enemies.forEach(enemy => {
                 if (enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
                     if (enemy.isColliding(this.character)) {
@@ -137,49 +143,6 @@ class World {
             });
         }
     }
-
-
-
-    checkCollisionsPoisonWithEndboss() {
-        this.throwablePoison.forEach((poison) => {
-            if (this.endboss.isColliding(poison)) {
-                this.endboss.hit();
-                if (this.endboss.energy <= 0) {
-                    this.endboss.energy = 0;
-                    this.endboss.playAnimation(this.endboss.IMAGES_DEAD);
-                } else {
-                    this.endboss.playAnimation(this.endboss.IMAGES_HURT);
-                }
-                console.log('Endboss´ energy after hit: ', this.endboss.energy);
-
-                const poisonIndex = this.throwablePoison.indexOf(poison);
-                if (poisonIndex >= 0) this.throwablePoison.splice(poisonIndex, 1);
-            }
-        });
-    }
-
-    // checkCollisionsCoin() {
-    //     this.level.coinsToCollect.forEach((coin) => {
-    //         if (this.character.isColliding(coin)) {
-    //             this.character.collectCoins();
-    //             this.statusBarCoin.setPercentage(this.character.coinAmount);
-    //             this.statusBarCoin.setPercentage(this.character.bubblesAmount);
-    //             console.log('Collision with character, coin: ', this.character.coinAmount);
-    //             console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
-    //         }
-    //     });
-    // }
-
-    // checkCollisionsPoison() {
-    //     this.level.poisonToCollect.forEach((poison) => {
-    //         if (this.character.isColliding(poison)) {
-    //             this.character.collectPoison();
-    //             this.statusBarPoison.setPercentage(this.character.poisonAmount);
-    //             console.log('Collision with character, poison: ', this.character.poisonAmount);
-    //             console.log('Collision with character, bubbles: ', this.character.bubblesAmount);
-    //         }
-    //     });
-    // }
 
     checkCollectItems(itemType) {
         const { itemsToCollect, collectMethod, statusBar, amountProperty } = this.getItemProperties(itemType);
