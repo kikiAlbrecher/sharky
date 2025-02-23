@@ -78,10 +78,10 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImg(this.IMAGES_DEAD_END);
-        this.animateBehaviorEndboss();
+        this.animateEndboss();
     }
 
-    animateBehaviorEndboss() {
+    animateEndboss() {
         setInterval(() => {
             if
                 // (this.characterIsNear()) {

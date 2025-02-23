@@ -8,9 +8,6 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     isSlapping = false;
     isDeadAnimationPlayed = false;
-
-
-    // timeStart = new Date().getTime();
     offset = {
         top: 0,
         right: 0,
@@ -85,7 +82,6 @@ class MovableObject extends DrawableObject {
     isHurtPoison() {
         let timeNow = new Date().getTime();
         let timespan = (timeNow - this.lastHit) / 1000;
-        // timespan <= 1.2 ? true : false;
         if (timespan <= 0.8) {
             return true;
         } else {

@@ -13,7 +13,7 @@ class Poison extends MovableObject {
     ];
 
     constructor() {
-        super().loadImg('../img/4.Marcadores/Posión/Animada/1.png');
+        super().loadImg(this.IMAGES_POISON);
         this.x = 380 + Math.random() * 440 * 4;
         this.y = 400 - Math.random() * 60;
     }

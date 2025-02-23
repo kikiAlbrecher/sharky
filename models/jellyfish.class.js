@@ -40,25 +40,35 @@ class Jellyfish extends MovableObject {
     animateJelly() {
         setInterval(() => {
             if (this.energy > 0) {
-                this.playAnimation(this.IMAGES_SWIMMING);
-                this.x += this.angleX * this.speed;
-                this.y += this.angleY * this.speed;
-    
-                if (this.x < 0 || this.x > 640) {
-                    this.angleX = -this.angleX;
-                }
-                if (this.y < -180 || this.y > 390) {
-                    this.angleY = -this.angleY;
-                }
+                this.jellySwims();
             } else {
-                this.jellyDies();
+                this.jellyDead();
             }
         }, 1000 / 12);
     }
 
-    jellyDies() {
+    jellySwims() {
+        this.playAnimation(this.IMAGES_SWIMMING);
+        this.x += this.angleX * this.speed;
+        this.y += this.angleY * this.speed;
+
+        if (this.x < 0 || this.x > 640) {
+            this.angleX = -this.angleX;
+        }
+        if (this.y < -180 || this.y > 390) {
+            this.angleY = -this.angleY;
+        }
+    }
+
+    jellyDead() {
         this.playAnimation(this.IMAGES_DEAD);
-        this.x = -5;
-        this.y = -5;
+        this.x += 3 - this.acceleration;
+        this.y -= 8;
+        // this.speed = Math.max(0.1, this.speed - 0.01);
+
+        if (this.x < -this.width || this.y < -this.height) {
+            this.x = -this.width;
+            this.y = -this.height;
+        }
     }
 }

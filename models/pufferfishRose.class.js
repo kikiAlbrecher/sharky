@@ -5,7 +5,7 @@ class PufferfishRose extends Pufferfish {
         bottom: 18,
         left: 1
     };
-    
+
     IMAGES_SWIMMING = [
         '../img/2.Enemy/1.Pufferfish/1.Swim/2.swim1.png',
         '../img/2.Enemy/1.Pufferfish/1.Swim/2.swim2.png',
@@ -15,13 +15,11 @@ class PufferfishRose extends Pufferfish {
     ];
 
     IMAGES_DEAD = [
-        '../img/2.Enemy/1.Pufferfish/4.DIE/2.png',
-        '../img/2.Enemy/1.Pufferfish/4.DIE/2.2.png',
-        '../img/2.Enemy/1.Pufferfish/4.DIE/2.3.png'
+        '../img/2.Enemy/1.Pufferfish/4.DIE/2.png'
     ];
 
     constructor() {
-        super().loadImg('../img/2.Enemy/1.Pufferfish/1.Swim/2.swim1.png');
+        super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_DEAD);
     }

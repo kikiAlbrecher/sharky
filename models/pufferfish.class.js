@@ -17,9 +17,7 @@ class Pufferfish extends MovableObject {
     ];
 
     IMAGES_DEAD = [
-        '../img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 1 (can animate by going up).png',
-        '../img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 2 (can animate by going down to the floor after the Fin Slap attack).png',
-        '../img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 3 (can animate by going down to the floor after the Fin Slap attack).png'
+        '../img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 1 (can animate by going up).png'
     ]
 
     constructor() {
@@ -31,12 +29,28 @@ class Pufferfish extends MovableObject {
         this.height = this.width;
         this.speed = 1 + Math.random() * 4;
         this.loadImages(this.IMAGES_DEAD);
-        this.animateSwimming();
+        this.animatePufferfish();
     }
 
-    animateSwimming() {
+    animatePufferfish() {
         setInterval(() => {
-            this.moveLeft();
+            if (this.energy > 0) {
+                this.moveLeft();
+            } else {
+                this.pufferDead();
+            }
         }, 1000 / 15);
+    }
+
+    pufferDead() {
+        this.playAnimation(this.IMAGES_DEAD);
+
+        this.x -= 16;
+        this.y -= 24;
+
+        if (this.x < -this.width || this.y < -this.height) {
+            this.x = -this.width;
+            this.y = -this.height;
+        }
     }
 }

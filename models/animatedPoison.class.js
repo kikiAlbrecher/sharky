@@ -20,7 +20,7 @@ class AnimatedPoison extends MovableObject {
     ];
 
     constructor() {
-        super().loadImg('../img/4.Marcadores/Posión/Animada/1.png');
+        super().loadImg(this.IMAGES_POISON[0]);
         this.loadImages(this.IMAGES_POISON);
         this.x = 280 + Math.random() * 440 * 4;
         this.y = 300 - Math.random() * 260;

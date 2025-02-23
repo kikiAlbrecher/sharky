@@ -20,7 +20,7 @@ class World {
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
         this.draw();
         this.setWorld();
-        this.run();
+        this.runChecks();
     }
 
     draw() {
@@ -72,7 +72,7 @@ class World {
         this.character.world = this;
     }
 
-    run() {
+    runChecks() {
         setInterval(() => {
             this.checkCharacterCollisionsWithEnemy();
             this.checkCollectItems('coin');
@@ -82,7 +82,7 @@ class World {
             this.checkCollisionsWithThrowableObjects(Jellyfish, 'bubble');
             this.checkCollisionsWithThrowableObjects(Endboss, 'poison');
             this.checkCollisionsFinSlap();
-        }, 200);
+        }, 1000 / 5);
     }
 
     checkCharacterCollisionsWithEnemy() {
