@@ -7,7 +7,8 @@
     <link rel="icon" type="image/png" href="./img/1.Sharkie/3.Swim/1.png">
     <title>Sharky</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./models/world.class.js"></script>
+
+
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
     <script src="./models/statusBarLife.class.js"></script>
@@ -15,6 +16,7 @@
     <script src="./models/statusBarPoison.class.js"></script>
     <script src="./models/movableObject.class.js"></script>
     <script src="./models/keyboard.class.js"></script>
+    <script src="./models/level.class.js"></script>
     <script src="./models/wave.class.js"></script>
     <script src="./models/backgroundObject.class.js"></script>
     <script src="./models/sunbeam.class.js"></script>
@@ -22,24 +24,48 @@
     <script src="./models/pufferfishRose.class.js"></script>
     <script src="./models/jellyfish.class.js"></script>
     <script src="./models/character.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
     <script src="./models/animatedPoison.class.js"></script>
     <script src="./models/poison.class.js"></script>
     <script src="./models/animatedCoin.class.js"></script>
     <script src="./models/coin.class.js"></script>
     <script src="./models/throwableBubble.class.js"></script>
     <script src="./models/throwablePoison.class.js"></script>
-    <script src="./models/endboss.class.js"></script>
-    <script src="./models/level.class.js"></script>
+    <script src="./models/world.class.js"></script>
     <script src="./levels/level1.js"></script>
+    <script src="./js/audio.js"></script>
+    <script src="./js/start.js"></script>
     <script src="./js/game.js"></script>
+
+
 </head>
 
 <body onload="init()">
-    <h1>Sharky</h1>
+    <div class="max-width">
+        <h1>Sharky</h1>
+        <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
 
+        <section id="startScreen" class="start-screen">
+            <div display="flex">
+                <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
+                <div class="start-game-btns">
+                    <button class="instruction-btn" id="instructions" onclick="showInstructions()">
+                        <img class="instruction-img" src="./img/icons/information.png" alt="instructions">
+                    </button>
+                    <button class="play-button" id="playBtn" onclick="startGame()">
+                        <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
+                    </button>
+                </div>
+            </div>
+        </section>
 
-    <canvas width="720" height="480" id="canvas"></canvas>
+        <section class="mobile-btn-section">
+            <button class="touchscreen-btn">
 
+            </button>
+
+        </section>
+    </div>
 </body>
 
 </html>

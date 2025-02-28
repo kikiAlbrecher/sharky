@@ -7,12 +7,28 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'luckiest-guy', Arial, Helvetica, sans-serif;
-    /* background-image: url('../img/bg_coral1.png');
-    background-position: center; */
+    background-image: url('./img/bg-corals.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* filter: drop-shadow(1px 3px 10px rgb(50, 62, 87)); */
+    overflow: hidden;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.max-width {
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 canvas {
     background: rgb(0, 0, 0);
+    display: block;
 }
 
 @font-face {
@@ -22,6 +38,122 @@ canvas {
 
 h1 {
     font-size: 64px;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    color: rgb(25, 67, 76);
+    letter-spacing: 6px;
+    text-shadow: 6px 8px 8px rgba(9, 239, 227, 0.6);
+}
+
+.d-none {
+    display: none;
+}
+
+img {
+    object-fit: cover;
+}
+
+button {
+    border: unset;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.mobile-btn-section {
+    height: 40px;
+    width: 100%;
+    background: rgb(47, 39, 113);
+    display: none;
+}
+
+.start-screen {
+    z-index: 10;
+    width: 100%;
+    /* background-image: url('./img/3.Background/Mesa de trabajo 1.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat; */
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.screen-img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%
+}
+
+.start-game-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20%;
+    padding-right: 20%;
+    gap: 24px;
+}
+
+.instruction-btn {
+    z-index: 1000;
+    border-radius: 50%;
+    padding-block: 0px;
+    padding-inline: 0px;
+    height: 58px;
+    width: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.instruction-img {
+    z-index: 1000;
+    height: 60px;
+    width: 60px;
+}
+
+.play-button {
+    border-radius: 36px;
+    padding: 0;
+    height: 60px;
+}
+
+.play-img {
+    height: 60px;
+}
+
+.instruction-btn:hover,
+.play-button:hover {
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: calc(100vh - 40px);
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .mobile-btn-section {
+        display: block;
+    }
+
+    .touchscreen-btn {
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 50%;
+        /* color: rgb(60, 170, 170); */
+        color: rgb(127, 255, 224);
+    }
 }

@@ -12,6 +12,8 @@ class World {
     throwableBubble = [];
     throwablePoison = [];
     endboss;
+    hadFirstContact = false;
+    endbossIsIntroduced = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -25,8 +27,8 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.addObjectsToMap(this.level.waterMovements);
         this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.waterMovements);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.ctx.translate(-this.camera_x / 2, 0);
         this.addObjectsToMap(this.level.sunbeams);
@@ -83,6 +85,7 @@ class World {
             this.checkCollisionsWithThrowableObjects(Endboss, 'poison');
             this.checkCollisionsFinSlap();
         }, 1000 / 5);
+        this.checkCharacterNearEndboss();
     }
 
     checkCharacterCollisionsWithEnemy() {
@@ -91,6 +94,7 @@ class World {
                 if (this.character.isColliding(enemy) && !enemy.isDead()) {
                     console.log(`Hit detected by ${enemy.constructor.name}`);
                     this.character.hit();
+                    pain.play();
                     this.statusBarLife.setPercentage(this.character.energy);
                     console.log('Collision with character, energy: ', this.character.energy);
                     if (this.character.energy <= 0) {
@@ -239,6 +243,32 @@ class World {
             console.log('Throw, bubbles: ', this.character.bubblesAmount);
         }
     }
+
+    checkCharacterNearEndboss() {
+        let frameCount = 0;
+
+        setInterval(() => {
+            if (this.character.x <= 2300 && !this.hadFirstContact) {
+                return;
+            }
+
+            if (this.character.x > 2300 && !this.hadFirstContact) {
+                this.endboss.playAnimation(this.endboss.IMAGES_INTRODUCING);
+                frameCount++;
+                // this.danger.play();
+
+                if (frameCount === 10) {
+                    this.hadFirstContact = true;
+                    frameCount = 0;
+                    this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
+                }
+
+            } else if (this.hadFirstContact) {
+                this.endboss.animateIntroducedEndboss();
+            }
+        }, 150);
+    }
+
 
 
 

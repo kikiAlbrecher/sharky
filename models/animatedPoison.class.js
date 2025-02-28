@@ -22,7 +22,7 @@ class AnimatedPoison extends MovableObject {
     constructor() {
         super().loadImg(this.IMAGES_POISON[0]);
         this.loadImages(this.IMAGES_POISON);
-        this.x = 280 + Math.random() * 440 * 4;
+        this.x = 280 + Math.random() * 440 * 6;
         this.y = 300 - Math.random() * 260;
         this.animatePoison();
     }

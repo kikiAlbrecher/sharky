@@ -1,10 +1,12 @@
 class Endboss extends MovableObject {
-    x = 2140 + 200;
+    x = 2860 + 200;
     y = 40;
     width = 400;
     height = 400;
     speed = 16;
     energyReduction = 20;
+    world;
+
     offset = {
         top: 136,
         right: 30,
@@ -71,52 +73,42 @@ class Endboss extends MovableObject {
 
 
     constructor() {
-        super().loadImg(this.IMAGES_INTRODUCING[0]);
+        super();
+        this.loadImg(this.IMAGES_INTRODUCING[0]);
         this.loadImages(this.IMAGES_INTRODUCING);
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImg(this.IMAGES_DEAD_END);
-        this.animateEndboss();
     }
 
-    animateEndboss() {
-        setInterval(() => {
-            if
-                // (this.characterIsNear()) {
-                //     this.playAnimation(this.IMAGES_INTRODUCING);
-                // } else if 
-                (this.isHurtPoison() && this.energy > 0) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isDead() && !this.isDeadAnimationPlayed) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.isDeadAnimationPlayed = true;
-            } else if (this.isDead() && this.isDeadAnimationPlayed) {
-                // this.playAnimation(this.IMAGES_DEAD_END);
-                let timeSpent = 0;
-                let moveUpInterval = setInterval(() => {
-                    if (timeSpent < 5000) {
-                        this.playAnimation(this.IMAGES_DEAD_END);
-                        this.y -= 5;
-                        timeSpent += 100;
-                    } else if (timeSpent >= 5000) {
-                        clearInterval(moveUpInterval);
-                    }
-                }, 100);
-            } else if (!this.isDead()) {
-                this.playAnimation(this.IMAGES_SWIMMING);
-            }
-        }, 200);
+
+    animateIntroducedEndboss() {
+        if (this.isHurtPoison() && this.energy > 0) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isDead() && !this.isDeadAnimationPlayed) {
+            win.play();
+            this.playAnimation(this.IMAGES_DEAD);
+            this.isDeadAnimationPlayed = true;
+        } else if (this.isDead() && this.isDeadAnimationPlayed) {
+            let timeSpent = 0;
+            let moveUpInterval = setInterval(() => {
+                if (timeSpent < 5000) {
+                    this.playAnimation(this.IMAGES_DEAD_END);
+                    this.y -= 5;
+                    timeSpent += 100;
+                } else if (timeSpent >= 5000) {
+                    clearInterval(moveUpInterval);
+
+
+                }
+            }, 100);
+        } else if (!this.isDead()) {
+            this.playAnimation(this.IMAGES_SWIMMING);
+        }
     }
 
-    // characterIsNear() {
-    //     if (this.x - this.character.x < 480 && this.character.energy > 0) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
 
 }

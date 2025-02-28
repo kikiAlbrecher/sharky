@@ -5,7 +5,7 @@ class Level {
     sunbeams;
     coinsToCollect;
     poisonToCollect;
-    level_end_x = 2140;
+    level_end_x = 2880;
 
     constructor(enemies, waterMovements, backgroundObjects, sunbeams, coinsToCollect, poisonToCollect) {
         this.enemies = enemies;
