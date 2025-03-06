@@ -6,4 +6,12 @@ class Keyboard {
     THROW = false;
     THROW_POISON = false;
     SPACE = false;
+
+    // constructor() {
+    //     this.bindBtnsPressEvents();
+    // }
+
+    
+
+    
 }

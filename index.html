@@ -7,8 +7,7 @@
     <link rel="icon" type="image/png" href="./img/1.Sharkie/3.Swim/1.png">
     <title>Sharky</title>
     <link rel="stylesheet" href="./style.css">
-
-
+    <link rel="stylesheet" href="./styles/footer.css">
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
     <script src="./models/statusBarLife.class.js"></script>
@@ -36,7 +35,7 @@
     <script src="./js/audio.js"></script>
     <script src="./js/start.js"></script>
     <script src="./js/game.js"></script>
-
+    <script src="./js/footer.js"></script>
 
 </head>
 
@@ -44,28 +43,138 @@
     <div class="max-width">
         <h1>Sharky</h1>
         <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
+        <!-- <div w3-include-html="templates/footer.html"></div> -->
 
-        <section id="startScreen" class="start-screen">
-            <div display="flex">
-                <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
-                <div class="start-game-btns">
-                    <button class="instruction-btn" id="instructions" onclick="showInstructions()">
-                        <img class="instruction-img" src="./img/icons/information.png" alt="instructions">
+        <section class="screen-content" id="startScreen">
+            <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
+            <div class="start-game">
+                <div class="start-game-btns instruction-play">
+                    <button class="start-screen-btn" id="instructions" onclick="showInstructions()">
+                        <img class="start-screen-img" src="./img/icons/information.png" alt="instructions">
                     </button>
                     <button class="play-button" id="playBtn" onclick="startGame()">
                         <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
+                    </button>
+                </div>
+                <div class="start-game-btns volume-fullscreen">
+                    <button class="start-screen-btn btn-supplementary" onclick="toggleVolume()">
+                        <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                            alt="loudspeaker off button">
+                        <img class="start-screen-img img-supplementary d-none" id="volumeOn"
+                            src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
+                    </button>
+                    <button class="start-screen-btn btn-supplementary" onclick="toggleFullscreenImg()">
+                        <img class="start-screen-img img-supplementary" id="fullscreenOn"
+                            src="./img/icons/fullscreen.png" alt="fullscreen">
+                        <img class="start-screen-img img-supplementary d-none" id="fullscreenOff"
+                            src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
+                    </button>
+                </div>
+                <!-- <div w3-include-html="templates/footer.html"></div> -->
+            </div>
+            <div class="d-none" id="blackOverlay">
+                <div class="overlay-frame max-width">
+                    <div class="close-overlay" id="close-overlay" onclick="closeOverlay()">
+                        <img class="instruction-keyboard-letter" src="./img/icons/close.png" alt="close overlay">
+                    </div>
+                    <div class="move-sharkie">
+                        <h2>MOVE SHARKY</h2>
+                        <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
+                            alt="keyboard arrows">
+                    </div>
+                    <h2>DEFEND SHARKY against</h2>
+                    <div class="defend-sharky">
+                        <div class="range">
+                            <div class="variety-of-fishes">
+                                <img class="instruction-img-height" src="./img/7.Instructions/puffer-green.png"
+                                    alt="all kind of pufferfishes, green">
+                                <p>, </p>
+                                <img class="instruction-img-height" src="./img/7.Instructions/puffer-rose.png"
+                                    alt="all kind of pufferfishes, rose">
+                            </div>
+                            <img class="instruction-img-height"
+                                src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png" alt="jellyfish">
+                            <img class="instruction-img-height" src="./img/7.Instructions/endboss.png" alt="endboss">
+                        </div>
+                        <div class="range">
+                            <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png" alt="D">
+                            <div class="further-attack-options">
+                                <p class="attack-label">F</p>
+                            </div>
+                            <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/Space Bar key.png"
+                                alt="Space">
+                        </div>
+                        <div class="range">
+                            <img class="instruction-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                                alt="bubble">
+                            <img class="instruction-img-height"
+                                src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                alt="poisoned bubble">
+                            <img class="instruction-img-height" src="./img/1.Sharkie/4.Attack/Fin slap/6.png"
+                                alt="slap with tail fin">
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <section class="d-none" id="winScreen">
+            <div class="screen-content">
+                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="you win">
+                <div class="start-game">
+                    <button class="play-button" id="replayBtn" onclick="restartGame()">
+                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 15.png" alt="restart button">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="d-none" id="gameOverScreen">
+            <div class="screen-content">
+                <img class="screen-img" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over">
+                <div class="start-game">
+                    <button class="play-button" id="replayBtn" onclick="restartGame()">
+                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 15.png" alt="restart button">
                     </button>
                 </div>
             </div>
         </section>
 
         <section class="mobile-btn-section">
-            <button class="touchscreen-btn">
-
+            <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
+                <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
+                <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png" alt="loudspeaker on">
             </button>
-
+            <button class="touchscreen-btn" id="btnUp">
+                <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
+            </button>
+            <button class="touchscreen-btn" id="btnRight">
+                <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
+            </button>
+            <button class="touchscreen-btn" id="btnLeft">
+                <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
+            </button>
+            <button class="touchscreen-btn" id="btnDown">
+                <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
+            </button>
+            <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
+                <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                    alt="bubble">
+            </button>
+            <button class="touchscreen-btn attack-btn" id="btnAttackPoison">
+                <img class="touch-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                    alt="poisoned bubble">
+            </button>
+            <button class="touchscreen-btn attack-btn" id="btnAttackFin">
+                <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
+            </button>
+            <button class="touchscreen-btn" id="mobileFullscreen" onclick="toggleFullscreen()">
+                <img class="touch-btn-img d-none" src="./img/icons/fullscreen.png" alt="fullscreen">
+                <img class="touch-btn-img" src="./img/icons/exit-fullscreen.png" alt="stop fullscreen">
+            </button>
         </section>
     </div>
+
+
 </body>
 
 </html>

@@ -26,24 +26,26 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.waterMovements);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.ctx.translate(-this.camera_x / 2, 0);
-        this.addObjectsToMap(this.level.sunbeams);
-        this.ctx.translate(this.camera_x / 2, 0);
-        this.addObjectsToMap(this.level.coinsToCollect);
-        this.addObjectsToMap(this.level.poisonToCollect);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableBubble);
-        this.addObjectsToMap(this.throwablePoison);
-        this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarLife);
-        this.addToMap(this.statusBarCoin);
-        this.addToMap(this.statusBarPoison);
+        if (this.character) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.translate(this.camera_x, 0);
+            this.addObjectsToMap(this.level.waterMovements);
+            this.addObjectsToMap(this.level.backgroundObjects);
+            this.ctx.translate(-this.camera_x / 2, 0);
+            this.addObjectsToMap(this.level.sunbeams);
+            this.ctx.translate(this.camera_x / 2, 0);
+            this.addObjectsToMap(this.level.coinsToCollect);
+            this.addObjectsToMap(this.level.poisonToCollect);
+            this.addObjectsToMap(this.level.enemies);
+            this.addObjectsToMap(this.throwableBubble);
+            this.addObjectsToMap(this.throwablePoison);
+            this.addToMap(this.character);
+            this.ctx.translate(-this.camera_x, 0);
+            this.addToMap(this.statusBar);
+            this.addToMap(this.statusBarLife);
+            this.addToMap(this.statusBarCoin);
+            this.addToMap(this.statusBarPoison);
+        }
 
         let self = this;
         requestAnimationFrame(() => {
@@ -89,6 +91,8 @@ class World {
     }
 
     checkCharacterCollisionsWithEnemy() {
+        if (!this.character) return;
+
         this.level.enemies.forEach((enemy) => {
             if (enemy instanceof Jellyfish || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
                 if (this.character.isColliding(enemy) && !enemy.isDead()) {
@@ -100,6 +104,7 @@ class World {
                     if (this.character.energy <= 0) {
                         this.character.energy = 0;
                         this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
+                        this.character = null;
                     } else {
                         this.character.playAnimation(this.character.IMAGES_HURT_POISON);
                     }
@@ -131,6 +136,8 @@ class World {
     }
 
     checkCollisionsFinSlap() {
+        if (!this.character) return;
+
         if (this.character.isSlapping && !this.character.isDead()) {
             this.level.enemies.forEach(enemy => {
                 if (enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
@@ -149,11 +156,16 @@ class World {
     }
 
     checkCollectItems(itemType) {
+        if (!this.character) return;
+
         const { itemsToCollect, collectMethod, statusBar, amountProperty } = this.getItemProperties(itemType);
+
         this.processCollisions(itemsToCollect, collectMethod, statusBar, amountProperty);
     }
 
     getItemProperties(itemType) {
+        if (!this.character) return {};
+
         switch (itemType) {
             case 'coin':
                 return {
@@ -188,6 +200,8 @@ class World {
     }
 
     checkThrowItem(itemType) {
+        if (!this.character) return;
+
         const { itemX, itemY } = this.calculateThrowPosition();
 
         switch (itemType) {
@@ -201,6 +215,8 @@ class World {
     }
 
     calculateThrowPosition() {
+        if (!this.character) return { itemX: 0, itemY: 0 };
+
         let itemX, itemY;
 
         if (!this.character.otherDirection) {
@@ -248,23 +264,26 @@ class World {
         let frameCount = 0;
 
         setInterval(() => {
-            if (this.character.x <= 2300 && !this.hadFirstContact) {
-                return;
+            if (this.character) {
+                if (this.character.x <= 2300 && !this.hadFirstContact) {
+                    return;
+                }
             }
 
-            if (this.character.x > 2300 && !this.hadFirstContact) {
-                this.endboss.playAnimation(this.endboss.IMAGES_INTRODUCING);
-                frameCount++;
-                // this.danger.play();
+            if (this.character) {
+                if (this.character.x > 2300 && !this.hadFirstContact) {
+                    this.endboss.playAnimation(this.endboss.IMAGES_INTRODUCING);
+                    frameCount++;
 
-                if (frameCount === 10) {
-                    this.hadFirstContact = true;
-                    frameCount = 0;
-                    this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
+                    if (frameCount === 10) {
+                        this.hadFirstContact = true;
+                        frameCount = 0;
+                        this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
+                    }
+
+                } else if (this.hadFirstContact) {
+                    this.endboss.animateIntroducedEndboss();
                 }
-
-            } else if (this.hadFirstContact) {
-                this.endboss.animateIntroducedEndboss();
             }
         }, 150);
     }

@@ -1,30 +1,134 @@
 let world;
 let canvas;
 let keyboard = new Keyboard();
+let intervalIds = [];
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
-    console.log('My character is', world.character);
 }
+
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+
+    intervalIds.push(id);
+    console.log('Id von Intervall: ', id);
+}
+
+// setStoppableInterval;
+
+
+
+function toggleFullscreenImg() {
+    const fullscreenImgRef = document.getElementById('fullscreenOn');
+    const exitFullscreenImgRef = document.getElementById('fullscreenOff');
+
+    fullscreenImgRef.classList.toggle('d-none');
+    exitFullscreenImgRef.classList.toggle('d-none');
+    toggleFullscreen();
+}
+
+function toggleFullscreen() {
+    if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+        exitFullscreen();
+    } else {
+        enterFullscreen();
+    }
+}
+
+function enterFullscreen() {
+    const elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullscreen) {
+        elem.mozRequestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullscreen) {
+        document.mozCancelFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+function toggleVolume() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+
+    loudspeakerOffRef.classList.toggle('d-none');
+    loudspeakerOnRef.classList.toggle('d-none');
+    toggleSound();
+}
+
+function toggleSound() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+
+    if (loudspeakerOffRef.classList.contains('d-none')) {
+        allAudios.forEach(audio => {
+            audio.muted = true;
+        });
+    } else {
+        allAudios.forEach(audio => {
+            audio.muted = false;
+        });
+    }
+}
+
+function toggleLoudspeakers() {
+    const loudspeakerOffRef = document.getElementById('mobileMute');
+    const loudspeakerOnRef = document.getElementById('mobileSound');
+
+    loudspeakerOffRef.classList.toggle('d-none');
+    loudspeakerOnRef.classList.toggle('d-none');
+    toggleSound();
+}
+
+function toggleSound() {
+    const loudspeakerOffRef = document.getElementById('mobileMute');
+    const loudspeakerOnRef = document.getElementById('mobileSound');
+
+    if (loudspeakerOffRef.classList.contains('d-none')) {
+        allAudios.forEach(audio => {
+            audio.muted = true;
+        });
+    } else {
+        allAudios.forEach(audio => {
+            audio.muted = false;
+        });
+    }
+}
+
+
+
 
 window.addEventListener('keydown', (event) => {
     if (event.defaultPrevented) {
         return;
     }
     switch (event.code) {
-        case "ArrowDown":
-            keyboard.DOWN = true;
-            break;
         case "ArrowUp":
             keyboard.UP = true;
             break;
-        case "ArrowLeft":
-            keyboard.LEFT = true;
-            break;
         case "ArrowRight":
             keyboard.RIGHT = true;
+            break;
+        case "ArrowDown":
+            keyboard.DOWN = true;
+            break;
+        case "ArrowLeft":
+            keyboard.LEFT = true;
             break;
         case "KeyD":
             keyboard.THROW = true;
@@ -45,17 +149,16 @@ window.addEventListener('keyup', (event) => {
         return;
     }
     switch (event.code) {
-        case "ArrowDown":
-            keyboard.DOWN = false;
-            break;
-        case "ArrowUp":
-            keyboard.UP = false;
-            break;
-        case "ArrowLeft":
-            keyboard.LEFT = false;
+        case "ArrowUp": keyboard.UP = false;
             break;
         case "ArrowRight":
             keyboard.RIGHT = false;
+            break;
+        case "ArrowDown":
+            keyboard.DOWN = false;
+            break;
+        case "ArrowLeft":
+            keyboard.LEFT = false;
             break;
         case "KeyD":
             keyboard.THROW = false;
@@ -70,3 +173,71 @@ window.addEventListener('keyup', (event) => {
             return;
     }
 });
+
+window.addEventListener('touchstart', (event) => {
+    if (event.defaultPrevented) {
+        return;
+    }
+
+    const button = event.target.closest('.touchscreen-btn');
+    if (!button) return;
+
+    event.stopPropagation();
+
+    if (button.id === 'btnUp') keyboard.UP = true;
+    if (button.id === 'btnRight') keyboard.RIGHT = true;
+    if (button.id === 'btnDown') keyboard.DOWN = true;
+    if (button.id === 'btnLeft') keyboard.LEFT = true;
+    if (button.id === 'btnAttackBubble') keyboard.THROW = true;
+    if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
+    if (button.id === 'btnAttackFin') keyboard.SPACE = true;
+    if (button.id === 'mobileMute' || button.id === 'mobileSound') toggleLoudspeakers();
+    if (button.id === 'mobileFullscreen') toggleFullscreen();
+});
+
+window.addEventListener('touchend', (event) => {
+    if (event.defaultPrevented) {
+        return;
+    }
+
+    const button = event.target.closest('.touchscreen-btn');
+    if (!button) return;
+
+    event.stopPropagation();
+
+    if (button.id === 'btnUp') {
+        keyboard.UP = false;
+    }
+    if (button.id === 'btnRight') {
+        keyboard.RIGHT = false;
+    }
+    if (button.id === 'btnDown') {
+        keyboard.DOWN = false;
+    }
+    if (button.id === 'btnLeft') {
+        keyboard.LEFT = false;
+    }
+    if (button.id === 'btnAttackBubble') {
+        keyboard.THROW = false;
+    }
+    if (button.id === 'btnAttackPoison') {
+        keyboard.THROW_POISON = false;
+    }
+    if (button.id === 'btnAttackFin') {
+        keyboard.SPACE = false;
+    }
+});
+
+
+
+
+
+function stopGame() {
+    intervalIds.forEach(clearInterval);
+}
+
+function noCanvas() {
+    const canvas = document.getElementById('canvas');
+
+    canvas.classList.add('d-none');
+}
