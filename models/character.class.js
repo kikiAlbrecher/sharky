@@ -149,7 +149,6 @@ class Character extends MovableObject {
     ];
 
     world;
-    // swimming_sound = new Audio('audio/swimming.mp3');
 
     constructor() {
         super().loadImg(this.IMAGES_IDLE[0]);
@@ -177,8 +176,8 @@ class Character extends MovableObject {
     }
 
     animateCharacter() {
-        setInterval(() => this.moveCharacter(), 1000 / 60);
-        setInterval(() => this.playAnimationMoveCharacter(), 1000 / 10);
+        setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
+        setStoppableInterval(() => this.playAnimationMoveCharacter(), 1000 / 10);
     }
 
     moveCharacter() {
@@ -201,7 +200,6 @@ class Character extends MovableObject {
                 this.idleTime = 0;
                 this.playAnimation(this.IMAGES_SWIMMING);
                 // snore.pause();
-                // backgroundHappy.play();
             } else if (this.isHurtPoison()) {
                 this.playAnimation(this.IMAGES_HURT_POISON);
             }
@@ -227,40 +225,34 @@ class Character extends MovableObject {
                 // backgroundHappy.play();
                 if (this.idleTime >= 5000) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
-                    // snore.play();
+                    snore.play();
                 }
+            } if (this.x > 2300 && !this.isDead()) {
+                backgroundHappy.pause();
+                endbossFight.play();
             }
+
             if (this.world.keyboard.SPACE) {
                 this.isSlapping = true;
-                // slap.play();
+                slap.play();
                 this.playAnimation(this.IMAGES_ATTACK_FIN);
             } else {
                 this.isSlapping = false;
             }
 
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_POISON);
-                stopAllAudiosExcept([lost, gameOver]);
-                lost.play();
-
-                setTimeout(() => {
-                    lost.pause();
-                }, 200);
+                clearAllIntervals();
+                stopAllAudios();
+                gameOver.play();
 
                 setTimeout(() => {
                     this.displayGameOver();
-                    gameOver.play();
-                }, 200);
+                    gameEnd.currentTime = 0;
+                    gameEnd.play();
+                }, 2600);
 
-                setTimeout(() => {
-                    noCanvas();
-                }, 500);
-            } else if (this.x > 2220) {
-                backgroundHappy.pause();
-                endboss.play();
             }
-
         }
     }
 
@@ -296,6 +288,7 @@ class Character extends MovableObject {
     displayGameOver() {
         const gameOver = document.getElementById('gameOverScreen');
 
+        noCanvas();
         gameOver.classList.remove('d-none');
     }
 

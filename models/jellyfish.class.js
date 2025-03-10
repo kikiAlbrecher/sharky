@@ -38,7 +38,7 @@ class Jellyfish extends MovableObject {
     }
 
     animateJelly() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.energy > 0) {
                 this.jellySwims();
             } else {

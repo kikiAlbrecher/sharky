@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="./img/1.Sharkie/3.Swim/1.png">
+    <link rel="icon" href="./img/icons/logo.png">
     <title>Sharky</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/footer.css">
+    <link rel="stylesheet" href="./styles/policy.css">
+
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
     <script src="./models/statusBarLife.class.js"></script>
@@ -31,19 +33,18 @@
     <script src="./models/throwableBubble.class.js"></script>
     <script src="./models/throwablePoison.class.js"></script>
     <script src="./models/world.class.js"></script>
-    <script src="./levels/level1.js"></script>
     <script src="./js/audio.js"></script>
     <script src="./js/start.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./levels/level1.js"></script>
     <script src="./js/footer.js"></script>
 
 </head>
 
-<body onload="init()">
+<body onload="includeHTML()">
     <div class="max-width">
-        <h1>Sharky</h1>
+        <h1 id="gameName">Sharky</h1>
         <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
-        <!-- <div w3-include-html="templates/footer.html"></div> -->
 
         <section class="screen-content" id="startScreen">
             <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
@@ -52,7 +53,7 @@
                     <button class="start-screen-btn" id="instructions" onclick="showInstructions()">
                         <img class="start-screen-img" src="./img/icons/information.png" alt="instructions">
                     </button>
-                    <button class="play-button" id="playBtn" onclick="startGame()">
+                    <button class="play-button" onclick="startGame('startScreen')">
                         <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
                     </button>
                 </div>
@@ -70,7 +71,6 @@
                             src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
                     </button>
                 </div>
-                <!-- <div w3-include-html="templates/footer.html"></div> -->
             </div>
             <div class="d-none" id="blackOverlay">
                 <div class="overlay-frame max-width">
@@ -115,25 +115,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="d-none" id="loadingSpinner">
+            <div class="loading">
+                <img class="loading-spinner" src="./img/sharky-loading-spinner.png" alt="loading spinner">
+            </div>
         </section>
 
         <section class="d-none" id="winScreen">
-            <div class="screen-content">
-                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="you win">
-                <div class="start-game">
-                    <button class="play-button" id="replayBtn" onclick="restartGame()">
-                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 15.png" alt="restart button">
+            <div class="screen-content screen-size">
+                <img class="screen-img screen-img-half" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
+                    alt="you win">
+                <div class="start-game restart-won-game">
+                    <button class="imitated-play-button" onclick="backHome('winScreen')">
+                        <h2 class="h2-variant">HOME</h2>
+                    </button>
+                    <button class="play-button" onclick="restartGame('winScreen')">
+                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
                     </button>
                 </div>
             </div>
         </section>
 
         <section class="d-none" id="gameOverScreen">
-            <div class="screen-content">
-                <img class="screen-img" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over">
-                <div class="start-game">
-                    <button class="play-button" id="replayBtn" onclick="restartGame()">
-                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 15.png" alt="restart button">
+            <div class="screen-content screen-size">
+                <div>
+                    <img class="gameOverLettering" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png"
+                        alt="game over">
+                </div>
+                <div class="start-game restart-game-over">
+                    <button class="imitated-play-button" onclick="backHome('gameOverScreen')">
+                        <h2 class="h2-variant">HOME</h2>
+                    </button>
+                    <button class="play-button" onclick="restartGame('gameOverScreen')">
+                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
                     </button>
                 </div>
             </div>
@@ -142,7 +159,8 @@
         <section class="mobile-btn-section">
             <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
                 <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
-                <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png" alt="loudspeaker on">
+                <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png"
+                    alt="loudspeaker on">
             </button>
             <button class="touchscreen-btn" id="btnUp">
                 <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
@@ -174,6 +192,7 @@
         </section>
     </div>
 
+    <div w3-include-html="footer.html"></div>
 
 </body>
 

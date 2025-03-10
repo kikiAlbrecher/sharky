@@ -8,7 +8,7 @@ class Wave extends MovableObject {
     }
 
     animateWaves() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
     }

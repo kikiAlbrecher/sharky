@@ -7,26 +7,26 @@ slap.volume = 0.5;
 snore = new Audio('./audio/snore.mp3');
 snore.loop = 'true';
 
-collectedCoin = new Audio ('./audio/coin.mp3');
+collectedCoin = new Audio('./audio/coin.mp3');
 collectedCoin.volume = 0.5;
 
-collectedPoison = new Audio ('./audio/poison.mp3');
+collectedPoison = new Audio('./audio/poison.mp3');
 collectedPoison.volume = 0.5;
 
 pain = new Audio('./audio/ouch.mp3');
 
+endbossFight = new Audio('audio/endboss.wav');
+endbossFight.loop = 'true';
+
 win = new Audio('./audio/win.mp3');
 win.playbackRate = 1.4;
+win.loop = 'false';
 
-lost = new Audio('audio/lost.mp3');
-lost.playbackRate = 1.4;
+gameOver = new Audio('audio/lost.mp3');
+gameOver.playbackRate = 1.6;
 
-gameOver = new Audio('audio/sad-hopeful.mp3');
-gameOver.loop = 'true';
-gameOver.volume = 1;
-
-endboss = new Audio ('audio/endboss.wav');
-endboss.loop = 'true';
+gameEnd = new Audio('audio/hopeful.mp3');
+gameEnd.loop = 'true';
 
 let allAudios = [
     backgroundHappy,
@@ -35,16 +35,15 @@ let allAudios = [
     collectedCoin,
     collectedPoison,
     pain,
+    endbossFight,
     win,
-    lost,
     gameOver,
-    endboss
+    gameEnd
 ];
 
-function stopAllAudiosExcept(exceptArray) {
+function stopAllAudios() {
     allAudios.forEach(audio => {
-        if (!exceptArray.includes(audio)) {
-            audio.pause();
-        }
+        audio.pause();
+        audio.currentTime = 0;
     });
 }

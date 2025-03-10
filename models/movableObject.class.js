@@ -60,7 +60,7 @@ class MovableObject extends DrawableObject {
     }
 
     applyGravity() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isAboveGround() && !(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP)) {
                 this.y += this.speedY;
                 this.speedY += this.acceleration;
@@ -99,9 +99,6 @@ class MovableObject extends DrawableObject {
     //     this.energy = 0;
     // }
 
-    // isDangerMusic() {
-    //     this.danger_sound.play() ? true : false;
-    // }
 
 
 

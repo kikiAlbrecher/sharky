@@ -88,8 +88,6 @@ class Endboss extends MovableObject {
         if (this.isHurtPoison() && this.energy > 0) {
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isDead() && !this.isDeadAnimationPlayed) {
-            stopAllAudiosExcept([win]);
-            win.play();
             this.playAnimation(this.IMAGES_DEAD);
             this.isDeadAnimationPlayed = true;
         } else if (this.isDead() && this.isDeadAnimationPlayed) {
@@ -101,10 +99,17 @@ class Endboss extends MovableObject {
                     timeSpent += 100;
                 } else if (timeSpent >= 2400) {
                     clearInterval(moveUpInterval);
-                    this.displayWinScreen();
-
                 }
             }, 100);
+            clearAllIntervals();
+            stopAllAudios();
+            win.play();
+            setTimeout(() => {
+                win.pause();
+                this.displayWinScreen();
+                gameEnd.currentTime = 0;
+                gameEnd.play();
+            }, 2200);
         } else if (!this.isDead()) {
             this.playAnimation(this.IMAGES_SWIMMING);
         }
@@ -112,9 +117,9 @@ class Endboss extends MovableObject {
 
     displayWinScreen() {
         const winMessage = document.getElementById('winScreen');
-    
-        winMessage.classList.remove('d-none');
+
         noCanvas();
+        winMessage.classList.remove('d-none');
     }
 
 

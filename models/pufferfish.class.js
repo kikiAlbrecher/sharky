@@ -33,7 +33,7 @@ class Pufferfish extends MovableObject {
     }
 
     animatePufferfish() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.energy > 0) {
                 this.moveLeft();
             } else {

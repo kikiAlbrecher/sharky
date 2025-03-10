@@ -10,14 +10,9 @@ function init() {
 
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
-
     intervalIds.push(id);
-    console.log('Id von Intervall: ', id);
+    return id;
 }
-
-// setStoppableInterval;
-
-
 
 function toggleFullscreenImg() {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
@@ -37,29 +32,19 @@ function toggleFullscreen() {
 }
 
 function enterFullscreen() {
-    const elem = document.documentElement;
+    const elem = document.getElementById('startScreen');
 
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.mozRequestFullscreen) {
-        elem.mozRequestFullscreen();
-    } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-    }
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    else if (elem.mozRequestFullscreen) elem.mozRequestFullscreen();
+    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
 }
 
 function exitFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.mozCancelFullscreen) {
-        document.mozCancelFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.mozCancelFullscreen) document.mozCancelFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
 }
 
 function toggleVolume() {
@@ -228,16 +213,35 @@ window.addEventListener('touchend', (event) => {
     }
 });
 
-
-
-
-
-function stopGame() {
-    intervalIds.forEach(clearInterval);
+function clearAllIntervals() {
+    intervalIds.forEach(id => {
+        clearInterval(id);
+    });
+    intervalIds = [];
 }
 
 function noCanvas() {
     const canvas = document.getElementById('canvas');
+    const headline = document.getElementById('gameName');
 
     canvas.classList.add('d-none');
+    headline.classList.add('d-none');
+}
+
+function restartGame(screenId) {
+    gameEnd.pause();
+    startGame(screenId);
+    hadFirstContact = false;
+    endbossIsIntroduced = false;
+}
+
+function backHome(screenPrefix) {
+    const screen = document.getElementById(screenPrefix);
+    const startScreen = document.getElementById('startScreen');
+
+    gameEnd.pause();
+    screen.classList.add('d-none');
+    startScreen.style.display = 'flex';
+    hadFirstContact = false;
+    endbossIsIntroduced = false;
 }

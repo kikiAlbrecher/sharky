@@ -1,14 +1,24 @@
-function startGame() {
-    stopStartScreen();
+function startGame(screenId) {
+    stopScreen(screenId);
     backgroundHappy.play();
     showCanvas();
-    // initLevel1();
+    showLoadingSpinner();
+    initLevel1();
+    setTimeout(() => {
+        init();
+        hideLoadingSpinner();
+    }, 1500);
 }
 
-function stopStartScreen() {
-    const screenAtStart = document.getElementById('startScreen');
+function stopScreen(screenId) {
+    const screen = document.getElementById(screenId);
 
-    screenAtStart.style.display = 'none';
+    if (screen) {
+        screen.classList.add('d-none');
+        if (screenId === 'startScreen') {
+            screen.style.display = 'none';
+        }
+    }
 }
 
 function showCanvas() {
@@ -17,9 +27,21 @@ function showCanvas() {
     displayCanvas.classList.remove('d-none');
 }
 
+function showLoadingSpinner() {
+    const spinnerRef = document.getElementById('loadingSpinner');
+
+    spinnerRef.style.display = 'flex';
+}
+
+function hideLoadingSpinner() {
+    const spinnerRef = document.getElementById('loadingSpinner');
+
+    spinnerRef.style.display = 'none';
+}
+
 function showInstructions() {
     const blackOverlayRef = document.getElementById('blackOverlay');
-    
+
     blackOverlayRef.classList.remove('d-none');
     blackOverlayRef.classList.add('black-overlay');
     handleScrollbar();
@@ -35,15 +57,7 @@ function closeOverlay() {
 function handleScrollbar() {
     const blackOverlayRef = document.getElementById('blackOverlay');
 
-    blackOverlayRef.classList.contains('d-none') ? document.body.classList.remove('overlay-active') : 
-    document.body.classList.add('overlay-active');
+    blackOverlayRef.classList.contains('d-none') ? document.body.classList.remove('overlay-active') :
+        document.body.classList.add('overlay-active');
 }
 
-function restartGame() {
-    const winMessage = document.getElementById('winScreen');
-
-    winMessage.classList.add('d-none');
-    showCanvas();
-    // clearInterval();
-    // initLevel1();
-}

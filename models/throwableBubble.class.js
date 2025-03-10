@@ -19,7 +19,7 @@ class ThrowableBubble extends MovableObject {
     }
 
     throw() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.x += this.speed;
             this.speed += this.accelerationX;
             this.y -= this.speedY;

@@ -28,7 +28,7 @@ class AnimatedPoison extends MovableObject {
     }
 
     animatePoison() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             let i = this.currentImage % this.IMAGES_POISON.length;
             let path = this.IMAGES_POISON[i];
             this.img = this.imgCache[path];

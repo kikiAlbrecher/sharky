@@ -77,7 +77,7 @@ class World {
     }
 
     runChecks() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkCharacterCollisionsWithEnemy();
             this.checkCollectItems('coin');
             this.checkCollectItems('poison');
@@ -234,7 +234,7 @@ class World {
         if (this.keyboard.THROW && this.character.coinAmount > 0) {
             let bubble = new ThrowableBubble(itemX, itemY, this.character.otherDirection);
             this.throwableBubble.push(bubble);
-            console.log(this.throwableBubble, this.throwablePoison);
+            console.log('Bubble', this.throwableBubble);
             this.updateStatusbar('coin');
         }
     }
@@ -243,6 +243,7 @@ class World {
         if (this.keyboard.THROW_POISON && this.character.poisonAmount > 0) {
             let poison = new ThrowablePoison(itemX, itemY, this.character.otherDirection);
             this.throwablePoison.push(poison);
+            console.log('Poison: ', this.throwablePoison);
             this.updateStatusbar('poison');
         }
     }
@@ -263,7 +264,7 @@ class World {
     checkCharacterNearEndboss() {
         let frameCount = 0;
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.character) {
                 if (this.character.x <= 2300 && !this.hadFirstContact) {
                     return;

@@ -18,7 +18,7 @@ class AnimatedCoin extends MovableObject {
     }
 
     animateCoin() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             let i = this.currentImage % this.IMAGES_COIN.length;
             let path = this.IMAGES_COIN[i];
             this.img = this.imgCache[path];
