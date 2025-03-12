@@ -57,7 +57,8 @@ button {
     border: unset;
 }
 
-a:hover, button:hover {
+a:hover,
+button:hover {
     cursor: pointer;
 }
 
@@ -77,16 +78,21 @@ a:hover, button:hover {
 }
 
 .screen-size {
-    width: 720px;
-    height: 480px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 480px;
+    height: 100%;
     justify-content: flex-start;
     background: rgb(0, 0, 0);
 }
 
 .screen-img {
     object-position: center;
-    width: 720px;
-    height: 480px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 480px;
+    height: 100%;
+    transform: translateY(48px);
 
 }
 
@@ -219,7 +225,7 @@ a:hover, button:hover {
     z-index: 1200;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -228,19 +234,22 @@ body.overlay-active {
 }
 
 .overlay-frame {
-    padding: 20px;
-    gap: 32px;
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0px 80px 32px 80px;
+    width: calc(100% - 64px);
 }
 
 .close-overlay {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     cursor: pointer;
 }
 
-.move-sharkie {
+.instruction {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -252,18 +261,36 @@ h2 {
     font-family: 'luckiest-guy';
 }
 
+h3 {
+    color: rgb(255, 255, 255);
+}
+
+.move-collect {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
 .instruction-keyboard-arrows {
     height: 100px;
+    padding: 12px 0;
 }
 
 .instruction-keyboard-letter {
     height: 48px;
 }
 
+.space-alternative {
+    display: none;
+}
+
 .defend-sharky {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 16px;
 }
 
 .range {
@@ -271,11 +298,18 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 16px;
+    gap: 6px;
 }
 
-.variety-of-fishes {
+.range-width {
+    width: 96px;
+}
+
+.variety {
     display: flex;
     flex-direction: row;
+    gap: 8px;
 }
 
 .further-attack-options {
@@ -294,8 +328,27 @@ h2 {
     font-size: 24px;
 }
 
+.bubble-img-height {
+    height: 42px;
+}
+
+.pufferfish-img-height {
+    height: 20px;
+}
+
 .instruction-img-height {
     height: 48px;
+}
+
+.endboss-img-height {
+    height: 56px;
+}
+
+.pufferfish-collection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
 }
 
 .overlay-screen {
@@ -322,6 +375,16 @@ h2 {
     margin: 0;
 }
 
+@media (max-width: 736px) {
+    .space-key {
+        display: none;
+    }
+
+    .space-alternative {
+        display: flex;
+    }
+
+}
 
 
 
@@ -338,20 +401,29 @@ h2 {
         display: none;
     }
 
+    .max-width {
+        height: 100vh;
+    }
+
+    ;
+
     canvas {
         height: calc(100vh - 40px);
     }
 
-    .screen-img {
-        width: 100%;
-    }
-
     .mobile-btn-section {
         display: flex;
-        /* display: block; */
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+    }
+
+    .footer-integration {
+        display: none;
+    }
+
+    .screen-img {
+        transform: translateY(103px);
     }
 
     .touchscreen-btn {
@@ -379,6 +451,22 @@ h2 {
         height: 24px;
     }
 
+    .volume-fullscreen {
+        transform: translateX(0);
+    }
+
+    .black-overlay {
+        flex-direction: row;
+    }
+
+    .overlay-frame {
+        flex-direction: row;
+        padding: 0;
+    }
+
+    /* .move-collect {
+        flex-direction: column;
+    } */
 
 
 

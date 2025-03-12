@@ -73,45 +73,85 @@
                 </div>
             </div>
             <div class="d-none" id="blackOverlay">
-                <div class="overlay-frame max-width">
+                <div class="max-width">
                     <div class="close-overlay" id="close-overlay" onclick="closeOverlay()">
                         <img class="instruction-keyboard-letter" src="./img/icons/close.png" alt="close overlay">
                     </div>
-                    <div class="move-sharkie">
-                        <h2>MOVE SHARKY</h2>
-                        <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
-                            alt="keyboard arrows">
-                    </div>
-                    <h2>DEFEND SHARKY against</h2>
-                    <div class="defend-sharky">
-                        <div class="range">
-                            <div class="variety-of-fishes">
-                                <img class="instruction-img-height" src="./img/7.Instructions/puffer-green.png"
-                                    alt="all kind of pufferfishes, green">
-                                <p>, </p>
-                                <img class="instruction-img-height" src="./img/7.Instructions/puffer-rose.png"
-                                    alt="all kind of pufferfishes, rose">
+                    <div class="overlay-frame">
+                        <div class="move-collect">
+                            <div class="instruction">
+                                <h2>MOVE SHARKY</h2>
+                                <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
+                                    alt="keyboard arrows">
                             </div>
-                            <img class="instruction-img-height"
-                                src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png" alt="jellyfish">
-                            <img class="instruction-img-height" src="./img/7.Instructions/endboss.png" alt="endboss">
-                        </div>
-                        <div class="range">
-                            <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png" alt="D">
-                            <div class="further-attack-options">
-                                <p class="attack-label">F</p>
+                            <div class="instruction">
+                                <h2>COLLECT ITEMS</h2>
+                                <div class="defend-sharky">
+                                    <div class="range">
+                                        <img class="instruction-img-height" src="./img/4.Marcadores/1. Coins/4.png"
+                                            alt="coin">
+                                        <img class="instruction-img-height" src="./img/7.Instructions/poison.png"
+                                            alt="poison">
+                                    </div>
+                                    <div class="range">
+                                        <h3> => </h3>
+                                        <h3> => </h3>
+                                    </div>
+                                    <div class="range">
+                                        <img class="bubble-img-height"
+                                            src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt="bubble">
+                                        <img class="instruction-img-height"
+                                            src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                            alt="poisoned bubble">
+                                    </div>
+                                </div>
                             </div>
-                            <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/Space Bar key.png"
-                                alt="Space">
                         </div>
-                        <div class="range">
-                            <img class="instruction-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
-                                alt="bubble">
-                            <img class="instruction-img-height"
-                                src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                                alt="poisoned bubble">
-                            <img class="instruction-img-height" src="./img/1.Sharkie/4.Attack/Fin slap/6.png"
-                                alt="slap with tail fin">
+                        <div class="instruction">
+                            <h2>DEFEND SHARKY</h2>
+                            <div class="defend-sharky">
+                                <div class="range range-width">
+                                    <img class="instruction-img-height" src="./img/icons/slap.png"
+                                        alt="slap with tail fin">
+                                    <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                                        alt="bubble">
+                                    <img class="instruction-img-height"
+                                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                        alt="poisoned bubble">
+                                </div>
+                                <div class="range">
+                                    <div>
+                                        <img class="instruction-keyboard-letter space-key"
+                                            src="./img/6.Botones/Key/Space Bar key.png" alt="Space">
+                                        <div class="further-attack-options space-alternative d-none">
+                                            <p class="attack-label">S</p>
+                                        </div>
+                                    </div>
+                                    <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png"
+                                        alt="D">
+                                    <div class="further-attack-options">
+                                        <p class="attack-label">F</p>
+                                    </div>
+                                </div>
+                                <div class="range">
+                                    <div class="variety">
+                                        <div class="pufferfish-collection">
+                                            <img class="pufferfish-img-height"
+                                                src="./img/7.Instructions/puffer-green.png"
+                                                alt="all kind of pufferfishes, green">
+                                            <img class="pufferfish-img-height"
+                                                src="./img/7.Instructions/puffer-rose.png"
+                                                alt="all kind of pufferfishes, rose">
+                                        </div>
+                                        <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
+                                            alt="endboss">
+                                    </div>
+                                    <img class="instruction-img-height"
+                                        src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png" alt="jellyfish">
+                                    <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
+                                        alt="endboss">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +232,7 @@
         </section>
     </div>
 
-    <div w3-include-html="footer.html"></div>
+    <div class="footer-integration" w3-include-html="footer.html"></div>
 
 </body>
 
