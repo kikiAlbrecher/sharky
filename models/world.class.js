@@ -92,26 +92,24 @@ class World {
 
     checkCharacterCollisionsWithEnemy() {
         if (!this.character) return;
-
-        this.level.enemies.forEach((enemy) => {
-            if (enemy instanceof Jellyfish || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
-                if (this.character.isColliding(enemy) && !enemy.isDead()) {
-                    console.log(`Hit detected by ${enemy.constructor.name}`);
-                    this.character.hit();
-                    pain.play();
-                    this.statusBarLife.setPercentage(this.character.energy);
-                    console.log('Collision with character, energy: ', this.character.energy);
-                    if (this.character.energy <= 0) {
-                        this.character.energy = 0;
-                        this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
-                        this.character = null;
-                    } else {
-                        this.character.playAnimation(this.character.IMAGES_HURT_POISON);
+        else {
+            this.level.enemies.forEach((enemy) => {
+                if (enemy instanceof Jellyfish || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
+                    if (this.character.isColliding(enemy) && !enemy.isDead()) {
+                        console.log(`Hit detected by ${enemy.constructor.name}`);
+                        this.character.hit();
+                        this.statusBarLife.setPercentage(this.character.energy);
+                        console.log('Collision with character, energy: ', this.character.energy);
+                        if (this.character.energy <= 0) {
+                            this.character.energy = 0;
+                            this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
+                        } else {
+                            this.character.playAnimation(this.character.IMAGES_HURT_POISON);
+                        }
                     }
-                    console.log('Character energy after hit: ', this.energy);
                 }
-            }
-        });
+            });
+        }
     }
 
     checkCollisionsWithThrowableObjects(enemyType, type) {
@@ -288,10 +286,4 @@ class World {
             }
         }, 150);
     }
-
-
-
-
-
-
 }

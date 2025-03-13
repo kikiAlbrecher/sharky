@@ -9,15 +9,15 @@ class Pufferfish extends MovableObject {
     };
 
     IMAGES_SWIMMING = [
-        '../img/2.Enemy/1.Pufferfish/1.Swim/1.swim1.png',
-        '../img/2.Enemy/1.Pufferfish/1.Swim/1.swim2.png',
-        '../img/2.Enemy/1.Pufferfish/1.Swim/1.swim3.png',
-        '../img/2.Enemy/1.Pufferfish/1.Swim/1.swim4.png',
-        '../img/2.Enemy/1.Pufferfish/1.Swim/1.swim5.png'
+        'img/2.Enemy/1.Pufferfish/1.Swim/1.swim1.png',
+        'img/2.Enemy/1.Pufferfish/1.Swim/1.swim2.png',
+        'img/2.Enemy/1.Pufferfish/1.Swim/1.swim3.png',
+        'img/2.Enemy/1.Pufferfish/1.Swim/1.swim4.png',
+        'img/2.Enemy/1.Pufferfish/1.Swim/1.swim5.png'
     ];
 
     IMAGES_DEAD = [
-        '../img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 1 (can animate by going up).png'
+        'img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 1 (can animate by going up).png'
     ]
 
     constructor() {

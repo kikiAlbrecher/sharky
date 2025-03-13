@@ -7,6 +7,7 @@
     <link rel="icon" href="./img/icons/logo.png">
     <title>Sharky</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./styles/policy.css">
 
@@ -43,8 +44,48 @@
 
 <body onload="includeHTML()">
     <div class="max-width">
-        <h1 id="gameName">Sharky</h1>
-        <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
+        <section id="gameScreen">
+            <h1 id="gameName">Sharky</h1>
+            <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
+            
+            <section class="mobile-btn-section d-none">
+                <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
+                    <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
+                    <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png"
+                        alt="loudspeaker on">
+                </button>
+                <button class="touchscreen-btn" id="btnUp">
+                    <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
+                </button>
+                <button class="touchscreen-btn" id="btnRight">
+                    <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
+                </button>
+                <button class="touchscreen-btn" id="btnLeft">
+                    <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
+                </button>
+                <button class="touchscreen-btn" id="btnDown">
+                    <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
+                </button>
+                <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
+                    <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                        alt="bubble">
+                </button>
+                <button class="touchscreen-btn attack-btn" id="btnAttackPoison">
+                    <img class="touch-btn-img"
+                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                        alt="poisoned bubble">
+                </button>
+                <button class="touchscreen-btn attack-btn" id="btnAttackFin">
+                    <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
+                </button>
+                <button class="touchscreen-btn" id="mobileFullscreen">
+                    <img class="touch-btn-img d-none" id="fullscreenOn" src="./img/icons/fullscreen.png"
+                        alt="fullscreen">
+                    <img class="touch-btn-img" id="fullscreenOff" src="./img/icons/exit-fullscreen.png"
+                        alt="exit fullscreen">
+                </button>
+            </section>
+        </section>
 
         <section class="screen-content" id="startScreen">
             <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
@@ -58,13 +99,13 @@
                     </button>
                 </div>
                 <div class="start-game-btns volume-fullscreen">
-                    <button class="start-screen-btn btn-supplementary" onclick="toggleVolume()">
+                    <button class="start-screen-btn btn-supplementary" onclick="toggleVolumeStart()">
                         <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
                             alt="loudspeaker off button">
                         <img class="start-screen-img img-supplementary d-none" id="volumeOn"
                             src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
                     </button>
-                    <button class="start-screen-btn btn-supplementary" onclick="toggleFullscreenImg()">
+                    <button class="start-screen-btn btn-supplementary" onclick="toggleFullscreenImg('startScreen')">
                         <img class="start-screen-img img-supplementary" id="fullscreenOn"
                             src="./img/icons/fullscreen.png" alt="fullscreen">
                         <img class="start-screen-img img-supplementary d-none" id="fullscreenOff"
@@ -108,7 +149,7 @@
                             </div>
                         </div>
                         <div class="instruction">
-                            <h2>DEFEND SHARKY</h2>
+                            <h2>ATTACK</h2>
                             <div class="defend-sharky">
                                 <div class="range range-width">
                                     <img class="instruction-img-height" src="./img/icons/slap.png"
@@ -120,12 +161,10 @@
                                         alt="poisoned bubble">
                                 </div>
                                 <div class="range">
-                                    <div>
-                                        <img class="instruction-keyboard-letter space-key"
-                                            src="./img/6.Botones/Key/Space Bar key.png" alt="Space">
-                                        <div class="further-attack-options space-alternative d-none">
-                                            <p class="attack-label">S</p>
-                                        </div>
+                                    <img class="instruction-space" src="./img/6.Botones/Key/Space Bar key.png"
+                                        alt="space bar">
+                                    <div class="further-attack-options space-alternative d-none">
+                                        <img class="whitespace" src="./img/icons/space.png" alt="space bar sign">
                                     </div>
                                     <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png"
                                         alt="D">
@@ -194,41 +233,6 @@
                     </button>
                 </div>
             </div>
-        </section>
-
-        <section class="mobile-btn-section">
-            <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
-                <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
-                <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png"
-                    alt="loudspeaker on">
-            </button>
-            <button class="touchscreen-btn" id="btnUp">
-                <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
-            </button>
-            <button class="touchscreen-btn" id="btnRight">
-                <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
-            </button>
-            <button class="touchscreen-btn" id="btnLeft">
-                <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
-            </button>
-            <button class="touchscreen-btn" id="btnDown">
-                <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
-            </button>
-            <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
-                <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
-                    alt="bubble">
-            </button>
-            <button class="touchscreen-btn attack-btn" id="btnAttackPoison">
-                <img class="touch-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                    alt="poisoned bubble">
-            </button>
-            <button class="touchscreen-btn attack-btn" id="btnAttackFin">
-                <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
-            </button>
-            <button class="touchscreen-btn" id="mobileFullscreen" onclick="toggleFullscreen()">
-                <img class="touch-btn-img d-none" src="./img/icons/fullscreen.png" alt="fullscreen">
-                <img class="touch-btn-img" src="./img/icons/exit-fullscreen.png" alt="stop fullscreen">
-            </button>
         </section>
     </div>
 

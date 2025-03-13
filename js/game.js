@@ -14,25 +14,30 @@ function setStoppableInterval(fn, time) {
     return id;
 }
 
-function toggleFullscreenImg() {
+function toggleFullscreenImg(screenType) {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
     const exitFullscreenImgRef = document.getElementById('fullscreenOff');
 
-    fullscreenImgRef.classList.toggle('d-none');
-    exitFullscreenImgRef.classList.toggle('d-none');
-    toggleFullscreen();
+    if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+        fullscreenImgRef.classList.add('d-none');
+        exitFullscreenImgRef.classList.remove('d-none');
+    } else {
+        fullscreenImgRef.classList.remove('d-none');
+        exitFullscreenImgRef.classList.add('d-none');
+    }
+    toggleFullscreen(screenType);
 }
 
-function toggleFullscreen() {
+function toggleFullscreen(screenType) {
     if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
         exitFullscreen();
     } else {
-        enterFullscreen();
+        enterFullscreen(screenType);
     }
 }
 
-function enterFullscreen() {
-    const elem = document.getElementById('startScreen');
+function enterFullscreen(screenType) {
+    const elem = document.getElementById(screenType);
 
     if (elem.requestFullscreen) elem.requestFullscreen();
     else if (elem.mozRequestFullscreen) elem.mozRequestFullscreen();
@@ -47,28 +52,19 @@ function exitFullscreen() {
     else if (document.msExitFullscreen) document.msExitFullscreen();
 }
 
-function toggleVolume() {
+function toggleVolumeStart() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
     const loudspeakerOnRef = document.getElementById('volumeOn');
 
     loudspeakerOffRef.classList.toggle('d-none');
     loudspeakerOnRef.classList.toggle('d-none');
-    toggleSound();
+    toggleSoundStart();
 }
 
-function toggleSound() {
+function toggleSoundStart() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
 
-    if (loudspeakerOffRef.classList.contains('d-none')) {
-        allAudios.forEach(audio => {
-            audio.muted = true;
-        });
-    } else {
-        allAudios.forEach(audio => {
-            audio.muted = false;
-        });
-    }
+    loudspeakerOffRef.classList.contains('d-none') ? backgroundHappy.play() : backgroundHappy.pause();
 }
 
 function toggleLoudspeakers() {
@@ -82,7 +78,6 @@ function toggleLoudspeakers() {
 
 function toggleSound() {
     const loudspeakerOffRef = document.getElementById('mobileMute');
-    const loudspeakerOnRef = document.getElementById('mobileSound');
 
     if (loudspeakerOffRef.classList.contains('d-none')) {
         allAudios.forEach(audio => {
@@ -94,9 +89,6 @@ function toggleSound() {
         });
     }
 }
-
-
-
 
 window.addEventListener('keydown', (event) => {
     if (event.defaultPrevented) {
@@ -177,7 +169,7 @@ window.addEventListener('touchstart', (event) => {
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
     if (button.id === 'btnAttackFin') keyboard.SPACE = true;
     if (button.id === 'mobileMute' || button.id === 'mobileSound') toggleLoudspeakers();
-    if (button.id === 'mobileFullscreen') toggleFullscreen();
+    if (button.id === 'mobileFullscreen') toggleFullscreenImg('gameScreen');
 });
 
 window.addEventListener('touchend', (event) => {
@@ -190,27 +182,14 @@ window.addEventListener('touchend', (event) => {
 
     event.stopPropagation();
 
-    if (button.id === 'btnUp') {
-        keyboard.UP = false;
-    }
-    if (button.id === 'btnRight') {
-        keyboard.RIGHT = false;
-    }
-    if (button.id === 'btnDown') {
-        keyboard.DOWN = false;
-    }
-    if (button.id === 'btnLeft') {
-        keyboard.LEFT = false;
-    }
-    if (button.id === 'btnAttackBubble') {
-        keyboard.THROW = false;
-    }
-    if (button.id === 'btnAttackPoison') {
-        keyboard.THROW_POISON = false;
-    }
-    if (button.id === 'btnAttackFin') {
-        keyboard.SPACE = false;
-    }
+    if (button.id === 'btnUp') keyboard.UP = false;
+    if (button.id === 'btnRight') keyboard.RIGHT = false;
+    if (button.id === 'btnDown') keyboard.DOWN = false;
+    if (button.id === 'btnLeft') keyboard.LEFT = false;
+    if (button.id === 'btnAttackBubble') keyboard.THROW = false;
+    if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = false;
+    if (button.id === 'btnAttackFin') keyboard.SPACE = false;
+
 });
 
 function clearAllIntervals() {

@@ -6,7 +6,7 @@ class ThrowableBubble extends MovableObject {
     accelerationX = -0.16;
 
     constructor(x, y, otherDirection) {
-        super().loadImg('../img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
+        super().loadImg('img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
         this.x = x;
         this.y = y;
 

@@ -11,18 +11,18 @@ class Jellyfish extends MovableObject {
     };
 
     IMAGES_SWIMMING = [
-        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png',
-        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 2.png',
-        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 3.png',
-        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
-        '../img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
+        'img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png',
+        'img/2.Enemy/2 Jellyfish/Regular damage/Yellow 2.png',
+        'img/2.Enemy/2 Jellyfish/Regular damage/Yellow 3.png',
+        'img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
+        'img/2.Enemy/2 Jellyfish/Regular damage/Yellow 4.png',
     ];
 
     IMAGES_DEAD = [
-        '../img/2.Enemy/2 Jellyfish/Dead/Yellow/y1.png',
-        '../img/2.Enemy/2 Jellyfish/Dead/Yellow/y2.png',
-        '../img/2.Enemy/2 Jellyfish/Dead/Yellow/y3.png',
-        '../img/2.Enemy/2 Jellyfish/Dead/Yellow/y4.png'
+        'img/2.Enemy/2 Jellyfish/Dead/Yellow/y1.png',
+        'img/2.Enemy/2 Jellyfish/Dead/Yellow/y2.png',
+        'img/2.Enemy/2 Jellyfish/Dead/Yellow/y3.png',
+        'img/2.Enemy/2 Jellyfish/Dead/Yellow/y4.png'
     ];
 
     constructor() {

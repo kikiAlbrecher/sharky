@@ -9,7 +9,7 @@ class Poison extends MovableObject {
     };
 
     IMAGES_POISON = [
-        '../img/4.Marcadores/Posión/Dark - Left.png',
+        'img/4.Marcadores/Posión/Dark - Left.png',
     ];
 
     constructor() {

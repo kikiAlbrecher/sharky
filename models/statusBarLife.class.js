@@ -1,12 +1,12 @@
 class StatusBarLife extends StatusBar {
 
     IMAGES_STATUS = [
-        '../img/4.Marcadores/green/Life/0_copia 3.png',
-        '../img/4.Marcadores/green/Life/20_copia 4.png',
-        '../img/4.Marcadores/green/Life/40_copia 3.png',
-        '../img/4.Marcadores/green/Life/60_copia 3.png',
-        '../img/4.Marcadores/green/Life/80_copia 3.png',
-        '../img/4.Marcadores/green/Life/100_copia 2.png'
+        'img/4.Marcadores/green/Life/0_copia 3.png',
+        'img/4.Marcadores/green/Life/20_copia 4.png',
+        'img/4.Marcadores/green/Life/40_copia 3.png',
+        'img/4.Marcadores/green/Life/60_copia 3.png',
+        'img/4.Marcadores/green/Life/80_copia 3.png',
+        'img/4.Marcadores/green/Life/100_copia 2.png'
     ];
 
     constructor() {
