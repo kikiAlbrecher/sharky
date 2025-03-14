@@ -252,7 +252,6 @@ class Character extends MovableObject {
                     this.displayGameOver();
                     gameEnd.play();
                 }, 2600);
-
             }
         }
     }
