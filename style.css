@@ -194,6 +194,10 @@ button:hover {
     width: 38px;
 }
 
+.round-img {
+    border-radius: 50%;
+}
+
 .play-button {
     border-radius: 36px;
     padding: 0;
@@ -229,10 +233,15 @@ body.overlay-active {
 
 .overlay-frame {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.instruction-screen {
     justify-content: flex-start;
-    padding: 0px 80px 32px 80px;
-    width: calc(100% - 64px);
 }
 
 .close-overlay {
@@ -251,26 +260,19 @@ body.overlay-active {
     align-items: center;
 }
 
+.collect {
+    padding-right: 16px;
+    padding-left: 48px;
+}
+
 h2 {
     color: rgb(255, 255, 255);
     font-family: 'luckiest-guy';
 }
 
-h3 {
-    color: rgb(255, 255, 255);
-}
-
-.move-collect {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
-}
-
 .instruction-keyboard-arrows {
     height: 100px;
-    padding: 12px 0;
+    padding-bottom: 16px;
 }
 
 .instruction-space {
@@ -282,7 +284,16 @@ h3 {
 }
 
 .space-alternative {
+    height: 44px;
+    width: 44px;
+    background: rgb(127, 255, 224);
+    border: 2.4px solid rgb(255, 255, 255);
+    border-radius: 14px;
     display: none;
+}
+
+.arrow-right {
+    color: rgb(255, 255, 255);
 }
 
 .defend-sharky {
@@ -305,6 +316,10 @@ h3 {
     width: 96px;
 }
 
+.range-left {
+    gap: 8px;
+}
+
 .variety {
     display: flex;
     flex-direction: row;
@@ -317,6 +332,7 @@ h3 {
     background: rgb(127, 255, 224);
     border: 2.4px solid rgb(255, 255, 255);
     border-radius: 14px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -378,6 +394,3 @@ h3 {
     padding: 10px 50px;
     margin: 0;
 }
-
-
-

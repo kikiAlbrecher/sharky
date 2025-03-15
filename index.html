@@ -47,7 +47,7 @@
         <section id="gameScreen">
             <h1 id="gameName">Sharky</h1>
             <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
-            
+
             <section class="mobile-btn-section d-none">
                 <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
                     <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
@@ -102,7 +102,7 @@
                     <button class="start-screen-btn btn-supplementary" onclick="toggleVolumeStart()">
                         <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
                             alt="loudspeaker off button">
-                        <img class="start-screen-img img-supplementary d-none" id="volumeOn"
+                        <img class="start-screen-img img-supplementary round-img d-none" id="volumeOn"
                             src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
                     </button>
                     <button class="start-screen-btn btn-supplementary" onclick="toggleFullscreenImg('startScreen')">
@@ -114,44 +114,44 @@
                 </div>
             </div>
             <div class="d-none" id="blackOverlay">
-                <div class="max-width">
+                <div class="max-width instruction-screen">
                     <div class="close-overlay" id="close-overlay" onclick="closeOverlay()">
                         <img class="instruction-keyboard-letter" src="./img/icons/close.png" alt="close overlay">
                     </div>
                     <div class="overlay-frame">
-                        <div class="move-collect">
-                            <div class="instruction">
-                                <h2>MOVE SHARKY</h2>
-                                <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
-                                    alt="keyboard arrows">
-                            </div>
-                            <div class="instruction">
-                                <h2>COLLECT ITEMS</h2>
-                                <div class="defend-sharky">
-                                    <div class="range">
-                                        <img class="instruction-img-height" src="./img/4.Marcadores/1. Coins/4.png"
-                                            alt="coin">
-                                        <img class="instruction-img-height" src="./img/7.Instructions/poison.png"
-                                            alt="poison">
-                                    </div>
-                                    <div class="range">
-                                        <h3> => </h3>
-                                        <h3> => </h3>
-                                    </div>
-                                    <div class="range">
-                                        <img class="bubble-img-height"
-                                            src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt="bubble">
-                                        <img class="instruction-img-height"
-                                            src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                                            alt="poisoned bubble">
-                                    </div>
+                        <div class="instruction move">
+                            <h2>MOVE SHARKY</h2>
+                            <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
+                                alt="keyboard arrows">
+                        </div>
+                        <div class="instruction collect">
+                            <h2>COLLECT ITEMS</h2>
+                            <div class="defend-sharky">
+                                <div class="range">
+                                    <img class="instruction-img-height" src="./img/4.Marcadores/1. Coins/4.png"
+                                        alt="coin">
+                                    <img class="instruction-img-height" src="./img/7.Instructions/poison.png"
+                                        alt="poison">
+                                </div>
+                                <div class="range">
+                                    <img class="instruction-img-height arrow-right" src="./img/icons/arrow-right.png"
+                                        alt="arrow right">
+                                    <img class="instruction-img-height arrow-right" src="./img/icons/arrow-right.png"
+                                        alt="arrow right">
+                                </div>
+                                <div class="range">
+                                    <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                                        alt="bubble">
+                                    <img class="instruction-img-height"
+                                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                        alt="poisoned bubble">
                                 </div>
                             </div>
                         </div>
                         <div class="instruction">
                             <h2>ATTACK</h2>
                             <div class="defend-sharky">
-                                <div class="range range-width">
+                                <div class="range range-width range-left">
                                     <img class="instruction-img-height" src="./img/icons/slap.png"
                                         alt="slap with tail fin">
                                     <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
@@ -163,7 +163,7 @@
                                 <div class="range">
                                     <img class="instruction-space" src="./img/6.Botones/Key/Space Bar key.png"
                                         alt="space bar">
-                                    <div class="further-attack-options space-alternative d-none">
+                                    <div class="space-alternative">
                                         <img class="whitespace" src="./img/icons/space.png" alt="space bar sign">
                                     </div>
                                     <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png"

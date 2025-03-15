@@ -1,22 +1,97 @@
 @media (max-width: 900px) {
     .close-overlay {
-        padding-right: 64px;
+        padding-right: 48px;
     }
-}
-
-@media (max-width: 736px) {
-    .space-alternative {
-        display: flex;
-    }
-
 }
 
 @media only screen and (max-width: 720px) {
+    h2 {
+        margin: 0;
+    }
+
     canvas,
     .screen-img {
         width: 100%;
     }
+
+    .instruction-keyboard-arrows {
+        padding-top: 4px;
+    }
+
 }
+
+@media (max-width: 544px) {
+    .instruction-keyboard-letter {
+        height: 32px;
+    }
+
+    h2 {
+        font-weight: 20px;
+        font-weight: 500;
+    }
+
+    .instruction-keyboard-arrows {
+        height: 80px;
+    }
+
+    .instruction-img-height {
+        height: 32px;
+    }
+
+    .bubble-img-height {
+        height: 28px;
+    }
+
+    .defend-sharky {
+        gap: 8px;
+        padding-top: 4px;
+    }
+
+    .range-width {
+        width: 59.11px;
+    }
+
+    .instruction-space {
+        display: none;
+    }
+
+    .space-alternative {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 28px;
+        width: 28px;
+        border-radius: 8px;
+    }
+
+    .pufferfish-collection {
+        gap: 2px;
+    }
+
+    .pufferfish-img-height {
+        height: 12px;
+    }
+
+    .endboss-img-height {
+        height: 32px;
+    }
+
+    .further-attack-options {
+        height: 28px;
+        width: 28px;
+        border-radius: 8px;
+    }
+
+
+
+
+}
+
+/* @media (max-height: 500px) {
+    .footer-integration {
+        display: none;
+    }
+} */
 
 @media only screen and (max-height: 480px) {
     h1 {
@@ -82,7 +157,13 @@
 
     .overlay-frame {
         flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
         padding: 0;
+    }
+
+    .range-width {
+        width: 64px;
     }
 
     .further-attack-options {
@@ -94,6 +175,31 @@
     .instruction-space {
         display: none;
     }
+
+
+
+
+}
+
+/* @media only screen and (max-width: 680px) {
+    .overlay-frame {
+        justify-content: space-between;
+    }
+} */
+
+@media only screen and (max-width: 440px) {
+    .close-overlay {
+        padding: 8px 8px 0 0;
+    }
+
+    .move {
+        padding-left: 16px;
+    }
+
+    .collect {
+        padding-left: 32px;
+    }
+
 
 
 
