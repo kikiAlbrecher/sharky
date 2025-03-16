@@ -18,12 +18,12 @@ function toggleFullscreenImg() {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
     const exitFullscreenImgRef = document.getElementById('fullscreenOff');
 
-    if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+    if (fullscreenImgRef.classList.contains('d-none')) {
+        exitFullscreenImgRef.classList.add('d-none');
+        fullscreenImgRef.classList.remove('d-none');
+    } else {
         fullscreenImgRef.classList.add('d-none');
         exitFullscreenImgRef.classList.remove('d-none');
-    } else {
-        fullscreenImgRef.classList.remove('d-none');
-        exitFullscreenImgRef.classList.add('d-none');
     }
     toggleFullscreen();
 }
@@ -43,6 +43,7 @@ function enterFullscreen() {
     else if (elem.mozRequestFullscreen) elem.mozRequestFullscreen();
     else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
     else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    else console.error('Fullscreen ist in diesem Browser nicht verfügbar.');
 }
 
 function exitFullscreen() {
@@ -50,7 +51,9 @@ function exitFullscreen() {
     else if (document.mozCancelFullscreen) document.mozCancelFullscreen();
     else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     else if (document.msExitFullscreen) document.msExitFullscreen();
+    else console.error('Fullscreen konnte nicht beendet werden.');
 }
+
 
 function toggleVolumeStart() {
     const loudspeakerOffRef = document.getElementById('volumeOff');

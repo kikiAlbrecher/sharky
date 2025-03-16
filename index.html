@@ -49,11 +49,6 @@
             <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
 
             <section class="mobile-btn-section d-none">
-                <button class="touchscreen-btn" onclick="toggleLoudspeakers()">
-                    <img class="touch-btn-img" id="mobileMute" src="./img/icons/mute.png" alt="loudspeaker off">
-                    <img class="touch-btn-img d-none" id="mobileSound" src="./img/icons/loudspeaker-on.png"
-                        alt="loudspeaker on">
-                </button>
                 <button class="touchscreen-btn" id="btnUp">
                     <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
                 </button>
@@ -78,12 +73,6 @@
                 <button class="touchscreen-btn attack-btn" id="btnAttackFin">
                     <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
                 </button>
-                <button class="touchscreen-btn" id="mobileFullscreen">
-                    <img class="touch-btn-img d-none" id="fullscreenOn" src="./img/icons/fullscreen.png"
-                        alt="fullscreen">
-                    <img class="touch-btn-img" id="fullscreenOff" src="./img/icons/exit-fullscreen.png"
-                        alt="exit fullscreen">
-                </button>
             </section>
         </section>
 
@@ -94,26 +83,24 @@
                     <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
                 </button>
                 <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
-                    <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                    <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
                         alt="loudspeaker off button">
-                    <img class="start-screen-img img-supplementary round-img d-none" id="volumeOn"
+                    <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
                         src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
                 </button>
             </div>
         </section>
 
         <button class="screen-btn" id="instructions" onclick="showInstructions()">
-            <img class="start-screen-img" src="./img/icons/information.png" alt="instructions">
+            <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
         </button>
 
         <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
-            <img class="start-screen-img img-supplementary" id="fullscreenOn" src="./img/icons/fullscreen.png"
+            <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn" src="./img/icons/fullscreen.png"
                 alt="fullscreen">
-            <img class="start-screen-img img-supplementary d-none" id="fullscreenOff"
+            <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"
                 src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
         </button>
-
-
 
         <div class="d-none" id="blackOverlay">
             <section class="max-width instruction-screen">

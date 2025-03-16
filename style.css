@@ -155,7 +155,7 @@ button:hover {
     align-items: center;
 }
 
-.start-screen-img {
+.repeating-screen-img {
     z-index: 1000;
     height: 60px;
     width: 60px;
@@ -165,7 +165,7 @@ button:hover {
     background: rgb(127, 255, 224);
 }
 
-.img-supplementary {
+.repeating-img-supplementary {
     height: 38px;
     width: 38px;
 }
