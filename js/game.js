@@ -14,7 +14,7 @@ function setStoppableInterval(fn, time) {
     return id;
 }
 
-function toggleFullscreenImg(screenType) {
+function toggleFullscreenImg() {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
     const exitFullscreenImgRef = document.getElementById('fullscreenOff');
 
@@ -25,19 +25,19 @@ function toggleFullscreenImg(screenType) {
         fullscreenImgRef.classList.remove('d-none');
         exitFullscreenImgRef.classList.add('d-none');
     }
-    toggleFullscreen(screenType);
+    toggleFullscreen();
 }
 
-function toggleFullscreen(screenType) {
+function toggleFullscreen() {
     if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
         exitFullscreen();
     } else {
-        enterFullscreen(screenType);
+        enterFullscreen();
     }
 }
 
-function enterFullscreen(screenType) {
-    const elem = document.getElementById(screenType);
+function enterFullscreen() {
+    let elem = document.documentElement;
 
     if (elem.requestFullscreen) elem.requestFullscreen();
     else if (elem.mozRequestFullscreen) elem.mozRequestFullscreen();
@@ -168,8 +168,6 @@ window.addEventListener('touchstart', (event) => {
     if (button.id === 'btnAttackBubble') keyboard.THROW = true;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
     if (button.id === 'btnAttackFin') keyboard.SPACE = true;
-    if (button.id === 'mobileMute' || button.id === 'mobileSound') toggleLoudspeakers();
-    if (button.id === 'mobileFullscreen') toggleFullscreenImg('gameScreen');
 });
 
 window.addEventListener('touchend', (event) => {

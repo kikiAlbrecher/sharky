@@ -89,113 +89,109 @@
 
         <section class="screen-content" id="startScreen">
             <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
-            <div class="start-game">
-                <div class="start-game-btns instruction-play">
-                    <button class="start-screen-btn" id="instructions" onclick="showInstructions()">
-                        <img class="start-screen-img" src="./img/icons/information.png" alt="instructions">
-                    </button>
-                    <button class="play-button" onclick="startGame('startScreen')">
-                        <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
-                    </button>
-                </div>
-                <div class="start-game-btns volume-fullscreen">
-                    <button class="start-screen-btn btn-supplementary" onclick="toggleVolumeStart()">
-                        <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
-                            alt="loudspeaker off button">
-                        <img class="start-screen-img img-supplementary round-img d-none" id="volumeOn"
-                            src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
-                    </button>
-                    <button class="start-screen-btn btn-supplementary" onclick="toggleFullscreenImg('startScreen')">
-                        <img class="start-screen-img img-supplementary" id="fullscreenOn"
-                            src="./img/icons/fullscreen.png" alt="fullscreen">
-                        <img class="start-screen-img img-supplementary d-none" id="fullscreenOff"
-                            src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
-                    </button>
-                </div>
+            <div class="game-btns">
+                <button class="play-button" onclick="startGame('startScreen')">
+                    <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
+                </button>
+                <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
+                    <img class="start-screen-img img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                        alt="loudspeaker off button">
+                    <img class="start-screen-img img-supplementary round-img d-none" id="volumeOn"
+                        src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
+                </button>
             </div>
-            <div class="d-none" id="blackOverlay">
-                <div class="max-width instruction-screen">
-                    <div class="close-overlay" id="close-overlay" onclick="closeOverlay()">
-                        <img class="instruction-keyboard-letter" src="./img/icons/close.png" alt="close overlay">
+        </section>
+
+        <button class="screen-btn" id="instructions" onclick="showInstructions()">
+            <img class="start-screen-img" src="./img/icons/information.png" alt="instructions">
+        </button>
+
+        <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
+            <img class="start-screen-img img-supplementary" id="fullscreenOn" src="./img/icons/fullscreen.png"
+                alt="fullscreen">
+            <img class="start-screen-img img-supplementary d-none" id="fullscreenOff"
+                src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
+        </button>
+
+
+
+        <div class="d-none" id="blackOverlay">
+            <section class="max-width instruction-screen">
+                <div class="close-overlay" id="close-overlay" onclick="closeOverlay()">
+                    <img class="instruction-keyboard-letter" src="./img/icons/close.png" alt="close overlay">
+                </div>
+                <div class="overlay-frame">
+                    <div class="instruction move">
+                        <h2>MOVE SHARKY</h2>
+                        <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
+                            alt="keyboard arrows">
                     </div>
-                    <div class="overlay-frame">
-                        <div class="instruction move">
-                            <h2>MOVE SHARKY</h2>
-                            <img class="instruction-keyboard-arrows" src="./img/6.Botones/Key/arrow keys.png"
-                                alt="keyboard arrows">
-                        </div>
-                        <div class="instruction collect">
-                            <h2>COLLECT ITEMS</h2>
-                            <div class="defend-sharky">
-                                <div class="range">
-                                    <img class="instruction-img-height" src="./img/4.Marcadores/1. Coins/4.png"
-                                        alt="coin">
-                                    <img class="instruction-img-height" src="./img/7.Instructions/poison.png"
-                                        alt="poison">
-                                </div>
-                                <div class="range">
-                                    <img class="instruction-img-height arrow-right" src="./img/icons/arrow-right.png"
-                                        alt="arrow right">
-                                    <img class="instruction-img-height arrow-right" src="./img/icons/arrow-right.png"
-                                        alt="arrow right">
-                                </div>
-                                <div class="range">
-                                    <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
-                                        alt="bubble">
-                                    <img class="instruction-img-height"
-                                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                                        alt="poisoned bubble">
-                                </div>
+                    <div class="instruction collect">
+                        <h2>COLLECT ITEMS</h2>
+                        <div class="defend-sharky">
+                            <div class="range">
+                                <img class="instruction-img-height" src="./img/4.Marcadores/1. Coins/4.png" alt="coin">
+                                <img class="instruction-img-height" src="./img/7.Instructions/poison.png" alt="poison">
+                            </div>
+                            <div class="range range-arrows">
+                                <img class="arrow-right" src="./img/icons/arrow-right.png"
+                                    alt="arrow right">
+                                <img class="arrow-right" src="./img/icons/arrow-right.png"
+                                    alt="arrow right">
+                            </div>
+                            <div class="range">
+                                <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                                    alt="bubble">
+                                <img class="instruction-img-height"
+                                    src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                    alt="poisoned bubble">
                             </div>
                         </div>
-                        <div class="instruction">
-                            <h2>ATTACK</h2>
-                            <div class="defend-sharky">
-                                <div class="range range-width range-left">
-                                    <img class="instruction-img-height" src="./img/icons/slap.png"
-                                        alt="slap with tail fin">
-                                    <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
-                                        alt="bubble">
-                                    <img class="instruction-img-height"
-                                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                                        alt="poisoned bubble">
+                    </div>
+                    <div class="instruction">
+                        <h2>ATTACK</h2>
+                        <div class="defend-sharky">
+                            <div class="range range-width range-left">
+                                <img class="instruction-img-height" src="./img/icons/slap.png" alt="slap with tail fin">
+                                <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                                    alt="bubble">
+                                <img class="instruction-img-height"
+                                    src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                                    alt="poisoned bubble">
+                            </div>
+                            <div class="range">
+                                <img class="instruction-space" src="./img/6.Botones/Key/Space Bar key.png"
+                                    alt="space bar">
+                                <div class="space-alternative">
+                                    <img class="whitespace" src="./img/icons/space.png" alt="space bar sign">
                                 </div>
-                                <div class="range">
-                                    <img class="instruction-space" src="./img/6.Botones/Key/Space Bar key.png"
-                                        alt="space bar">
-                                    <div class="space-alternative">
-                                        <img class="whitespace" src="./img/icons/space.png" alt="space bar sign">
-                                    </div>
-                                    <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png"
-                                        alt="D">
-                                    <div class="further-attack-options">
-                                        <p class="attack-label">F</p>
-                                    </div>
+                                <img class="instruction-keyboard-letter" src="./img/6.Botones/Key/D key.png" alt="D">
+                                <div class="further-attack-options">
+                                    <p class="attack-label">F</p>
                                 </div>
-                                <div class="range">
-                                    <div class="variety">
-                                        <div class="pufferfish-collection">
-                                            <img class="pufferfish-img-height"
-                                                src="./img/7.Instructions/puffer-green.png"
-                                                alt="all kind of pufferfishes, green">
-                                            <img class="pufferfish-img-height"
-                                                src="./img/7.Instructions/puffer-rose.png"
-                                                alt="all kind of pufferfishes, rose">
-                                        </div>
-                                        <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
-                                            alt="endboss">
+                            </div>
+                            <div class="range">
+                                <div class="variety">
+                                    <div class="pufferfish-collection">
+                                        <img class="pufferfish-img-height" src="./img/7.Instructions/puffer-green.png"
+                                            alt="all kind of pufferfishes, green">
+                                        <img class="pufferfish-img-height" src="./img/7.Instructions/puffer-rose.png"
+                                            alt="all kind of pufferfishes, rose">
                                     </div>
-                                    <img class="instruction-img-height"
-                                        src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png" alt="jellyfish">
                                     <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
                                         alt="endboss">
                                 </div>
+                                <img class="instruction-img-height"
+                                    src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png" alt="jellyfish">
+                                <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
+                                    alt="endboss">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+
 
         <section class="d-none" id="loadingSpinner">
             <div class="loading">
@@ -204,10 +200,10 @@
         </section>
 
         <section class="d-none" id="winScreen">
-            <div class="screen-content screen-size">
-                <img class="screen-img screen-img-half" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
+            <div class="screen-content">
+                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
                     alt="you win">
-                <div class="start-game restart-won-game">
+                <div class="game-btns restart-won-game">
                     <button class="imitated-play-button" onclick="backHome('winScreen')">
                         <h2 class="h2-variant">HOME</h2>
                     </button>
@@ -219,12 +215,12 @@
         </section>
 
         <section class="d-none" id="gameOverScreen">
-            <div class="screen-content screen-size">
+            <div class="screen-content">
                 <div>
                     <img class="gameOverLettering" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png"
                         alt="game over">
                 </div>
-                <div class="start-game restart-game-over">
+                <div class="game-btns restart-game-over">
                     <button class="imitated-play-button" onclick="backHome('gameOverScreen')">
                         <h2 class="h2-variant">HOME</h2>
                     </button>

@@ -9,14 +9,79 @@
         margin: 0;
     }
 
-    canvas,
-    .screen-img {
+    canvas {
         width: 100%;
+    }
+
+    .screen-img {
+        width: clamp(300px, 100%, 720px);
+        height: auto;
+        min-height: 250px;
+    }
+
+    .game-btns {
+        transform: translate(0, -96px);
+        gap: 8px;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .play-button {
+        border-radius: 16px;
+        height: 40px;
+    }
+
+    .play-img {
+        height: 40px;
     }
 
     .instruction-keyboard-arrows {
         padding-top: 4px;
     }
+
+    .screen-btn {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    .start-screen-img {
+        height: 42px;
+        width: 42px;
+    }
+
+    .img-supplementary {
+        height: 30px;
+        width: 30px;
+    }
+
+    .h2-variant {
+        font-size: 22px;
+        font-weight: 300;
+        padding: 4px 50px;
+        margin: 0;
+    }
+
+    .imitated-play-button {
+        border-radius: 11px;
+        border: 2px solid rgb(255, 255, 255);
+    }
+
+
+
+    /* #instructions {
+        z-index: 8000;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+    .fullscreen {
+        z-index: 8000;
+        position: absolute;
+        right: 8px;
+        bottom: 24px;
+    } */
+
 
 }
 
@@ -49,6 +114,14 @@
 
     .range-width {
         width: 59.11px;
+    }
+
+    .range-arrows {
+        gap: 24px;
+    }
+
+    .arrow-right {
+        height: 16px;
     }
 
     .instruction-space {
@@ -118,10 +191,6 @@
         display: none;
     }
 
-    .screen-img {
-        transform: translateY(103px);
-    }
-
     .touchscreen-btn {
         border: 2px solid rgb(255, 255, 255);
         border-radius: 50%;
@@ -145,10 +214,6 @@
     .attack-btn-img {
         width: 24px;
         height: 24px;
-    }
-
-    .volume-fullscreen {
-        transform: translateX(0);
     }
 
     .black-overlay {

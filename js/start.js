@@ -7,7 +7,7 @@ function startGame(screenId) {
     setTimeout(() => {
         init();
         hideLoadingSpinner();
-    }, 1500);
+    }, 2000);
 }
 
 function stopScreen(screenId) {
@@ -60,4 +60,3 @@ function handleScrollbar() {
     blackOverlayRef.classList.contains('d-none') ? document.body.classList.remove('overlay-active') :
         document.body.classList.add('overlay-active');
 }
-
