@@ -1,3 +1,42 @@
+@media (max-width: 944px) {
+    .close-overlay {
+        padding-right: 48px;
+    }
+
+    .game-btns {
+        transform: translate(0, -96px);
+        gap: 8px;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .play-button {
+        border-radius: 16px;
+        height: 40px;
+    }
+
+    .play-img {
+        height: 40px;
+    }
+
+    .screen-btn {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    .repeating-screen-img {
+        height: 42px;
+        width: 42px;
+    }
+
+    .repeating-img-supplementary {
+        height: 30px;
+        width: 30px;
+    }
+
+}
+
 @media (max-width: 900px) {
     .close-overlay {
         padding-right: 48px;
@@ -19,40 +58,8 @@
         min-height: 250px;
     }
 
-    .game-btns {
-        transform: translate(0, -96px);
-        gap: 8px;
-        flex-direction: column;
-        justify-content: flex-end;
-    }
-
-    .play-button {
-        border-radius: 16px;
-        height: 40px;
-    }
-
-    .play-img {
-        height: 40px;
-    }
-
     .instruction-keyboard-arrows {
         padding-top: 4px;
-    }
-
-    .screen-btn {
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-    }
-
-    .repeating-screen-img {
-        height: 42px;
-        width: 42px;
-    }
-
-    .repeating-img-supplementary {
-        height: 30px;
-        width: 30px;
     }
 
     .h2-variant {
@@ -69,18 +76,49 @@
 
 
 
-    /* #instructions {
+    #instructions {
         z-index: 8000;
         position: absolute;
         top: 8px;
         right: 8px;
     }
+
     .fullscreen {
         z-index: 8000;
         position: absolute;
         right: 8px;
         bottom: 24px;
-    } */
+    }
+
+    .footer-integration {
+        display: none;
+    }
+
+    .responsive-footer {
+        display: flex;
+    }
+
+    .resp-footer-btn {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: 8px;
+        top: 56px;
+    }
+
+    .footer-img {
+        height: 26px;
+        width: 22px;
+    }
+
+    .resp-footer-box {
+        background: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 54px;
+        right: 56px;
+        width: 80px;
+        text-align: right;
+    }
 
 
 }
@@ -160,11 +198,6 @@
 
 }
 
-/* @media (max-height: 500px) {
-    .footer-integration {
-        display: none;
-    }
-} */
 
 @media only screen and (max-height: 480px) {
     h1 {
@@ -189,6 +222,32 @@
 
     .footer-integration {
         display: none;
+    }
+
+    .responsive-footer {
+        display: flex;
+    }
+
+    .resp-footer-btn {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: 8px;
+        top: 56px;
+    }
+
+    .footer-img {
+        height: 26px;
+        width: 22px;
+    }
+
+    .resp-footer-box {
+        background: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 54px;
+        right: 56px;
+        width: 80px;
+        text-align: right;
     }
 
     .touchscreen-btn {
@@ -239,6 +298,20 @@
 
     .instruction-space {
         display: none;
+    }
+
+    #instructions {
+        z-index: 8000;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .fullscreen {
+        z-index: 8000;
+        position: absolute;
+        right: 8px;
+        bottom: 24px;
     }
 
 

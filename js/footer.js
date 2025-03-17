@@ -11,3 +11,9 @@ async function includeHTML() {
         }
     }
 }
+
+function toggleFooterMenu() {
+    const respFooterRef = document.getElementById('responsiveFooter');
+
+    respFooterRef.classList.toggle('d-none');
+}

@@ -83,8 +83,8 @@
                     <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
                 </button>
                 <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
-                    <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
-                        alt="loudspeaker off button">
+                    <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff"
+                        src="./img/icons/mute.png" alt="loudspeaker off button">
                     <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
                         src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
                 </button>
@@ -96,8 +96,8 @@
         </button>
 
         <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
-            <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn" src="./img/icons/fullscreen.png"
-                alt="fullscreen">
+            <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn"
+                src="./img/icons/fullscreen.png" alt="fullscreen">
             <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"
                 src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
         </button>
@@ -121,10 +121,8 @@
                                 <img class="instruction-img-height" src="./img/7.Instructions/poison.png" alt="poison">
                             </div>
                             <div class="range range-arrows">
-                                <img class="arrow-right" src="./img/icons/arrow-right.png"
-                                    alt="arrow right">
-                                <img class="arrow-right" src="./img/icons/arrow-right.png"
-                                    alt="arrow right">
+                                <img class="arrow-right" src="./img/icons/arrow-right.png" alt="arrow right">
+                                <img class="arrow-right" src="./img/icons/arrow-right.png" alt="arrow right">
                             </div>
                             <div class="range">
                                 <img class="bubble-img-height" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
@@ -188,8 +186,7 @@
 
         <section class="d-none" id="winScreen">
             <div class="screen-content">
-                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png"
-                    alt="you win">
+                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="you win">
                 <div class="game-btns restart-won-game">
                     <button class="imitated-play-button" onclick="backHome('winScreen')">
                         <h2 class="h2-variant">HOME</h2>
@@ -217,6 +214,17 @@
                 </div>
             </div>
         </section>
+
+        <section class="responsive-footer">
+            <button class="screen-btn btn-supplementary resp-footer-btn" onclick="toggleFooterMenu()">
+                <img class="repeating-screen-img footer-img" src="./img/icons/policy-icon.png" alt="Links to Imprint & Privacy Policy">
+            </button>
+            <div class="resp-footer-box d-none" id="responsiveFooter">
+                <a class="menu-links" href="imprint.html">Imprint</a>
+                <a class="menu-links" href="privacy-policy.html">Policy</a>
+            </div>
+        </section>
+
     </div>
 
     <div class="footer-integration" w3-include-html="footer.html"></div>
