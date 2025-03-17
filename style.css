@@ -70,18 +70,45 @@ button:hover {
 }
 
 .screen-content {
-    z-index: 10;
+    z-index: 6000;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
+    width: 720px;
+    height: 480px;
+    padding: 80px;
+    gap: 16px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
 }
 
-.screen-img {
+.start-screen {
+    justify-content: flex-end;
+    background-image: url('./img/3.Background/Mesa de trabajo 1.png');
+}
+
+.win-screen {
+    justify-content: space-between;
+    background-image: url('./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png');
+}
+
+.game-over-screen {
+    justify-content: space-between;
+    background: rgb (0, 0, 0, 0.2);
+}
+
+
+
+
+
+/* .screen-img {
     object-position: center;
     width: 720px;
     height: 480px;
-}
+} */
 
 .gameOverLettering {
     height: 60px;
@@ -107,7 +134,7 @@ button:hover {
 }
 
 .loading-spinner {
-    width: clamp(50px, 16%, 160px);
+    width: clamp(50px, 16%, 100px);
     margin: 40px 0;
     animation: rotate 1s linear infinite;
 }
@@ -122,7 +149,7 @@ button:hover {
     }
 }
 
-.game-btns {
+/* .game-btns {
     z-index: 100;
     position: relative;
     display: flex;
@@ -131,9 +158,9 @@ button:hover {
     align-items: center;
     gap: 180px;
     transform: translate(30%, -90px);
-}
+} */
 
-.restart-won-game {
+/* .restart-won-game {
     gap: 16px;
     transform: translate(24%, -90px);
 }
@@ -142,7 +169,7 @@ button:hover {
     justify-content: center;
     height: 100vh;
     transform: translate(0, 0);
-}
+} */
 
 .screen-btn {
     z-index: 1000;

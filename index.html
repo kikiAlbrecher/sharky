@@ -76,19 +76,16 @@
             </section>
         </section>
 
-        <section class="screen-content" id="startScreen">
-            <img class="screen-img" src="./img/3.Background/Mesa de trabajo 1.png" alt="start screen">
-            <div class="game-btns">
-                <button class="play-button" onclick="startGame('startScreen')">
-                    <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
-                </button>
-                <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
-                    <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff"
-                        src="./img/icons/mute.png" alt="loudspeaker off button">
-                    <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
-                        src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
-                </button>
-            </div>
+        <section class="screen-content start-screen" id="startScreen">
+            <button class="play-button" onclick="startGame('startScreen')">
+                <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
+            </button>
+            <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
+                <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                    alt="loudspeaker off button">
+                <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
+                    src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
+            </button>
         </section>
 
         <button class="screen-btn" id="instructions" onclick="showInstructions()">
@@ -181,7 +178,6 @@
             </section>
         </div>
 
-
         <section class="d-none" id="loadingSpinner">
             <div class="loading">
                 <img class="loading-spinner" src="./img/sharky-loading-spinner.png" alt="loading spinner">
@@ -189,33 +185,25 @@
         </section>
 
         <section class="d-none" id="winScreen">
-            <div class="screen-content">
-                <img class="screen-img" src="./img/6.Botones/Tittles/You win/Mesa de trabajo 1.png" alt="you win">
-                <div class="game-btns restart-won-game">
-                    <button class="imitated-play-button" onclick="backHome('winScreen')">
-                        <h2 class="h2-variant">HOME</h2>
-                    </button>
-                    <button class="play-button" onclick="restartGame('winScreen')">
-                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
-                    </button>
-                </div>
+            <div class="screen-content win-screen">
+                <button class="imitated-play-button" onclick="backHome('winScreen')">
+                    <h2 class="h2-variant">HOME</h2>
+                </button>
+                <button class="play-button" onclick="restartGame('winScreen')">
+                    <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
+                </button>
             </div>
         </section>
 
         <section class="d-none" id="gameOverScreen">
-            <div class="screen-content">
-                <div>
-                    <img class="gameOverLettering" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png"
-                        alt="game over">
-                </div>
-                <div class="game-btns restart-game-over">
-                    <button class="imitated-play-button" onclick="backHome('gameOverScreen')">
-                        <h2 class="h2-variant">HOME</h2>
-                    </button>
-                    <button class="play-button" onclick="restartGame('gameOverScreen')">
-                        <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
-                    </button>
-                </div>
+            <div class="screen-content game-over-screen">
+                <button class="imitated-play-button" onclick="backHome('gameOverScreen')">
+                    <h2 class="h2-variant">HOME</h2>
+                </button>
+                <img class="gameOverLettering" src="./img/6.Botones/Tittles/Game Over/Recurso 12.png" alt="game over">
+                <button class="play-button" onclick="restartGame('gameOverScreen')">
+                    <img class="play-img" src="./img/6.Botones/Try again/Recurso 17.png" alt="restart button">
+                </button>
             </div>
         </section>
 

@@ -103,8 +103,6 @@ class World {
                         if (this.character.energy <= 0) {
                             this.character.energy = 0;
                             this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
-                            this.character = null;
-                            // ?
                         } else {
                             this.character.playAnimation(this.character.IMAGES_HURT_POISON);
                         }
