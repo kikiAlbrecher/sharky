@@ -209,12 +209,14 @@ class Character extends MovableObject {
             // } 
             else if (this.world.keyboard.THROW) {
                 if (this.coinAmount > 0 && !this.isDead()) {
+                    throwingBubbles.play();
                     this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
                 }
             } else if (this.world.keyboard.THROW_POISON) {
                 if (this.poisonAmount > 0 && !this.isDead()) {
+                    throwingBubbles.play();
                     this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
                 } else {
                     this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
@@ -231,6 +233,9 @@ class Character extends MovableObject {
             } if (this.x > 2300 && !this.isDead()) {
                 backgroundHappy.pause();
                 endbossFight.play();
+                if (endbossFight.play()) {
+                    backgroundHappy.volume = 0;
+                }
             }
 
             if (this.world.keyboard.SPACE) {

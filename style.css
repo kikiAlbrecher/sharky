@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'luckiest-guy', Arial, Helvetica, sans-serif;
+    color: white;
     background-image: url('./img/bg-corals.jpg');
     background-position: center;
     background-size: cover;
@@ -265,9 +266,18 @@ h2 {
     font-family: 'luckiest-guy';
 }
 
+.h2-collect {
+    margin-bottom: 0;
+}
+
+.p-collect {
+    margin: 0;
+}
+
 .instruction-keyboard-arrows {
     height: 100px;
-    padding-bottom: 16px;
+    padding-top: 4px;
+    padding-bottom: 24px;
 }
 
 .instruction-space {
@@ -291,6 +301,10 @@ h2 {
     height: 24px;
 }
 
+.h2-attack {
+    margin-bottom: 12px;
+}
+
 .defend-sharky {
     display: flex;
     flex-direction: row;
@@ -303,7 +317,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 16px;
+    padding-bottom: 24px;
     gap: 6px;
 }
 
@@ -312,7 +326,7 @@ h2 {
 }
 
 .range-left {
-    gap: 8px;
+    gap: 10px;
 }
 
 .range-arrows {
@@ -334,6 +348,10 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.space-alternative-middle {
+    display: none;
 }
 
 .attack-label {

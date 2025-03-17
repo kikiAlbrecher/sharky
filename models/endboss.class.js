@@ -86,6 +86,7 @@ class Endboss extends MovableObject {
 
     animateIntroducedEndboss() {
         if (this.isHurtPoison() && this.energy > 0) {
+            endbossPain.play();
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.isDead() && !this.isDeadAnimationPlayed) {
             this.playAnimation(this.IMAGES_DEAD);
