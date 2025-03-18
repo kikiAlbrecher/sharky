@@ -9,7 +9,6 @@
         padding-right: 8px;
         padding-left: 8px;
     }
-
 }
 
 @media (max-width: 944px) {
@@ -17,11 +16,15 @@
         padding-right: 48px;
     }
 
-    .game-btns {
-        transform: translate(0, -96px);
-        gap: 8px;
-        flex-direction: column;
-        justify-content: flex-end;
+    .h2-variant {
+        font-size: 22px;
+        font-weight: 300;
+        padding: 4px 50px;
+    }
+
+    .imitated-play-button {
+        border-radius: 11px;
+        border: 2px solid rgb(255, 255, 255);
     }
 
     .play-button {
@@ -58,7 +61,9 @@
 }
 
 @media only screen and (max-width: 720px) {
-    h2, .h2-attack {
+
+    h2,
+    .h2-attack {
         margin: 0;
     }
 
@@ -67,25 +72,16 @@
     }
 
     .screen-content {
-        width: clamp(300px, 100%, 720px);
-        height: clamp(250px, 100vh, 480px);
-        /* min-height: 250px; */
+        width: 100%;
+    }
+
+    .win-screen {
+width: 100%;
+background-size: contain;
     }
 
     .instruction-keyboard-arrows {
         padding-top: 4px;
-    }
-
-    .h2-variant {
-        font-size: 22px;
-        font-weight: 300;
-        padding: 4px 50px;
-        margin: 0;
-    }
-
-    .imitated-play-button {
-        border-radius: 11px;
-        border: 2px solid rgb(255, 255, 255);
     }
 
     #instructions {
@@ -151,6 +147,17 @@
     }
 
 
+}
+
+@media (max-width: 600px) {
+    .screen-content {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .game-over-lettering {
+        height: 40px;
+    }
 }
 
 @media (max-width: 544px) {
@@ -244,6 +251,10 @@
 
     canvas {
         height: calc(100vh - 40px);
+    }
+
+    .screen-content {
+        height: clamp(250px, 100vh, 480px);
     }
 
     /* .mobile-btn-section {

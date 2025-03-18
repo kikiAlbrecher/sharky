@@ -96,21 +96,11 @@ button:hover {
 }
 
 .game-over-screen {
+    background-color: rgba(0, 0, 0, 0.2);
     justify-content: space-between;
-    background: rgb (0, 0, 0, 0.2);
 }
 
-
-
-
-
-/* .screen-img {
-    object-position: center;
-    width: 720px;
-    height: 480px;
-} */
-
-.gameOverLettering {
+.game-over-lettering {
     height: 60px;
     padding-top: 40px;
 }
@@ -214,6 +204,7 @@ button:hover {
 }
 
 .screen-btn:hover,
+.imitated-play-button:hover,
 .play-button:hover {
     box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
 }
@@ -295,6 +286,14 @@ h2 {
 
 .h2-collect {
     margin-bottom: 0;
+}
+
+.h2-variant {
+    color: rgb(83, 26, 130);
+    font-size: 28px;
+    font-weight: 500;
+    padding: 8px 80px;
+    margin: 0;
 }
 
 .p-collect {
@@ -426,10 +425,14 @@ h2 {
 }
 
 .imitated-play-button {
-    border-radius: 20px;
+    border-radius: 16px;
     border: 3px solid rgb(255, 255, 255);
     background: rgb(127, 255, 224);
 }
+
+/* .imitated-play-button:hover {
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+} */
 
 .responsive-footer {
     display: none;
