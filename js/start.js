@@ -1,6 +1,7 @@
 function startGame(screenId) {
+    storeSoundStatus();
+    restoreSoundStatus();
     stopScreen(screenId);
-    backgroundHappy.play();
     showCanvas();
     showLoadingSpinner();
     initLevel1();

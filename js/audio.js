@@ -38,8 +38,10 @@ let allAudios = [
     snore,
     collectedCoin,
     collectedPoison,
+    throwingBubbles,
     pain,
     endbossFight,
+    endbossPain,
     win,
     gameOver,
     gameEnd

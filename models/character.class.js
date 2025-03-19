@@ -195,7 +195,7 @@ class Character extends MovableObject {
     }
 
     playAnimationMoveCharacter() {
-        if (this.isAboveGround()) {
+        // if (this.isAboveGround()) {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.idleTime = 0;
                 this.playAnimation(this.IMAGES_SWIMMING);
@@ -258,7 +258,7 @@ class Character extends MovableObject {
                     gameEnd.play();
                 }, 2600);
             }
-        }
+        // }
     }
 
     collectCoins() {

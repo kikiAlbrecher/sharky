@@ -76,8 +76,8 @@
     }
 
     .win-screen {
-width: 100%;
-background-size: contain;
+        width: 100%;
+        background-size: contain;
     }
 
     .instruction-keyboard-arrows {
@@ -85,9 +85,12 @@ background-size: contain;
     }
 
     #instructions {
-        z-index: 8000;
-        position: absolute;
         top: 8px;
+        right: 8px;
+    }
+
+    .mute-btn {
+        top: 104px;
         right: 8px;
     }
 
@@ -105,8 +108,6 @@ background-size: contain;
     }
 
     .fullscreen {
-        z-index: 8000;
-        position: absolute;
         right: 8px;
         bottom: 24px;
     }
@@ -287,6 +288,7 @@ background-size: contain;
     }
 
     .resp-footer-box {
+        z-index: 2000;
         background: rgba(0, 0, 0, 0.2);
         position: absolute;
         top: 54px;
@@ -336,18 +338,20 @@ background-size: contain;
     }
 
     #instructions {
-        z-index: 8000;
-        position: absolute;
         top: 8px;
         right: 8px;
     }
 
+    .mute-btn {
+        top: 104px;
+        right: 8px;
+    }
+
     .fullscreen {
-        z-index: 8000;
-        position: absolute;
         right: 8px;
         bottom: 24px;
     }
+
 
 
 

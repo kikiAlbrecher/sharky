@@ -37,6 +37,7 @@
     <script src="./js/audio.js"></script>
     <script src="./js/start.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/landscapeMode.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/footer.js"></script>
 
@@ -80,16 +81,13 @@
             <button class="play-button" onclick="startGame('startScreen')">
                 <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
             </button>
-            <button class="screen-btn btn-supplementary" onclick="toggleVolumeStart()">
-                <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
-                    alt="loudspeaker off button">
-                <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
-                    src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
-            </button>
         </section>
 
-        <button class="screen-btn" id="instructions" onclick="showInstructions()">
-            <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
+        <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart()">
+            <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                alt="loudspeaker off button">
+            <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
+                src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
         </button>
 
         <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
@@ -97,6 +95,10 @@
                 src="./img/icons/fullscreen.png" alt="fullscreen">
             <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"
                 src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
+        </button>
+
+        <button class="screen-btn" id="instructions" onclick="showInstructions()">
+            <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
         </button>
 
         <div class="d-none" id="blackOverlay">

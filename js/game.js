@@ -14,6 +14,47 @@ function setStoppableInterval(fn, time) {
     return id;
 }
 
+function toggleVolumeStart() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+    const startScreenRef = document.getElementById('startScreen');
+
+    loudspeakerOffRef.classList.toggle('d-none');
+    loudspeakerOnRef.classList.toggle('d-none');
+    storeSoundStatus();
+    startScreenRef.classList.contains('d-none') ? toggleSound() : toggleSoundStart();
+}
+
+function storeSoundStatus() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+
+    if (loudspeakerOffRef.classList.contains('d-none')) {
+        sessionStorage.setItem('soundStatus', 'on');
+    } else {
+        sessionStorage.setItem('soundStatus', 'off');
+    }
+}
+
+function toggleSoundStart() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+
+    loudspeakerOffRef.classList.contains('d-none') ? backgroundHappy.play() : backgroundHappy.pause();
+}
+
+function toggleSound() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+
+    if (loudspeakerOffRef.classList.contains('d-none')) {
+        allAudios.forEach(audio => {
+            audio.muted = false;
+        });
+    } else {
+        allAudios.forEach(audio => {
+            audio.muted = true;
+        });
+    }
+}
+
 function toggleFullscreenImg() {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
     const exitFullscreenImgRef = document.getElementById('fullscreenOff');
@@ -43,7 +84,7 @@ function enterFullscreen() {
     else if (elem.mozRequestFullscreen) elem.mozRequestFullscreen();
     else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
     else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-    else console.error('Fullscreen ist in diesem Browser nicht verfügbar.');
+    else console.error('Fullscreen is not available.');
 }
 
 function exitFullscreen() {
@@ -51,52 +92,13 @@ function exitFullscreen() {
     else if (document.mozCancelFullscreen) document.mozCancelFullscreen();
     else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     else if (document.msExitFullscreen) document.msExitFullscreen();
-    else console.error('Fullscreen konnte nicht beendet werden.');
-}
-
-
-function toggleVolumeStart() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
-
-    loudspeakerOffRef.classList.toggle('d-none');
-    loudspeakerOnRef.classList.toggle('d-none');
-    toggleSoundStart();
-}
-
-function toggleSoundStart() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-
-    loudspeakerOffRef.classList.contains('d-none') ? backgroundHappy.play() : backgroundHappy.pause();
-}
-
-function toggleLoudspeakers() {
-    const loudspeakerOffRef = document.getElementById('mobileMute');
-    const loudspeakerOnRef = document.getElementById('mobileSound');
-
-    loudspeakerOffRef.classList.toggle('d-none');
-    loudspeakerOnRef.classList.toggle('d-none');
-    toggleSound();
-}
-
-function toggleSound() {
-    const loudspeakerOffRef = document.getElementById('mobileMute');
-
-    if (loudspeakerOffRef.classList.contains('d-none')) {
-        allAudios.forEach(audio => {
-            audio.muted = true;
-        });
-    } else {
-        allAudios.forEach(audio => {
-            audio.muted = false;
-        });
-    }
+    else console.error('Fullscreen could not be exited.');
 }
 
 window.addEventListener('keydown', (event) => {
-    if (event.defaultPrevented) {
-        return;
-    }
+    if (event.defaultPrevented) return;
+    event.preventDefault();
+    event.stopPropagation();
     switch (event.code) {
         case "ArrowUp":
             keyboard.UP = true;
@@ -125,9 +127,9 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keyup', (event) => {
-    if (event.defaultPrevented) {
-        return;
-    }
+    if (event.defaultPrevented) return;
+    event.preventDefault();
+    event.stopPropagation();
     switch (event.code) {
         case "ArrowUp": keyboard.UP = false;
             break;
@@ -155,9 +157,7 @@ window.addEventListener('keyup', (event) => {
 });
 
 window.addEventListener('touchstart', (event) => {
-    if (event.defaultPrevented) {
-        return;
-    }
+    if (event.defaultPrevented) return;
 
     const button = event.target.closest('.touchscreen-btn');
     if (!button) return;
@@ -174,9 +174,7 @@ window.addEventListener('touchstart', (event) => {
 });
 
 window.addEventListener('touchend', (event) => {
-    if (event.defaultPrevented) {
-        return;
-    }
+    if (event.defaultPrevented) return;
 
     const button = event.target.closest('.touchscreen-btn');
     if (!button) return;
@@ -213,6 +211,7 @@ function restartGame(screenId) {
     startGame(screenId);
     hadFirstContact = false;
     endbossIsIntroduced = false;
+    restoreSoundStatus();
 }
 
 function backHome(screenPrefix) {
@@ -224,4 +223,22 @@ function backHome(screenPrefix) {
     startScreen.style.display = 'flex';
     hadFirstContact = false;
     endbossIsIntroduced = false;
+    restoreSoundStatus();
+}
+
+function restoreSoundStatus() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+    const soundStatus = sessionStorage.getItem('soundStatus');
+
+    if (soundStatus === 'on') {
+        loudspeakerOffRef.classList.add('d-none');
+        loudspeakerOnRef.classList.remove('d-none');
+        backgroundHappy.play();
+        backgroundHappy.volume = 1;
+    } else {
+        loudspeakerOffRef.classList.remove('d-none');
+        loudspeakerOnRef.classList.add('d-none');
+        // toggleSound();
+    }
 }
