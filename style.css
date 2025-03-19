@@ -67,6 +67,11 @@ button:hover {
     height: 40px;
     width: 100%;
     background: rgb(47, 39, 113);
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .screen-content {
@@ -88,7 +93,7 @@ button:hover {
 .start-screen {
     justify-content: flex-end;
     align-items: flex-end;
-    padding-right: 100px;
+    padding-right: 200px;
     background-image: url('./img/3.Background/Mesa de trabajo 1.png');
 }
 

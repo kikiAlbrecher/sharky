@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./styles/policy.css">
+    <link rel="stylesheet" href="./styles/landscape-mode.css">
 
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
@@ -43,39 +44,49 @@
 
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), initLandscapeMode()">
     <div class="max-width">
         <section id="gameScreen">
             <h1 id="gameName">Sharky</h1>
-            <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
+            <canvas width="720" height="480" class="d-none" id="canvas">
 
-            <section class="mobile-btn-section d-none">
-                <button class="touchscreen-btn" id="btnUp">
-                    <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
-                </button>
-                <button class="touchscreen-btn" id="btnRight">
-                    <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
-                </button>
-                <button class="touchscreen-btn" id="btnLeft">
-                    <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
-                </button>
-                <button class="touchscreen-btn" id="btnDown">
-                    <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
-                </button>
-                <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
-                    <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
-                        alt="bubble">
-                </button>
-                <button class="touchscreen-btn attack-btn" id="btnAttackPoison">
-                    <img class="touch-btn-img"
-                        src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
-                        alt="poisoned bubble">
-                </button>
-                <button class="touchscreen-btn attack-btn" id="btnAttackFin">
-                    <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
-                </button>
-            </section>
+                <section class="mobile-btn-section d-none" id="mobileBtns">
+                    <button class="touchscreen-btn" id="btnUp">
+                        <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
+                    </button>
+                    <button class="touchscreen-btn" id="btnRight">
+                        <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
+                    </button>
+                    <button class="touchscreen-btn" id="btnLeft">
+                        <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
+                    </button>
+                    <button class="touchscreen-btn" id="btnDown">
+                        <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
+                    </button>
+                    <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
+                        <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
+                            alt="bubble">
+                    </button>
+                    <button class="touchscreen-btn attack-btn" id="btnAttackPoison">
+                        <img class="touch-btn-img"
+                            src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png"
+                            alt="poisoned bubble">
+                    </button>
+                    <button class="touchscreen-btn attack-btn" id="btnAttackFin">
+                        <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
+                    </button>
+                </section>
+            </canvas>
         </section>
+
+        <div class="screen-layer d-none" id="portraitMessage">
+            <div class="portrait-message">
+                <div class="mobile-device-rotation">
+                    <img class="mobile-device" src="./img/icons/mobile-device.png" alt="rotating device image">
+                </div>
+                <p class="device-portrait">Please rotate your device.</p>
+            </div>
+        </div>
 
         <section class="screen-content start-screen" id="startScreen">
             <button class="play-button" onclick="startGame('startScreen')">
