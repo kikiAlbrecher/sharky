@@ -280,10 +280,34 @@ class World {
                         this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
                     }
 
-                } else if (this.hadFirstContact) {
+                } else if (this.hadFirstContact && !this.endboss.isDead()) {
                     this.endboss.animateIntroducedEndboss();
+                    setTimeout(() => {
+                        this.endbossAttacks();
+                    }, 6000);
                 }
             }
         }, 150);
     }
+
+    endbossAttacks() {
+        this.endboss.playAnimation(this.endboss.IMAGES_ATTACKING);
+        let followSharkyInterval = setInterval(() => {
+            if (this.endboss.isDead() || this.character.isDead()) {
+                clearInterval(followSharkyInterval); // Stoppe das Verfolgen, wenn entweder der Endboss oder Sharky stirbt
+                return;
+            }
+    
+            // Berechne Richtung, in die der Endboss gehen soll, basierend auf der Position von Sharky
+            if (this.character.x > this.endboss.x) {
+                this.endboss.moveRight();
+                this.endboss.otherDirection = true;
+            } else if (this.character.x < this.endboss.x) this.endboss.moveLeft();
+
+            if (this.character.y > this.endboss.y && this.endboss.y < 110) this.endboss.moveDown();
+            else if (this.character.y < this.endboss.y) this.endboss.moveUp();
+        }, 1000);
+    }
+
+
 }

@@ -71,7 +71,6 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
     ];
 
-
     constructor() {
         super();
         this.loadImg(this.IMAGES_INTRODUCING[0]);
@@ -82,7 +81,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImg(this.IMAGES_DEAD_END);
     }
-
 
     animateIntroducedEndboss() {
         if (this.isHurtPoison() && this.energy > 0) {
@@ -110,7 +108,6 @@ class Endboss extends MovableObject {
             setTimeout(() => {
                 win.pause();
                 this.displayWinScreen();
-                gameEnd.currentTime = 0;
                 gameEnd.play();
             }, 2200);
         } else if (!this.isDead()) {
