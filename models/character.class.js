@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 0;
+    x = 100;
     width = 280;
     height = 280;
     speed = 16;
@@ -282,12 +282,14 @@ class Character extends MovableObject {
     }
 
     collectBubbles() {
-        this.bubblesAmount += this.bubblesDelta;
         if (this.bubblesAmount == 100) {
             return;
         } else {
             this.bubblesAmount += this.bubblesDelta;
         }
+        // if (this.bubblesAmount < 100) {
+        //     this.bubblesAmount += this.bubblesDelta;
+        // }
     }
 
     displayGameOver() {

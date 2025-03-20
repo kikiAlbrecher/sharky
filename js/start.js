@@ -1,6 +1,9 @@
+function play(screenId) {
+    putLoudspeakersOn();
+    startGame(screenId);
+}
+
 function startGame(screenId) {
-    storeSoundStatus();
-    restoreSoundStatus();
     stopScreen(screenId);
     showCanvas();
     showLoadingSpinner();
@@ -9,6 +12,24 @@ function startGame(screenId) {
         init();
         hideLoadingSpinner();
     }, 2000);
+}
+
+function putLoudspeakersOn() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+
+    loudspeakerOffRef.classList.add('d-none');
+    loudspeakerOnRef.classList.remove('d-none');
+}
+
+function playSoundByStatus() {
+    const soundStatus = sessionStorage.getItem('soundStatus');
+
+    if (soundStatus === 'off') {
+        stopAllAudios();
+    } else {
+        backgroundHappy.play();
+    }
 }
 
 function stopScreen(screenId) {

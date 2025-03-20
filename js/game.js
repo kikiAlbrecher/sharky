@@ -211,6 +211,7 @@ function restartGame(screenId) {
     startGame(screenId);
     hadFirstContact = false;
     endbossIsIntroduced = false;
+    backgroundHappy.volume = 1;
     restoreSoundStatus();
 }
 
@@ -223,6 +224,7 @@ function backHome(screenPrefix) {
     startScreen.style.display = 'flex';
     hadFirstContact = false;
     endbossIsIntroduced = false;
+    backgroundHappy.volume = 1;
     restoreSoundStatus();
 }
 
@@ -235,10 +237,9 @@ function restoreSoundStatus() {
         loudspeakerOffRef.classList.add('d-none');
         loudspeakerOnRef.classList.remove('d-none');
         backgroundHappy.play();
-        backgroundHappy.volume = 1;
     } else {
         loudspeakerOffRef.classList.remove('d-none');
         loudspeakerOnRef.classList.add('d-none');
-        // toggleSound();
+        backgroundHappy.pause();
     }
 }

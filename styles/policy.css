@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0, 0, 0);
+    font-family: 'open-sans-regular', Arial, Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+    padding: 0 80px 112px 80px;
+}
+
+@font-face {
+    font-family: 'luckiest-guy';
+    src: url('../fonts/luckiest-guy.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'open-sans-regular';
+    src: url('../fonts/open-sans-regular.ttf') format('truetype');
+}
+
+.policy-section {
+    max-width: 1920px;
+    width: 100%;
+    height: calc(100vh - 104px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.policy-content {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    /* align-items: flex-start; */
+    width: 100%;
+    padding: 0 80px 112px 80px;
+}
+
+.h1 {
+    font-family: 'luckiest-guy';
+}
+
+.h2_imprint_policy {
+    text-align: left;
+    word-wrap: break-word;
+    padding-top: 32px;
+}
+
+.h3_imprint_policy {
+    font-weight: 500;
+}
+
+p {
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+strong {
+    line-height: 150%;
+}
+
+.link_imprint_policy {
+    word-wrap: break-all;
+}
+
+li {
+    word-wrap: break-word;
+}
+
+@media(max-width: 500px) {
+    .link_imprint_policy {
+        font-size: 14px;
+    }
+
+    ul {
+        padding-left: 16px;
+    }
+
+    p {
+        text-align: left;
+    }
+}
