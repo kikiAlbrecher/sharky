@@ -18,6 +18,11 @@ body {
     /* position: relative; */
 }
 
+@font-face {
+    font-family: 'luckiest-guy';
+    src: url('./fonts/luckiest-guy.ttf') format('truetype');
+}
+
 .max-width {
     max-width: 1920px;
     width: 100%;
@@ -33,12 +38,24 @@ canvas {
     display: block;
 }
 
-@font-face {
-    font-family: 'luckiest-guy';
-    src: url('./fonts/luckiest-guy.ttf') format('truetype');
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mobile-btn-section {
+    height: 40px;
+    width: 100%;
+    background: rgb(47, 39, 113);
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 h1 {
+    text-align: center;
     font-size: 64px;
     font-weight: 500;
     color: rgb(25, 67, 76);
@@ -61,17 +78,6 @@ button {
 a:hover,
 button:hover {
     cursor: pointer;
-}
-
-.mobile-btn-section {
-    height: 40px;
-    width: 100%;
-    background: rgb(47, 39, 113);
-    z-index: 10;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
 }
 
 .screen-content {

@@ -2,15 +2,15 @@ body {
     margin: 0;
     overflow: scroll;
     scroll-behavior: smooth;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background: rgb(0, 0, 0);
     font-family: 'open-sans-regular', Arial, Helvetica, sans-serif;
+    font-size: 22px;
     color: rgb(255, 255, 255);
-    padding: 0 80px 112px 80px;
+    word-wrap: break-word;
 }
 
 @font-face {
@@ -26,57 +26,98 @@ body {
 .policy-section {
     max-width: 1920px;
     width: 100%;
-    height: calc(100vh - 104px);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-}
-
-.policy-content {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: flex-start; */
-    /* align-items: flex-start; */
-    width: 100%;
+    align-items: flex-start;
     padding: 0 80px 112px 80px;
 }
 
-.h1 {
+h1 {
     font-family: 'luckiest-guy';
+    margin: 0;
+    padding: 16px 0;
 }
 
-.h2_imprint_policy {
+h2 {
     text-align: left;
     word-wrap: break-word;
-    padding-top: 32px;
+    margin: 0;
+    padding-bottom: 16px;
 }
 
-.h3_imprint_policy {
+h3 {
     font-weight: 500;
+    margin: 0;
+    padding-bottom: 16px;
+}
+
+.address {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
+
+a {
+    font-size: 20px;
+    padding-bottom: 0;
+    color: rgb(127, 255, 224);
+    text-decoration: none;
+    word-wrap: break-all;
+}
+
+a:hover {
+    color: rgb(193, 252, 237);
 }
 
 p {
     text-align: justify;
     word-wrap: break-word;
+    margin: 0;
+    padding-bottom: 8px;
 }
 
 strong {
     line-height: 150%;
 }
 
-.link_imprint_policy {
-    word-wrap: break-all;
-}
-
 li {
     word-wrap: break-word;
 }
 
-@media(max-width: 500px) {
+@media (max-width: 900px) {
+    body {
+        font-size: 18px;
+        align-items: flex-start;
+    }
+
+    .policy-section {
+        padding: 0 40px 112px 40px;
+    }
+
+}
+
+@media (max-width: 528px) {
+    .address {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+@media (max-width: 464px) {
+    body {
+        font-size: 16px;
+    }
+
+    .policy-section {
+        padding: 0 16px 112px 16px;
+    }
+
+    /* 
     .link_imprint_policy {
         font-size: 14px;
-    }
+    } */
 
     ul {
         padding-left: 16px;

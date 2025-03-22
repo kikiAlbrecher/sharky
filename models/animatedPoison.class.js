@@ -1,3 +1,7 @@
+/**
+ * Class representing a poison object in the game.
+ * This class handles the loading and animation of poison images.
+ */
 class AnimatedPoison extends MovableObject {
     width = 50;
     height = 60;
@@ -8,6 +12,11 @@ class AnimatedPoison extends MovableObject {
         left: 10
     };
 
+    /**
+     * Array of image paths for animated poison images.
+     * These images are used for the animation of the poison object.
+     * @constant {string[]} IMAGES_POISON
+     */
     IMAGES_POISON = [
         'img/4.Marcadores/Posión/Animada/1.png',
         'img/4.Marcadores/Posión/Animada/2.png',
@@ -19,6 +28,11 @@ class AnimatedPoison extends MovableObject {
         'img/4.Marcadores/Posión/Animada/8.png'
     ];
 
+    /**
+     * Creates an instance of the Poison object.
+     * It loads the poison images, sets random position values for the poison object,
+     * and starts the animation loop.
+     */
     constructor() {
         super().loadImg(this.IMAGES_POISON[0]);
         this.loadImages(this.IMAGES_POISON);
@@ -27,6 +41,11 @@ class AnimatedPoison extends MovableObject {
         this.animatePoison();
     }
 
+    /**
+     * Animates the poison images by cycling through the image array at a set interval.
+     * The current image is updated every 1/8th of a second.
+     * The animation continues until it is stopped.
+     */
     animatePoison() {
         setStoppableInterval(() => {
             let i = this.currentImage % this.IMAGES_POISON.length;

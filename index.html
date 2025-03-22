@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./styles/landscape-mode.css">
 
+    <script src="./models/world.class.js"></script>
     <script src="./models/drawableObject.class.js"></script>
     <script src="./models/statusBar.class.js"></script>
     <script src="./models/statusBarLife.class.js"></script>
@@ -33,7 +34,7 @@
     <script src="./models/coin.class.js"></script>
     <script src="./models/throwableBubble.class.js"></script>
     <script src="./models/throwablePoison.class.js"></script>
-    <script src="./models/world.class.js"></script>
+
     <script src="./js/audio.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/start.js"></script>
@@ -48,9 +49,9 @@
     <div class="max-width">
         <section id="gameScreen">
             <h1 id="gameName">Sharky</h1>
-            <canvas width="720" height="480" class="d-none" id="canvas">
-
-                <section class="mobile-btn-section d-none" id="mobileBtns">
+            <div class="game-screen">
+                <canvas width="720" height="480" class="d-none" id="canvas"></canvas>
+                <div class="mobile-btn-section d-none" id="mobileBtns">
                     <button class="touchscreen-btn" id="btnUp">
                         <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
                     </button>
@@ -75,8 +76,8 @@
                     <button class="touchscreen-btn attack-btn" id="btnAttackFin">
                         <img class="touch-btn-img attack-btn-img" src="./img/icons/slap.png" alt="fin slap">
                     </button>
-                </section>
-            </canvas>
+                </div>
+            </div>
         </section>
 
         <!-- <div class="screen-layer d-none" id="portraitMessage">

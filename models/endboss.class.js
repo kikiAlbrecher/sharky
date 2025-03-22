@@ -71,8 +71,9 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
     ];
 
-    constructor() {
+    constructor(world) {
         super();
+        this.world = world;
         this.loadImg(this.IMAGES_INTRODUCING[0]);
         this.loadImages(this.IMAGES_INTRODUCING);
         this.loadImages(this.IMAGES_SWIMMING);
@@ -82,45 +83,15 @@ class Endboss extends MovableObject {
         this.loadImg(this.IMAGES_DEAD_END);
     }
 
-    animateIntroducedEndboss() {
-        if (this.isHurtPoison() && this.energy > 0) {
-            endbossPain.play();
-            this.playAnimation(this.IMAGES_HURT);
-        } else if (this.isDead() && !this.isDeadAnimationPlayed) {
-            this.playAnimation(this.IMAGES_DEAD);
-            this.isDeadAnimationPlayed = true;
-        } else if (this.isDead() && this.isDeadAnimationPlayed) {
-            let timeSpent = 0;
-            let moveUpInterval = setInterval(() => {
-                if (timeSpent < 2400) {
-                    this.playAnimation(this.IMAGES_DEAD_END);
-                    this.y -= 5;
-                    timeSpent += 100;
-                } else if (timeSpent >= 2400) {
-                    clearInterval(moveUpInterval);
-                }
-            }, 100);
-            clearAllIntervals();
-            stopAllAudios();
-            setTimeout(() => {
-                win.play();
-            }, 200);
-            setTimeout(() => {
-                win.pause();
-                this.displayWinScreen();
-                gameEnd.play();
-            }, 2200);
-        } else if (!this.isDead()) {
-            this.playAnimation(this.IMAGES_SWIMMING);
-        }
-    }
-
     displayWinScreen() {
         const winMessage = document.getElementById('winScreen');
+        const mobileBtnsRef = document.getElementById('mobileBtns');
 
         noCanvas();
         winMessage.classList.remove('d-none');
+        mobileBtnsRef.style.display = 'none';
     }
+
 
 
 }

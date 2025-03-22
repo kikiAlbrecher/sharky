@@ -207,17 +207,22 @@ function noCanvas() {
 }
 
 function restartGame(screenId) {
+    const mobileBtnsRef = document.getElementById('mobileBtns');
+
     gameEnd.pause();
     startGame(screenId);
     hadFirstContact = false;
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
     restoreSoundStatus();
+    mobileBtnsRef.style.display = 'flex';
+    touchscreenGameBtns();
 }
 
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
     const startScreen = document.getElementById('startScreen');
+    const mobileBtnsRef = document.getElementById('mobileBtns');
 
     gameEnd.pause();
     screen.classList.add('d-none');
@@ -226,6 +231,7 @@ function backHome(screenPrefix) {
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
     restoreSoundStatus();
+    // mobileBtnsRef.style.display = 'flex';
 }
 
 function restoreSoundStatus() {
@@ -243,3 +249,13 @@ function restoreSoundStatus() {
         backgroundHappy.pause();
     }
 }
+
+window.addEventListener('resize', function () {
+    const mobileBtnRef = document.getElementById('mobileBtns');
+
+    if (window.innerWidth < 720 || window.innerHeight < 480) {
+        mobileBtnRef.style.display = 'flex';
+    } else {
+        mobileBtnRef.style.display = 'none';
+    }
+});

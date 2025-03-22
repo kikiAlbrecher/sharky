@@ -12,6 +12,19 @@ function startGame(screenId) {
         init();
         hideLoadingSpinner();
     }, 2000);
+    touchscreenGameBtns();
+}
+
+function touchscreenGameBtns() {
+    if (window.innerWidth < 720 || window.innerHeight < 480) {
+        const mobileBtnRef = document.getElementById('mobileBtns');
+
+        mobileBtnRef.style.display = 'flex';
+    } else if (window.innerWidth > 720 || window.innerHeight > 480) {
+        const mobileBtnRef = document.getElementById('mobileBtns');
+
+        mobileBtnRef.style.display = 'none';
+    }
 }
 
 function putLoudspeakersOn() {

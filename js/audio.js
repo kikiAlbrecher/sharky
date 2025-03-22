@@ -33,6 +33,8 @@ gameEnd = new Audio('audio/hopeful.mp3');
 gameEnd.loop = 'true';
 
 let allAudios = [
+    win,
+    gameOver,
     backgroundHappy,
     slap,
     snore,
@@ -42,14 +44,19 @@ let allAudios = [
     pain,
     endbossFight,
     endbossPain,
-    win,
-    gameOver,
     gameEnd
 ];
 
 function stopAllAudios() {
-    allAudios.forEach(audio => {
-        audio.pause();
-        audio.currentTime = 0;
+    return new Promise((resolve, reject) => {
+        try {
+            allAudios.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
     });
 }

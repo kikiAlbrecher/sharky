@@ -28,8 +28,8 @@ class Jellyfish extends MovableObject {
     constructor() {
         super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = 280 + Math.random() * 1880;
-        this.y = 400 - Math.random() * 560;
+        this.x = 360 + Math.random() * 1880;
+        this.y = 384 - Math.random() * 560;
         this.angleX = Math.random() > Math.random() ? 1 : -1;
         this.angleY = Math.random() > Math.random() ? 1 : -1;
         this.speed = 1 + Math.random() * 6;
@@ -64,7 +64,6 @@ class Jellyfish extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
         this.x += 3 - this.acceleration;
         this.y -= 8;
-        // this.speed = Math.max(0.1, this.speed - 0.01);
 
         if (this.x < -this.width || this.y < -this.height) {
             this.x = -this.width;

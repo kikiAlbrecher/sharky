@@ -14,6 +14,8 @@ class World {
     endboss;
     hadFirstContact = false;
     endbossIsIntroduced = false;
+    endbossIsHurt = false;
+    isDeadAnimationPlayed = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -26,7 +28,7 @@ class World {
     }
 
     draw() {
-        if (this.character) {
+        if (this.character && !this.character.isDead()) {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.translate(this.camera_x, 0);
             this.addObjectsToMap(this.level.waterMovements);
@@ -123,6 +125,10 @@ class World {
                             enemy.energy = 0;
                             enemy.playAnimation(enemy.IMAGES_DEAD);
                         }
+
+                        // if (enemy instanceof Endboss) {
+                        //     this.endbossIsHurt = true;
+                        // }
                         console.log(`${enemy.constructor.name} energy after hit: `, enemy.energy);
 
                         const objectIndex = this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].indexOf(object);
@@ -264,9 +270,7 @@ class World {
 
         setStoppableInterval(() => {
             if (this.character) {
-                if (this.character.x <= 2300 && !this.hadFirstContact) {
-                    return;
-                }
+                if (this.character.x <= 2300 && !this.hadFirstContact) return;
             }
 
             if (this.character) {
@@ -279,35 +283,91 @@ class World {
                         frameCount = 0;
                         this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
                     }
-
                 } else if (this.hadFirstContact && !this.endboss.isDead()) {
-                    this.endboss.animateIntroducedEndboss();
                     setTimeout(() => {
                         this.endbossAttacks();
-                    }, 6000);
+                    }, 2000);
+                    if (this.endboss.isHurtPoison() && this.endboss.energy > 0) {
+                        this.endboss.playAnimation(this.endboss.IMAGES_HURT);
+                        endbossPain.play();
+                        this.endbossIsHurt = true;
+                        setTimeout(() => {
+                            this.endbossAttacks();
+                            this.endbossIsHurt = false;
+                        }, 500);
+
+                    }
+                } else if (this.endboss.isDead() && !this.isDeadAnimationPlayed) {
+                    this.endbossIsHurt = false;
+                    this.endboss.playAnimation(this.endboss.IMAGES_DEAD);
+                    this.isDeadAnimationPlayed = true;
+                } else if (this.endboss.isDead() && this.isDeadAnimationPlayed) {
+                    let timeSpent = 0;
+                    let moveUpInterval = setInterval(() => {
+                        if (timeSpent < 800) {
+                            this.endboss.playAnimation(this.endboss.IMAGES_DEAD_END);
+                            this.endboss.y -= 5;
+                            timeSpent += 100;
+                            setTimeout(() => {
+                                this.spliceEndboss();
+                            }, 800);
+                        } else if (timeSpent >= 800) {
+                            clearInterval(moveUpInterval);
+                        }
+                    }, 1000 / 10);
+                    clearAllIntervals();
+
+                    stopAllAudios()
+                        .then(() => {
+                            setTimeout(() => {
+                                return win.play();
+                            }, 200);
+                            // return win.play();
+                        })
+                        .catch((e) => {
+                            if (e) return ``;
+                        })
+                        .catch((e) => {
+                            if (e) return ``;
+                        });
+
+
+                    // stopAllAudios();
+                    // setTimeout(() => {
+                    //     win.play();
+                    // }, 200);
+                    setTimeout(() => {
+                        win.pause();
+                        this.endboss.displayWinScreen();
+                        gameEnd.play();
+                    }, 2200);
+                } else {
+                    this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
                 }
             }
-        }, 150);
+        }, 200);
     }
 
     endbossAttacks() {
-        this.endboss.playAnimation(this.endboss.IMAGES_ATTACKING);
-        let followSharkyInterval = setInterval(() => {
-            if (this.endboss.isDead() || this.character.isDead()) {
-                clearInterval(followSharkyInterval); // Stoppe das Verfolgen, wenn entweder der Endboss oder Sharky stirbt
-                return;
-            }
-    
-            // Berechne Richtung, in die der Endboss gehen soll, basierend auf der Position von Sharky
-            if (this.character.x > this.endboss.x) {
-                this.endboss.moveRight();
-                this.endboss.otherDirection = true;
-            } else if (this.character.x < this.endboss.x) this.endboss.moveLeft();
+        if (this.endbossIsHurt) return;
 
-            if (this.character.y > this.endboss.y && this.endboss.y < 110) this.endboss.moveDown();
-            else if (this.character.y < this.endboss.y) this.endboss.moveUp();
+        this.endboss.playAnimation(this.endboss.IMAGES_ATTACKING);
+        setStoppableInterval(() => {
+            if (!this.endboss.isDead() && !this.character.isDead()) {
+                if (this.character.x > this.endboss.x) {
+                    this.endboss.moveRight();
+                    this.endboss.otherDirection = true;
+                } else if (this.character.x < this.endboss.x) this.endboss.moveLeft();
+
+                if (this.character.y > this.endboss.y && this.endboss.y < 110) this.endboss.moveDown();
+                else if (this.character.y < this.endboss.y) this.endboss.moveUp();
+            }
         }, 1000);
     }
 
-
+    spliceEndboss() {
+        const endbossIndex = this.level.enemies.findIndex(enemy => enemy instanceof Endboss);
+        this.level.enemies.splice(endbossIndex, 1);
+    }
 }
+

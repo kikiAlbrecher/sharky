@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 40;
+    x = 0;
     width = 280;
     height = 280;
     speed = 16;
@@ -177,7 +177,7 @@ class Character extends MovableObject {
 
     animateCharacter() {
         setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
-        setStoppableInterval(() => this.playAnimationMoveCharacter(), 1000 / 10);
+        setStoppableInterval(() => this.playAnimationMoveCharacter(), 1000 / 5);
     }
 
     moveCharacter() {
@@ -191,74 +191,88 @@ class Character extends MovableObject {
         } else if (this.world.keyboard.DOWN && this.isAboveGround()) {
             this.moveDown();
         }
-        this.world.camera_x = -this.x;
+        this.world.camera_x = -this.x + 80;
     }
 
     playAnimationMoveCharacter() {
-        // if (this.isAboveGround()) {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-                this.idleTime = 0;
-                this.playAnimation(this.IMAGES_SWIMMING);
-                snore.pause();
-            } else if (this.isHurtPoison()) {
-                this.playAnimation(this.IMAGES_HURT_POISON);
-                pain.play();
-            }
-            // if (this.isHurtElectric) {
-            //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
-            // } 
-            else if (this.world.keyboard.THROW) {
-                if (this.coinAmount > 0 && !this.isDead()) {
-                    throwingBubbles.play();
-                    this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-                } else {
-                    this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-                }
-            } else if (this.world.keyboard.THROW_POISON) {
-                if (this.poisonAmount > 0 && !this.isDead()) {
-                    throwingBubbles.play();
-                    this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
-                } else {
-                    this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-                }
-            } else if (this.idleTime < 5000) {
-                this.playAnimation(this.IMAGES_IDLE);
-                this.idleTime += 1000 / 12;
-                snore.pause();
-                backgroundHappy.play();
-                if (this.idleTime >= 5000) {
-                    this.playAnimation(this.IMAGES_LONG_IDLE);
-                    snore.play();
-                }
-            } if (this.x > 2300 && !this.isDead()) {
-                backgroundHappy.pause();
-                endbossFight.play();
-                if (endbossFight.play()) {
-                    backgroundHappy.volume = 0;
-                }
-            }
-
-            if (this.world.keyboard.SPACE) {
-                this.isSlapping = true;
-                slap.play();
-                this.playAnimation(this.IMAGES_ATTACK_FIN);
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+            this.idleTime = 0;
+            this.playAnimation(this.IMAGES_SWIMMING);
+            snore.pause();
+        } else if (this.isHurtPoison()) {
+            this.playAnimation(this.IMAGES_HURT_POISON);
+            pain.play();
+        }
+        // if (this.isHurtElectric) {
+        //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
+        // } 
+        else if (this.world.keyboard.THROW) {
+            if (this.coinAmount > 0 && !this.isDead()) {
+                throwingBubbles.play();
+                this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
             } else {
-                this.isSlapping = false;
+                this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
             }
+        } else if (this.world.keyboard.THROW_POISON) {
+            if (this.poisonAmount > 0 && !this.isDead()) {
+                throwingBubbles.play();
+                this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
+            } else {
+                this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+            }
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+            this.idleTime += 1000 / 12;
+            snore.pause();
+            backgroundHappy.play();
+            if (this.idleTime >= 2500) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
+                snore.play();
+            }
+        }
+        if (this.x > 2300 && !this.isDead()) {
+            backgroundHappy.pause();
+            endbossFight.play();
+            if (endbossFight.play()) {
+                backgroundHappy.volume = 0;
+            }
+        }
 
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_POISON);
-                clearAllIntervals();
-                stopAllAudios();
-                setTimeout(() => {
-                    gameOver.play();
-                }, 200);
-                setTimeout(() => {
-                    this.displayGameOver();
-                    gameEnd.play();
-                }, 2600);
-            }
-        // }
+        if (this.world.keyboard.SPACE) {
+            this.isSlapping = true;
+            slap.play();
+            this.playAnimation(this.IMAGES_ATTACK_FIN);
+        } else {
+            this.isSlapping = false;
+        }
+
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD_POISON);
+            clearAllIntervals();
+
+            stopAllAudios()
+                .then(() => {
+                    return gameOver.play();
+                })
+                .catch((e) => {
+                    if (e) return ``;
+                })
+                .catch((e) => {
+                    if (e) return ``;
+                });
+
+
+
+
+            // stopAllAudios();
+            // setTimeout(() => {
+            //     gameOver.play();
+            // }, 300);
+            setTimeout(() => {
+                this.displayGameOver();
+                gameEnd.play();
+            }, 2400);
+        }
     }
 
     collectCoins() {
@@ -294,8 +308,10 @@ class Character extends MovableObject {
 
     displayGameOver() {
         const gameOver = document.getElementById('gameOverScreen');
+        const mobileBtnsRef = document.getElementById('mobileBtns');
 
         noCanvas();
         gameOver.classList.remove('d-none');
+        mobileBtnsRef.style.display = 'none';
     }
 }
