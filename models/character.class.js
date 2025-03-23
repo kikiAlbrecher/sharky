@@ -308,10 +308,8 @@ class Character extends MovableObject {
 
     displayGameOver() {
         const gameOver = document.getElementById('gameOverScreen');
-        const mobileBtnsRef = document.getElementById('mobileBtns');
 
-        noCanvas();
+        noGameScreen();
         gameOver.classList.remove('d-none');
-        mobileBtnsRef.style.display = 'none';
     }
 }

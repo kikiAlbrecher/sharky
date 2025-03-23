@@ -58,6 +58,10 @@
     .close-overlay {
         padding-right: 48px;
     }
+
+    .max-width {
+        height: calc(100vh - 72px);
+    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -351,6 +355,12 @@
 
 
 
+}
+
+@media (max-width: 464px) {
+    .max-width {
+        height: calc(100vh - 64px);
+    }
 }
 
 /* @media only screen and (max-width: 680px) {

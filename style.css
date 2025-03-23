@@ -38,7 +38,7 @@ canvas {
     display: block;
 }
 
-.game-screen {
+.touch-game-screen {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

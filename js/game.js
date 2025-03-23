@@ -198,31 +198,26 @@ function clearAllIntervals() {
     intervalIds = [];
 }
 
-function noCanvas() {
-    const canvas = document.getElementById('canvas');
-    const headline = document.getElementById('gameName');
+function noGameScreen() {
+    const gameScreenRef = document.getElementById('gameScreen');
 
-    canvas.classList.add('d-none');
-    headline.classList.add('d-none');
+    gameScreenRef.classList.add('d-none');
 }
 
 function restartGame(screenId) {
-    const mobileBtnsRef = document.getElementById('mobileBtns');
-
     gameEnd.pause();
     startGame(screenId);
     hadFirstContact = false;
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
     restoreSoundStatus();
-    mobileBtnsRef.style.display = 'flex';
-    touchscreenGameBtns();
 }
 
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
     const startScreen = document.getElementById('startScreen');
-    const mobileBtnsRef = document.getElementById('mobileBtns');
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
 
     gameEnd.pause();
     screen.classList.add('d-none');
@@ -230,8 +225,8 @@ function backHome(screenPrefix) {
     hadFirstContact = false;
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
-    restoreSoundStatus();
-    // mobileBtnsRef.style.display = 'flex';
+    loudspeakerOffRef.classList.remove('d-none');
+    loudspeakerOnRef.classList.add('d-none');
 }
 
 function restoreSoundStatus() {

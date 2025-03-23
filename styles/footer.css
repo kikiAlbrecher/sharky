@@ -56,8 +56,17 @@ footer {
 }
 
 @media (max-width: 900px) {
+    .footer {
+        height: 64px;
+    }
+
     .footer-content {
         padding: 0 40px;
+        transform: translateY(-4px);
+    }
+
+    .logo {
+        height: 48px;
     }
 
     .menu-links {
@@ -66,8 +75,17 @@ footer {
 }
 
 @media (max-width: 464px) {
+    .footer {
+        height: 56px;
+    }
+
     .footer-content {
         padding: 0 16px;
+        transform: translateY(0);
+    }
+
+    .logo {
+        height: 40px;
     }
 
     .menu-links {

@@ -3,9 +3,17 @@ function play(screenId) {
     startGame(screenId);
 }
 
+function putLoudspeakersOn() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
+    const loudspeakerOnRef = document.getElementById('volumeOn');
+
+    loudspeakerOffRef.classList.add('d-none');
+    loudspeakerOnRef.classList.remove('d-none');
+}
+
 function startGame(screenId) {
     stopScreen(screenId);
-    showCanvas();
+    showGameScreen();
     showLoadingSpinner();
     initLevel1();
     setTimeout(() => {
@@ -13,6 +21,35 @@ function startGame(screenId) {
         hideLoadingSpinner();
     }, 2000);
     touchscreenGameBtns();
+}
+
+function stopScreen(screenId) {
+    const screen = document.getElementById(screenId);
+
+    if (screen) {
+        screen.classList.add('d-none');
+        if (screenId === 'startScreen') {
+            screen.style.display = 'none';
+        }
+    }
+}
+
+function showGameScreen() {
+    const displayGameScreen = document.getElementById('gameScreen');
+
+    displayGameScreen.classList.remove('d-none');
+}
+
+function showLoadingSpinner() {
+    const spinnerRef = document.getElementById('loadingSpinner');
+
+    spinnerRef.style.display = 'flex';
+}
+
+function hideLoadingSpinner() {
+    const spinnerRef = document.getElementById('loadingSpinner');
+
+    spinnerRef.style.display = 'none';
 }
 
 function touchscreenGameBtns() {
@@ -27,14 +64,6 @@ function touchscreenGameBtns() {
     }
 }
 
-function putLoudspeakersOn() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
-
-    loudspeakerOffRef.classList.add('d-none');
-    loudspeakerOnRef.classList.remove('d-none');
-}
-
 function playSoundByStatus() {
     const soundStatus = sessionStorage.getItem('soundStatus');
 
@@ -43,35 +72,6 @@ function playSoundByStatus() {
     } else {
         backgroundHappy.play();
     }
-}
-
-function stopScreen(screenId) {
-    const screen = document.getElementById(screenId);
-
-    if (screen) {
-        screen.classList.add('d-none');
-        if (screenId === 'startScreen') {
-            screen.style.display = 'none';
-        }
-    }
-}
-
-function showCanvas() {
-    const displayCanvas = document.getElementById('canvas');
-
-    displayCanvas.classList.remove('d-none');
-}
-
-function showLoadingSpinner() {
-    const spinnerRef = document.getElementById('loadingSpinner');
-
-    spinnerRef.style.display = 'flex';
-}
-
-function hideLoadingSpinner() {
-    const spinnerRef = document.getElementById('loadingSpinner');
-
-    spinnerRef.style.display = 'none';
 }
 
 function showInstructions() {

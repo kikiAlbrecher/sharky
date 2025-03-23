@@ -85,11 +85,9 @@ class Endboss extends MovableObject {
 
     displayWinScreen() {
         const winMessage = document.getElementById('winScreen');
-        const mobileBtnsRef = document.getElementById('mobileBtns');
 
-        noCanvas();
+        noGameScreen();
         winMessage.classList.remove('d-none');
-        mobileBtnsRef.style.display = 'none';
     }
 
 

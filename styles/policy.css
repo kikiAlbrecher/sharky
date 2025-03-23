@@ -6,7 +6,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: rgb(0, 0, 0);
+    background: rgb(217, 24, 24);
     font-family: 'open-sans-regular', Arial, Helvetica, sans-serif;
     font-size: 22px;
     color: rgb(255, 255, 255);
@@ -37,20 +37,22 @@ body {
 h1 {
     font-family: 'luckiest-guy';
     margin: 0;
-    padding: 16px 0;
+    padding: 24px 0 16px 0;
 }
 
 h2 {
+    font-size: 30px;
     text-align: left;
     word-wrap: break-word;
     margin: 0;
-    padding-bottom: 16px;
+    padding-bottom: 8px;
 }
 
 h3 {
+    font-size: 26px;
     font-weight: 500;
     margin: 0;
-    padding-bottom: 16px;
+    padding-bottom: 8px;
 }
 
 .address {
@@ -60,7 +62,6 @@ h3 {
 }
 
 a {
-    font-size: 20px;
     padding-bottom: 0;
     color: rgb(127, 255, 224);
     text-decoration: none;
@@ -69,6 +70,7 @@ a {
 
 a:hover {
     color: rgb(193, 252, 237);
+    font-weight: 600;
 }
 
 p {
@@ -86,16 +88,24 @@ li {
     word-wrap: break-word;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 916px) {
     body {
         font-size: 18px;
         align-items: flex-start;
     }
 
     .policy-section {
-        padding: 0 40px 112px 40px;
+        padding: 0 40px 80px 40px;
     }
-
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    h3 {
+        font-size: 22px;
+        padding-bottom: 4px;
+    }
 }
 
 @media (max-width: 528px) {
@@ -111,7 +121,21 @@ li {
     }
 
     .policy-section {
-        padding: 0 16px 112px 16px;
+        padding: 0 16px 72px 16px;
+    }
+
+    h1 {
+        padding: 16px 0 8px 0;
+    }
+
+    h2 {
+        font-size: 20px;
+        padding-bottom: 4px;
+    }
+    
+    h3 {
+        font-size: 18px;
+        padding-bottom: 0;
     }
 
     /* 
