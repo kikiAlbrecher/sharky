@@ -55,7 +55,7 @@ footer {
     color: rgb(127, 255, 224);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 916px) {
     .footer {
         height: 64px;
     }

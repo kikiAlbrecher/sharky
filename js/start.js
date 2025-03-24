@@ -36,8 +36,10 @@ function stopScreen(screenId) {
 
 function showGameScreen() {
     const displayGameScreen = document.getElementById('gameScreen');
+    const gameNameRef = document.getElementById('gameName');
 
     displayGameScreen.classList.remove('d-none');
+    gameNameRef.classList.add('d-none');
 }
 
 function showLoadingSpinner() {
