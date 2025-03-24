@@ -97,6 +97,7 @@ button:hover {
 }
 
 .start-screen {
+    display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     padding-right: 200px;

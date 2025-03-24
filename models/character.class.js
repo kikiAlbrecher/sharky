@@ -98,8 +98,6 @@ class Character extends MovableObject {
 
     IMAGES_ATTACK_FIN = [
         'img/1.Sharkie/4.Attack/Fin slap/1.png',
-        // 'img/1.Sharkie/4.Attack/Fin slap/2.png',
-        // 'img/1.Sharkie/4.Attack/Fin slap/3.png',
         'img/1.Sharkie/4.Attack/Fin slap/4.png',
         'img/1.Sharkie/4.Attack/Fin slap/5.png',
         'img/1.Sharkie/4.Attack/Fin slap/6.png',
@@ -130,9 +128,6 @@ class Character extends MovableObject {
         'img/1.Sharkie/6.Dead/1.Poisoned/7.png',
         'img/1.Sharkie/6.Dead/1.Poisoned/8.png',
         'img/1.Sharkie/6.Dead/1.Poisoned/9.png',
-        // 'img/1.Sharkie/6.Dead/1.Poisoned/10.png',
-        // 'img/1.Sharkie/6.Dead/1.Poisoned/11.png',
-        // 'img/1.Sharkie/6.Dead/1.Poisoned/12.png'
     ];
 
     IMAGES_DEAD_ELECTRIC = [
@@ -195,56 +190,13 @@ class Character extends MovableObject {
     }
 
     playAnimationMoveCharacter() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
-            this.idleTime = 0;
-            this.playAnimation(this.IMAGES_SWIMMING);
-            snore.pause();
-        } else if (this.isHurtPoison()) {
-            this.playAnimation(this.IMAGES_HURT_POISON);
-            pain.play();
-        }
-        // if (this.isHurtElectric) {
-        //     this.playAnimation(this.IMAGES_HURT_ELECTRIC);
-        // } 
-        else if (this.world.keyboard.THROW) {
-            if (this.coinAmount > 0 && !this.isDead()) {
-                throwingBubbles.play();
-                this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-            } else {
-                this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-            }
-        } else if (this.world.keyboard.THROW_POISON) {
-            if (this.poisonAmount > 0 && !this.isDead()) {
-                throwingBubbles.play();
-                this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
-            } else {
-                this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-            }
-        } else {
-            this.playAnimation(this.IMAGES_IDLE);
-            this.idleTime += 1000 / 12;
-            snore.pause();
-            backgroundHappy.play();
-            if (this.idleTime >= 2500) {
-                this.playAnimation(this.IMAGES_LONG_IDLE);
-                snore.play();
-            }
-        }
-        if (this.x > 2300 && !this.isDead()) {
-            backgroundHappy.pause();
-            endbossFight.play();
-            if (endbossFight.play()) {
-                backgroundHappy.volume = 0;
-            }
-        }
-
-        if (this.world.keyboard.SPACE) {
-            this.isSlapping = true;
-            slap.play();
-            this.playAnimation(this.IMAGES_ATTACK_FIN);
-        } else {
-            this.isSlapping = false;
-        }
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) this.sharkySwims();
+        else if (this.isHurtPoison()) this.sharkyFeelsPain();
+        else if (this.world.keyboard.THROW) this.sharkyThrowsBubble();
+        else if (this.world.keyboard.THROW_POISON) this.sharkyThrowsPoison();
+        else if (this.world.keyboard.SPACE) this.sharkySlapsWithTailfin();
+        else if (this.x > 2300 && !this.isDead()) this.sharkyEncounterEndboss();
+        else this.sharkyDoesNothing();
 
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD_POISON);
@@ -252,7 +204,9 @@ class Character extends MovableObject {
 
             stopAllAudios()
                 .then(() => {
-                    return gameOver.play();
+                    setTimeout(() => {
+                        return gameOver.play();
+                    }, 200);
                 })
                 .catch((e) => {
                     if (e) return ``;
@@ -271,7 +225,76 @@ class Character extends MovableObject {
             setTimeout(() => {
                 this.displayGameOver();
                 gameEnd.play();
-            }, 2400);
+            }, 1000);
+        }
+    }
+
+    // directionMove() {
+    //     this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
+    // }
+
+    sharkySwims() {
+        this.idleTime = 0;
+
+        this.playAnimation(this.IMAGES_SWIMMING);
+        snore.pause();
+    }
+
+    sharkyFeelsPain() {
+        this.playAnimation(this.IMAGES_HURT_POISON);
+        pain.play();
+    }
+
+    sharkyThrowsBubble() {
+        this.idleTime = 0;
+        if (this.coinAmount > 0 && !this.isDead()) {
+            throwingBubbles.play();
+            this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
+        } else if (this.coinAmount < 1 && !this.isDead()) {
+            throwingBubbles.play();
+            this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+        }
+    }
+
+    sharkyThrowsPoison() {
+        this.idleTime = 0;
+        if (this.poisonAmount > 0 && !this.isDead()) {
+            throwingBubbles.play();
+            this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
+        } else if (this.poisonAmount < 1 && !this.isDead()) {
+            throwingBubbles.play();
+            this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
+        }
+    }
+
+    sharkySlapsWithTailfin() {
+        this.idleTime = 0;
+        snore.pause();
+        this.isSlapping = true;
+        slap.play();
+        this.playAnimation(this.IMAGES_ATTACK_FIN);
+        setTimeout(() => {
+            this.isSlapping = false;
+        }, 160);
+    }
+
+    sharkyDoesNothing() {
+        this.idleTime += 1000 / 12;
+
+        this.playAnimation(this.IMAGES_IDLE);
+        snore.pause();
+        backgroundHappy.play();
+        if (this.idleTime >= 2500) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+            snore.play();
+        }
+    }
+
+    sharkyEncounterEndboss() {
+        backgroundHappy.pause();
+        endbossFight.play();
+        if (endbossFight.play()) {
+            backgroundHappy.volume = 0;
         }
     }
 
@@ -311,5 +334,6 @@ class Character extends MovableObject {
 
         noGameScreen();
         gameOver.classList.remove('d-none');
+        clearAllIntervals();
     }
 }

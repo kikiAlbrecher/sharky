@@ -1,59 +1,4 @@
-let world;
-let canvas;
-let keyboard = new Keyboard();
 let intervalIds = [];
-
-function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-}
-
-function setStoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    intervalIds.push(id);
-    return id;
-}
-
-function toggleVolumeStart() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
-    const startScreenRef = document.getElementById('startScreen');
-
-    loudspeakerOffRef.classList.toggle('d-none');
-    loudspeakerOnRef.classList.toggle('d-none');
-    storeSoundStatus();
-    startScreenRef.classList.contains('d-none') ? toggleSound() : toggleSoundStart();
-}
-
-function storeSoundStatus() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-
-    if (loudspeakerOffRef.classList.contains('d-none')) {
-        sessionStorage.setItem('soundStatus', 'on');
-    } else {
-        sessionStorage.setItem('soundStatus', 'off');
-    }
-}
-
-function toggleSoundStart() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-
-    loudspeakerOffRef.classList.contains('d-none') ? backgroundHappy.play() : backgroundHappy.pause();
-}
-
-function toggleSound() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-
-    if (loudspeakerOffRef.classList.contains('d-none')) {
-        allAudios.forEach(audio => {
-            audio.muted = false;
-        });
-    } else {
-        allAudios.forEach(audio => {
-            audio.muted = true;
-        });
-    }
-}
 
 function toggleFullscreenImg() {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
@@ -100,25 +45,25 @@ window.addEventListener('keydown', (event) => {
     event.preventDefault();
     event.stopPropagation();
     switch (event.code) {
-        case "ArrowUp":
+        case 'ArrowUp':
             keyboard.UP = true;
             break;
-        case "ArrowRight":
+        case 'ArrowRight':
             keyboard.RIGHT = true;
             break;
-        case "ArrowDown":
+        case 'ArrowDown':
             keyboard.DOWN = true;
             break;
-        case "ArrowLeft":
+        case 'ArrowLeft':
             keyboard.LEFT = true;
             break;
-        case "KeyD":
+        case 'KeyD':
             keyboard.THROW = true;
             break;
-        case "KeyF":
+        case 'KeyF':
             keyboard.THROW_POISON = true;
             break;
-        case "Space":
+        case 'Space':
             keyboard.SPACE = true;
             break;
         default:
@@ -131,24 +76,24 @@ window.addEventListener('keyup', (event) => {
     event.preventDefault();
     event.stopPropagation();
     switch (event.code) {
-        case "ArrowUp": keyboard.UP = false;
+        case 'ArrowUp': keyboard.UP = false;
             break;
-        case "ArrowRight":
+        case 'ArrowRight':
             keyboard.RIGHT = false;
             break;
-        case "ArrowDown":
+        case 'ArrowDown':
             keyboard.DOWN = false;
             break;
-        case "ArrowLeft":
+        case 'ArrowLeft':
             keyboard.LEFT = false;
             break;
-        case "KeyD":
+        case 'KeyD':
             keyboard.THROW = false;
             break;
-        case "KeyF":
+        case 'KeyF':
             keyboard.THROW_POISON = false;
             break;
-        case "Space":
+        case 'Space':
             keyboard.SPACE = false;
             break;
         default:
@@ -191,6 +136,13 @@ window.addEventListener('touchend', (event) => {
 
 });
 
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    
+    intervalIds.push(id);
+    return id;
+}
+
 function clearAllIntervals() {
     intervalIds.forEach(id => {
         clearInterval(id);
@@ -216,8 +168,6 @@ function restartGame(screenId) {
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
     const startScreen = document.getElementById('startScreen');
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
 
     gameEnd.pause();
     screen.classList.add('d-none');
@@ -225,32 +175,11 @@ function backHome(screenPrefix) {
     hadFirstContact = false;
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
-    loudspeakerOffRef.classList.remove('d-none');
-    loudspeakerOnRef.classList.add('d-none');
-}
-
-function restoreSoundStatus() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-    const loudspeakerOnRef = document.getElementById('volumeOn');
-    const soundStatus = sessionStorage.getItem('soundStatus');
-
-    if (soundStatus === 'on') {
-        loudspeakerOffRef.classList.add('d-none');
-        loudspeakerOnRef.classList.remove('d-none');
-        backgroundHappy.play();
-    } else {
-        loudspeakerOffRef.classList.remove('d-none');
-        loudspeakerOnRef.classList.add('d-none');
-        backgroundHappy.pause();
-    }
+    restoreSoundStatus();
 }
 
 window.addEventListener('resize', function () {
     const mobileBtnRef = document.getElementById('mobileBtns');
 
-    if (window.innerWidth < 720 || window.innerHeight < 480) {
-        mobileBtnRef.style.display = 'flex';
-    } else {
-        mobileBtnRef.style.display = 'none';
-    }
+    window.innerWidth < 720 || window.innerHeight < 480 ? mobileBtnRef.style.display = 'flex' : mobileBtnRef.style.display = 'none';
 });
