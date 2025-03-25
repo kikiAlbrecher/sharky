@@ -83,6 +83,29 @@ class Endboss extends MovableObject {
         this.loadImg(this.IMAGES_DEAD_END);
     }
 
+
+
+
+
+
+    stopPlayStartWinAudios() {
+        stopAllAudios()
+            .then(() => {
+                setTimeout(() => {
+                    return win.play();
+                }, 200);
+            })
+            .catch((e) => {
+                if (e) return ``;
+            })
+    }
+
+    showWin() {
+            win.pause();
+            this.displayWinScreen();
+            gameEnd.play();
+    }
+
     displayWinScreen() {
         const winMessage = document.getElementById('winScreen');
 

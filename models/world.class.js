@@ -272,80 +272,39 @@ class World {
             if (this.character) {
                 if (this.character.x <= 2300 && !this.hadFirstContact) return;
             }
-
             if (this.character) {
-                if (this.character.x > 2300 && !this.hadFirstContact) {
+                if (this.character.x > 2200 && !this.hadFirstContact) {
                     this.endboss.playAnimation(this.endboss.IMAGES_INTRODUCING);
                     frameCount++;
 
                     if (frameCount === 10) {
-                        this.hadFirstContact = true;
                         frameCount = 0;
-                        this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
+                        this.endbossAppeared();
                     }
-                } else if (this.hadFirstContact && !this.endboss.isDead()) {
-                    setTimeout(() => {
-                        this.endbossAttacks();
-                    }, 2000);
-                    if (this.endboss.isHurtPoison() && this.endboss.energy > 0) {
-                        this.endboss.playAnimation(this.endboss.IMAGES_HURT);
-                        endbossPain.play();
-                        this.endbossIsHurt = true;
-                        setTimeout(() => {
-                            this.endbossAttacks();
-                            this.endbossIsHurt = false;
-                        }, 500);
-
-                    }
-                } else if (this.endboss.isDead() && !this.isDeadAnimationPlayed) {
-                    this.endbossIsHurt = false;
-                    this.endboss.playAnimation(this.endboss.IMAGES_DEAD);
-                    this.isDeadAnimationPlayed = true;
-                } else if (this.endboss.isDead() && this.isDeadAnimationPlayed) {
-                    let timeSpent = 0;
-                    let moveUpInterval = setInterval(() => {
-                        if (timeSpent < 800) {
-                            this.endboss.playAnimation(this.endboss.IMAGES_DEAD_END);
-                            this.endboss.y -= 5;
-                            timeSpent += 100;
-                            setTimeout(() => {
-                                this.spliceEndboss();
-                            }, 800);
-                        } else if (timeSpent >= 800) {
-                            clearInterval(moveUpInterval);
-                        }
-                    }, 1000 / 10);
-                    clearAllIntervals();
-
-                    stopAllAudios()
-                        .then(() => {
-                            setTimeout(() => {
-                                return win.play();
-                            }, 200);
-                            // return win.play();
-                        })
-                        .catch((e) => {
-                            if (e) return ``;
-                        })
-                        .catch((e) => {
-                            if (e) return ``;
-                        });
-
-
-                    // stopAllAudios();
-                    // setTimeout(() => {
-                    //     win.play();
-                    // }, 200);
-                    setTimeout(() => {
-                        win.pause();
-                        this.endboss.displayWinScreen();
-                        gameEnd.play();
-                    }, 2200);
-                } else {
-                    this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
-                }
+                } else if (this.hadFirstContact && !this.endboss.isDead()) this.endbossAttacksSharky();
+                else if (this.endboss.isDead() && !this.isDeadAnimationPlayed) this.endbossDies();
+                else if (this.endboss.isDead() && this.isDeadAnimationPlayed) this.endbossIsDead();
+                else this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
             }
-        }, 200);
+        }, 176);
+    }
+
+    endbossAppeared() {
+        this.hadFirstContact = true;
+        this.endboss.playAnimation(this.endboss.IMAGES_SWIMMING);
+    }
+
+    endbossAttacksSharky() {
+        this.endbossAttacks();
+        if (this.endboss.isHurtPoison() && this.endboss.energy > 0) {
+            this.endboss.playAnimation(this.endboss.IMAGES_HURT);
+            endbossPain.play();
+            this.endbossIsHurt = true;
+            setTimeout(() => {
+                this.endbossAttacks();
+                this.endbossIsHurt = false;
+            }, 300);
+        }
     }
 
     endbossAttacks() {
@@ -363,6 +322,30 @@ class World {
                 else if (this.character.y < this.endboss.y) this.endboss.moveUp();
             }
         }, 1000);
+    }
+
+    endbossDies() {
+        this.endbossIsHurt = false;
+        this.endboss.playAnimation(this.endboss.IMAGES_DEAD);
+        this.isDeadAnimationPlayed = true;
+    }
+
+    endbossIsDead() {
+        let timeSpent = 0;
+
+        this.endboss.stopPlayStartWinAudios();
+        let moveUpInterval = setInterval(() => {
+            if (timeSpent < 2200) {
+                this.endboss.playAnimation(this.endboss.IMAGES_DEAD_END);
+                this.endboss.y -= 5;
+                timeSpent += 100;
+            } else if (timeSpent >= 2200) {
+                this.spliceEndboss();
+                clearInterval(moveUpInterval);
+                this.endboss.showWin();
+            }
+        }, 100);
+        clearAllIntervals();
     }
 
     spliceEndboss() {

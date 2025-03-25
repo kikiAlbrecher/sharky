@@ -10,6 +10,7 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
+    playDead = false;
     offset = {
         top: 132,
         right: 56,
@@ -191,47 +192,15 @@ class Character extends MovableObject {
 
     playAnimationMoveCharacter() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) this.sharkySwims();
-        else if (this.isHurtPoison()) this.sharkyFeelsPain();
         else if (this.world.keyboard.THROW) this.sharkyThrowsBubble();
         else if (this.world.keyboard.THROW_POISON) this.sharkyThrowsPoison();
         else if (this.world.keyboard.SPACE) this.sharkySlapsWithTailfin();
         else if (this.x > 2300 && !this.isDead()) this.sharkyEncounterEndboss();
+        else if (this.isHurtPoison() && this.energy > 0) this.sharkyFeelsPain();
+        else if (this.isDead() && !this.playDead) this.sharkyDies();
+        else if (this.isDead() && this.playDead) this.sharkyIsDead();
         else this.sharkyDoesNothing();
-
-        if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD_POISON);
-            clearAllIntervals();
-
-            stopAllAudios()
-                .then(() => {
-                    setTimeout(() => {
-                        return gameOver.play();
-                    }, 200);
-                })
-                .catch((e) => {
-                    if (e) return ``;
-                })
-                .catch((e) => {
-                    if (e) return ``;
-                });
-
-
-
-
-            // stopAllAudios();
-            // setTimeout(() => {
-            //     gameOver.play();
-            // }, 300);
-            setTimeout(() => {
-                this.displayGameOver();
-                gameEnd.play();
-            }, 1000);
-        }
     }
-
-    // directionMove() {
-    //     this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN;
-    // }
 
     sharkySwims() {
         this.idleTime = 0;
@@ -240,13 +209,9 @@ class Character extends MovableObject {
         snore.pause();
     }
 
-    sharkyFeelsPain() {
-        this.playAnimation(this.IMAGES_HURT_POISON);
-        pain.play();
-    }
-
     sharkyThrowsBubble() {
         this.idleTime = 0;
+
         if (this.coinAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
@@ -258,6 +223,7 @@ class Character extends MovableObject {
 
     sharkyThrowsPoison() {
         this.idleTime = 0;
+
         if (this.poisonAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
@@ -269,6 +235,7 @@ class Character extends MovableObject {
 
     sharkySlapsWithTailfin() {
         this.idleTime = 0;
+
         snore.pause();
         this.isSlapping = true;
         slap.play();
@@ -277,6 +244,48 @@ class Character extends MovableObject {
             this.isSlapping = false;
         }, 160);
     }
+
+    sharkyEncounterEndboss() {
+        backgroundHappy.pause();
+        endbossFight.play();
+        if (endbossFight.play()) {
+            backgroundHappy.volume = 0;
+        }
+    }
+
+    sharkyFeelsPain() {
+        this.idleTime = 0;
+
+        this.playAnimation(this.IMAGES_HURT_POISON);
+        pain.play();
+    }
+
+    sharkyDies() {
+        this.playAnimation(this.IMAGES_DEAD_POISON);
+
+        setTimeout(() => {
+            this.playDead = true;
+        }, 1000);
+    }
+
+    sharkyIsDead() {
+        stopAllAudios()
+            .then(() => {
+                setTimeout(() => {
+                    gameOver.play();
+                }, 200);
+            })
+            .catch((e) => {
+                if (e) return ``;
+            });
+
+        setTimeout(() => {
+            this.displayGameOver();
+            gameEnd.play();
+        }, 1000);
+    }
+
+
 
     sharkyDoesNothing() {
         this.idleTime += 1000 / 12;
@@ -287,14 +296,6 @@ class Character extends MovableObject {
         if (this.idleTime >= 2500) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
             snore.play();
-        }
-    }
-
-    sharkyEncounterEndboss() {
-        backgroundHappy.pause();
-        endbossFight.play();
-        if (endbossFight.play()) {
-            backgroundHappy.volume = 0;
         }
     }
 
