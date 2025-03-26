@@ -102,12 +102,12 @@ class World {
                         this.character.hit();
                         this.statusBarLife.setPercentage(this.character.energy);
                         console.log('Collision with character, energy: ', this.character.energy);
-                        if (this.character.energy <= 0) {
-                            this.character.energy = 0;
-                            this.character.playAnimation(this.character.IMAGES_DEAD_POISON);
-                        } else {
-                            this.character.playAnimation(this.character.IMAGES_HURT_POISON);
-                        }
+                        // if (this.character.energy <= 0) {
+                        //     this.character.energy = 0;
+                        //     this.character.sharkyDies();
+                        // } else {
+                        //     this.character.playAnimation(this.character.IMAGES_HURT_POISON);
+                        // }
                     }
                 }
             });
@@ -119,17 +119,11 @@ class World {
             if (enemy instanceof enemyType) {
                 this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].forEach(object => {
                     if (enemy.isColliding(object)) {
-                        console.log(`${enemy.constructor.name} energy: `, enemy.energy);
                         enemy.hit();
                         if (enemy.energy <= 0) {
                             enemy.energy = 0;
                             enemy.playAnimation(enemy.IMAGES_DEAD);
                         }
-
-                        // if (enemy instanceof Endboss) {
-                        //     this.endbossIsHurt = true;
-                        // }
-                        console.log(`${enemy.constructor.name} energy after hit: `, enemy.energy);
 
                         const objectIndex = this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].indexOf(object);
                         if (objectIndex >= 0) this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].splice(objectIndex, 1);
@@ -238,7 +232,6 @@ class World {
         if (this.keyboard.THROW && this.character.coinAmount > 0) {
             let bubble = new ThrowableBubble(itemX, itemY, this.character.otherDirection);
             this.throwableBubble.push(bubble);
-            console.log('Bubble', this.throwableBubble);
             this.updateStatusbar('coin');
         }
     }
@@ -247,7 +240,6 @@ class World {
         if (this.keyboard.THROW_POISON && this.character.poisonAmount > 0) {
             let poison = new ThrowablePoison(itemX, itemY, this.character.otherDirection);
             this.throwablePoison.push(poison);
-            console.log('Poison: ', this.throwablePoison);
             this.updateStatusbar('poison');
         }
     }
@@ -260,8 +252,6 @@ class World {
             this.character[`${type}Amount`] -= delta;
             this.character.bubblesAmount -= this.character.bubblesDelta;
             this[`statusBar${type.charAt(0).toUpperCase() + type.slice(1)}`].setPercentage(amount - delta);
-            console.log(`Throw ${type}, ${type}Amount: `, amount - delta);
-            console.log('Throw, bubbles: ', this.character.bubblesAmount);
         }
     }
 
@@ -269,14 +259,11 @@ class World {
         let frameCount = 0;
 
         setStoppableInterval(() => {
+            if (this.character && this.character.x <= 2400 && !this.hadFirstContact) return;
             if (this.character) {
-                if (this.character.x <= 2300 && !this.hadFirstContact) return;
-            }
-            if (this.character) {
-                if (this.character.x > 2200 && !this.hadFirstContact) {
+                if (this.character.x > 2400 && !this.hadFirstContact) {
                     this.endboss.playAnimation(this.endboss.IMAGES_INTRODUCING);
                     frameCount++;
-
                     if (frameCount === 10) {
                         frameCount = 0;
                         this.endbossAppeared();
@@ -303,7 +290,7 @@ class World {
             setTimeout(() => {
                 this.endbossAttacks();
                 this.endbossIsHurt = false;
-            }, 300);
+            }, 160);
         }
     }
 
@@ -353,4 +340,3 @@ class World {
         this.level.enemies.splice(endbossIndex, 1);
     }
 }
-

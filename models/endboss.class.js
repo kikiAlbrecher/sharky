@@ -5,7 +5,6 @@ class Endboss extends MovableObject {
     height = 400;
     speed = 16;
     energyReduction = 20;
-    world;
 
     offset = {
         top: 192,
@@ -71,9 +70,8 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
     ];
 
-    constructor(world) {
+    constructor() {
         super();
-        this.world = world;
         this.loadImg(this.IMAGES_INTRODUCING[0]);
         this.loadImages(this.IMAGES_INTRODUCING);
         this.loadImages(this.IMAGES_SWIMMING);
@@ -82,11 +80,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImg(this.IMAGES_DEAD_END);
     }
-
-
-
-
-
 
     stopPlayStartWinAudios() {
         stopAllAudios()
@@ -112,7 +105,4 @@ class Endboss extends MovableObject {
         noGameScreen();
         winMessage.classList.remove('d-none');
     }
-
-
-
 }

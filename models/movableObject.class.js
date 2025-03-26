@@ -91,4 +91,20 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
+
+    checkSwimDirectionPuffer(x) {
+        setInterval(() => {
+            if (this.x <= x - 100 - Math.random() * 168) {
+                this.otherDirection = true;
+            } else if (this.x >= x + 100 + Math.random() * 168) {
+                this.otherDirection = false;
+            }
+
+            if (this.otherDirection) {
+                this.x += this.speed;
+            } else {
+                this.x -= this.speed;
+            }
+        }, 1000 / 10);
+    }
 }

@@ -28,7 +28,7 @@ class Jellyfish extends MovableObject {
     constructor() {
         super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = 360 + Math.random() * 1880;
+        this.x = 600 + Math.random() * 1840;
         this.y = 384 - Math.random() * 560;
         this.angleX = Math.random() > Math.random() ? 1 : -1;
         this.angleY = Math.random() > Math.random() ? 1 : -1;

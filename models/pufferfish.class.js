@@ -20,22 +20,23 @@ class Pufferfish extends MovableObject {
         'img/2.Enemy/1.Pufferfish/4.DIE/1.Dead 1 (can animate by going up).png'
     ]
 
-    constructor() {
+    constructor(x, y) {
         super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = 400 + Math.random() * 2240;
-        this.y = 400 - Math.random() * 380;
+        this.loadImages(this.IMAGES_DEAD);
+        this.x = x;
+        this.y = y;
         this.width = 48 + Math.random() * 24;
         this.height = this.width;
         this.speed = 1 + Math.random() * 4;
-        this.loadImages(this.IMAGES_DEAD);
         this.animatePufferfish();
+        this.checkSwimDirectionPuffer(x);
     }
 
     animatePufferfish() {
         setStoppableInterval(() => {
             if (this.energy > 0) {
-                this.moveLeft();
+                this.playAnimation(this.IMAGES_SWIMMING);
             } else {
                 this.pufferDead();
             }
@@ -43,11 +44,10 @@ class Pufferfish extends MovableObject {
     }
 
     pufferDead() {
-        this.playAnimation(this.IMAGES_DEAD);
-
         this.x -= 16;
         this.y -= 24;
 
+        this.playAnimation(this.IMAGES_DEAD);
         if (this.x < -this.width || this.y < -this.height) {
             this.x = -this.width;
             this.y = -this.height;

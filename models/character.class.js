@@ -2,7 +2,7 @@ class Character extends MovableObject {
     x = 0;
     width = 280;
     height = 280;
-    speed = 16;
+    speed = 10;
     idleTime = 0;
     coinAmount = 0;
     coinDelta = 20;
@@ -10,6 +10,7 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
+    isSharkyHurt = false;
     playDead = false;
     offset = {
         top: 132,
@@ -113,13 +114,7 @@ class Character extends MovableObject {
         'img/1.Sharkie/5.Hurt/1.Poisoned/4.png'
     ];
 
-    IMAGES_HURT_ELECTRIC = [
-        'img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
-        'img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
-        'img/1.Sharkie/5.Hurt/2.Electric shock/1.png'
-    ];
-
-    IMAGES_DEAD_POISON = [
+    IMAGES_DEAD = [
         'img/1.Sharkie/6.Dead/1.Poisoned/1.png',
         'img/1.Sharkie/6.Dead/1.Poisoned/2.png',
         'img/1.Sharkie/6.Dead/1.Poisoned/3.png',
@@ -131,18 +126,10 @@ class Character extends MovableObject {
         'img/1.Sharkie/6.Dead/1.Poisoned/9.png',
     ];
 
-    IMAGES_DEAD_ELECTRIC = [
-        'img/1.Sharkie/6.Dead/2.Electro_shock/1.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/2.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/3.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/4.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/5.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/6.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/7.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/8.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/9.png',
-        'img/1.Sharkie/6.Dead/2.Electro_shock/10.png'
+    IMAGES_DEAD_END = [
+        'img/1.Sharkie/6.Dead/1.Poisoned/9.png',
     ];
+
 
     world;
 
@@ -156,9 +143,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK_POISONED_BUBBLE);
         this.loadImages(this.IMAGES_ATTACK_FIN);
         this.loadImages(this.IMAGES_HURT_POISON);
-        this.loadImages(this.IMAGES_HURT_ELECTRIC);
-        this.loadImages(this.IMAGES_DEAD_POISON);
-        this.loadImages(this.IMAGES_DEAD_ELECTRIC);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_DEAD_END);
         this.applyGravity();
         this.animateCharacter();
     }
@@ -191,12 +177,13 @@ class Character extends MovableObject {
     }
 
     playAnimationMoveCharacter() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) this.sharkySwims();
-        else if (this.world.keyboard.THROW) this.sharkyThrowsBubble();
-        else if (this.world.keyboard.THROW_POISON) this.sharkyThrowsPoison();
-        else if (this.world.keyboard.SPACE) this.sharkySlapsWithTailfin();
-        else if (this.x > 2300 && !this.isDead()) this.sharkyEncounterEndboss();
-        else if (this.isHurtPoison() && this.energy > 0) this.sharkyFeelsPain();
+        if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) && !this.isDead())
+            this.sharkySwims();
+        else if (this.world.keyboard.THROW && !this.isDead()) this.sharkyThrowsBubble();
+        else if (this.world.keyboard.THROW_POISON && !this.isDead()) this.sharkyThrowsPoison();
+        else if (this.world.keyboard.SPACE && !this.isDead()) this.sharkySlapsWithTailfin();
+        else if (this.x > 2400 && !this.isDead()) this.sharkyEncounterEndboss();
+        else if (this.isHurtPoison() && !this.isDead()) this.sharkyFeelsPain();
         else if (this.isDead() && !this.playDead) this.sharkyDies();
         else if (this.isDead() && this.playDead) this.sharkyIsDead();
         else this.sharkyDoesNothing();
@@ -215,10 +202,12 @@ class Character extends MovableObject {
         if (this.coinAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-        } else if (this.coinAmount < 1 && !this.isDead()) {
-            throwingBubbles.play();
-            this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-        }
+        } else if (this.coinAmount < 1 && !this.isDead()) this.throwBubbleEmpty();
+    }
+
+    throwBubbleEmpty() {
+        throwingBubbles.play();
+        this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
     }
 
     sharkyThrowsPoison() {
@@ -227,10 +216,7 @@ class Character extends MovableObject {
         if (this.poisonAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
-        } else if (this.poisonAmount < 1 && !this.isDead()) {
-            throwingBubbles.play();
-            this.playAnimation(this.IMAGES_ATTACK_EMPTY_BUBBLE);
-        }
+        } else if (this.coinAmount < 1 && !this.isDead()) this.throwBubbleEmpty();
     }
 
     sharkySlapsWithTailfin() {
@@ -254,14 +240,19 @@ class Character extends MovableObject {
     }
 
     sharkyFeelsPain() {
+        this.isSharkyHurt = true;
         this.idleTime = 0;
 
         this.playAnimation(this.IMAGES_HURT_POISON);
         pain.play();
+        setTimeout(() => {
+            this.isSharkyHurt = false;
+        }, 160);
     }
 
     sharkyDies() {
-        this.playAnimation(this.IMAGES_DEAD_POISON);
+        this.isSharkyHurt = false;
+        this.playAnimation(this.IMAGES_DEAD);
 
         setTimeout(() => {
             this.playDead = true;
@@ -269,6 +260,23 @@ class Character extends MovableObject {
     }
 
     sharkyIsDead() {
+        let timeSpent = 0;
+
+        this.startGameOverSound();
+        let moveUpInterval = setInterval(() => {
+            if (timeSpent < 2200) {
+                this.playAnimation(this.IMAGES_DEAD_END);
+                this.y -= 5;
+                timeSpent += 100;
+            } else if (timeSpent >= 2200) {
+                clearInterval(moveUpInterval);
+                this.showGameOver();
+            }
+        }, 100);
+        clearAllIntervals();
+    }
+
+    startGameOverSound() {
         stopAllAudios()
             .then(() => {
                 setTimeout(() => {
@@ -278,14 +286,12 @@ class Character extends MovableObject {
             .catch((e) => {
                 if (e) return ``;
             });
-
-        setTimeout(() => {
-            this.displayGameOver();
-            gameEnd.play();
-        }, 1000);
     }
 
-
+    showGameOver() {
+        this.displayGameOver();
+        gameEnd.play();
+    }
 
     sharkyDoesNothing() {
         this.idleTime += 1000 / 12;
@@ -300,9 +306,7 @@ class Character extends MovableObject {
     }
 
     collectCoins() {
-        if (this.coinAmount == 100) {
-            return;
-        } else {
+        if (this.coinAmount < 100) {
             this.coinAmount += this.coinDelta;
             collectedCoin.play();
             this.collectBubbles();
@@ -310,9 +314,7 @@ class Character extends MovableObject {
     }
 
     collectPoison() {
-        if (this.poisonAmount == 100) {
-            return;
-        } else {
+        if (this.poisonAmount < 100) {
             this.poisonAmount += this.poisonDelta;
             collectedPoison.play();
             this.collectBubbles();
@@ -320,14 +322,7 @@ class Character extends MovableObject {
     }
 
     collectBubbles() {
-        if (this.bubblesAmount == 100) {
-            return;
-        } else {
-            this.bubblesAmount += this.bubblesDelta;
-        }
-        // if (this.bubblesAmount < 100) {
-        //     this.bubblesAmount += this.bubblesDelta;
-        // }
+        if (this.bubblesAmount < 100) this.bubblesAmount += this.bubblesDelta;
     }
 
     displayGameOver() {
@@ -335,6 +330,5 @@ class Character extends MovableObject {
 
         noGameScreen();
         gameOver.classList.remove('d-none');
-        clearAllIntervals();
     }
 }

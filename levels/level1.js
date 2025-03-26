@@ -3,18 +3,21 @@ let level1;
 function initLevel1() {
     level1 = new Level(
         [
-            // new Pufferfish(),
-            // new Pufferfish(),
-            // new Pufferfish(),
-            // new Pufferfish(),
-            // new Pufferfish(),
-            // new Pufferfish(),
-            // new PufferfishRose(),
-            // new PufferfishRose(),
-            // new PufferfishRose(),
-            // new Jellyfish(),
-            // new Jellyfish(),
-            // new Jellyfish(),
+            new Pufferfish(800, 200),
+            new Pufferfish(832, 80),
+            new Pufferfish(2000, 360),
+            new Pufferfish(1872, 150),
+            new Pufferfish(1464, 220),
+            new Pufferfish(900, 380),
+            new PufferfishRose(1200, 320),
+            new PufferfishRose(1600, 112),
+            new PufferfishRose(664, 288),
+            new Jellyfish(),
+            new Jellyfish(),
+            new Jellyfish(),
+            new JellyfishPink(1400),
+            // new JellyfishPink(2800),
+            new JellyfishPink(2900),
             new Endboss()
         ],
         [
