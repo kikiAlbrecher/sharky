@@ -57,7 +57,7 @@ function volumeSettings() {
     if (soundStatusRef === 'off') {
         putLoudspeakersOff();
         stopAllAudios();
-    } else {
+    } else if (soundStatusRef === 'on') {
         putLoudspeakersOn();
     }
 }

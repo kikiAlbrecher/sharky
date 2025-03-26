@@ -10,6 +10,7 @@ let keyboard = new Keyboard();
 function play(screenId) {
     sessionStorage.setItem('soundStatus', 'on');
     startGame(screenId);
+    volumeSettings();
 }
 
 /**

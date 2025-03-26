@@ -168,10 +168,14 @@ function restartGame(screenId) {
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
     const startScreen = document.getElementById('startScreen');
+    const playBtnRef = document.getElementById('playBtn');
+    const replayBtnRef = document.getElementById('replayBtn');
 
     gameEnd.pause();
     screen.classList.add('d-none');
     startScreen.style.display = 'flex';
+    playBtnRef.classList.add('d-none');
+    replayBtnRef.classList.remove('d-none');
     hadFirstContact = false;
     endbossIsIntroduced = false;
     backgroundHappy.volume = 1;
