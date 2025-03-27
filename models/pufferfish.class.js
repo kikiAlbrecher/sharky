@@ -1,6 +1,5 @@
 class Pufferfish extends MovableObject {
-    energy = 5;
-    energyReduction = 5;
+    energy = 10;
     offset = {
         top: 3,
         right: 6,
@@ -28,7 +27,7 @@ class Pufferfish extends MovableObject {
         this.y = y;
         this.width = 48 + Math.random() * 24;
         this.height = this.width;
-        this.speed = 1 + Math.random() * 4;
+        this.speed = 3 + Math.random() * 4;
         this.animatePufferfish();
         this.checkSwimDirectionPuffer(x);
     }

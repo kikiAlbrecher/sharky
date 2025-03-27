@@ -2,7 +2,6 @@ class Jellyfish extends MovableObject {
     width = 80;
     height = 80;
     energy = 10;
-    energyReduction = 10;
     offset = {
         top: 5,
         right: 3,

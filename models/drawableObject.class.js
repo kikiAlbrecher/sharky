@@ -29,24 +29,4 @@ class DrawableObject {
             console.log('Error loading image', this.img ? this.img.src : 'Unknown');
         }
     }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof PufferfishRose || this instanceof Jellyfish || this instanceof Endboss || this instanceof Coin || this instanceof AnimatedCoin || this instanceof Poison || this instanceof AnimatedPoison || this instanceof ThrowableBubble || this instanceof ThrowablePoison) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
-    drawOffsetFrame(ctx) {
-        if (this instanceof Character || this instanceof Pufferfish || this instanceof PufferfishRose || this instanceof Jellyfish || this instanceof Endboss || this instanceof Coin || this instanceof AnimatedCoin || this instanceof Poison || this instanceof AnimatedPoison || this instanceof ThrowableBubble || this instanceof ThrowablePoison) {
-            ctx.beginPath();
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.top - this.offset.bottom);
-            ctx.stroke();
-        }
-    }
 }

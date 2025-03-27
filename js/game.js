@@ -42,103 +42,89 @@ function exitFullscreen() {
 
 window.addEventListener('keydown', (event) => {
     if (event.defaultPrevented) return;
-    event.preventDefault();
     event.stopPropagation();
     switch (event.code) {
-        case 'ArrowUp':
-            keyboard.UP = true;
+        case 'ArrowUp': keyboard.UP = true;
             break;
-        case 'ArrowRight':
-            keyboard.RIGHT = true;
+        case 'ArrowRight': keyboard.RIGHT = true;
             break;
-        case 'ArrowDown':
-            keyboard.DOWN = true;
+        case 'ArrowDown': keyboard.DOWN = true;
             break;
-        case 'ArrowLeft':
-            keyboard.LEFT = true;
+        case 'ArrowLeft': keyboard.LEFT = true;
             break;
-        case 'KeyD':
-            keyboard.THROW = true;
+        case 'KeyD': keyboard.THROW = true;
             break;
-        case 'KeyF':
-            keyboard.THROW_POISON = true;
+        case 'KeyF': keyboard.THROW_POISON = true;
             break;
-        case 'Space':
-            keyboard.SPACE = true;
+        case 'Space': keyboard.SPACE = true;
+            event.preventDefault();
             break;
-        default:
-            return;
+        default: return;
     }
 });
 
 window.addEventListener('keyup', (event) => {
     if (event.defaultPrevented) return;
-    event.preventDefault();
     event.stopPropagation();
     switch (event.code) {
         case 'ArrowUp': keyboard.UP = false;
             break;
-        case 'ArrowRight':
-            keyboard.RIGHT = false;
+        case 'ArrowRight': keyboard.RIGHT = false;
             break;
-        case 'ArrowDown':
-            keyboard.DOWN = false;
+        case 'ArrowDown': keyboard.DOWN = false;
             break;
-        case 'ArrowLeft':
-            keyboard.LEFT = false;
+        case 'ArrowLeft': keyboard.LEFT = false;
             break;
-        case 'KeyD':
-            keyboard.THROW = false;
+        case 'KeyD': keyboard.THROW = false;
             break;
-        case 'KeyF':
-            keyboard.THROW_POISON = false;
+        case 'KeyF': keyboard.THROW_POISON = false;
             break;
-        case 'Space':
-            keyboard.SPACE = false;
+        case 'Space': keyboard.SPACE = false;
+            event.preventDefault();
             break;
-        default:
-            return;
+        default: return;
     }
 });
 
 window.addEventListener('touchstart', (event) => {
-    if (event.defaultPrevented) return;
-
     const button = event.target.closest('.touchscreen-btn');
+
     if (!button) return;
-
+    if (event.defaultPrevented) return;
     event.stopPropagation();
-
     if (button.id === 'btnUp') keyboard.UP = true;
     if (button.id === 'btnRight') keyboard.RIGHT = true;
     if (button.id === 'btnDown') keyboard.DOWN = true;
     if (button.id === 'btnLeft') keyboard.LEFT = true;
     if (button.id === 'btnAttackBubble') keyboard.THROW = true;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
-    if (button.id === 'btnAttackFin') keyboard.SPACE = true;
+    if (button.id === 'btnAttackFin') {
+        keyboard.SPACE = true;
+        event.preventDefault();
+    }
 });
 
 window.addEventListener('touchend', (event) => {
-    if (event.defaultPrevented) return;
-
     const button = event.target.closest('.touchscreen-btn');
+
     if (!button) return;
-
+    if (event.defaultPrevented) return;
     event.stopPropagation();
-
     if (button.id === 'btnUp') keyboard.UP = false;
     if (button.id === 'btnRight') keyboard.RIGHT = false;
     if (button.id === 'btnDown') keyboard.DOWN = false;
     if (button.id === 'btnLeft') keyboard.LEFT = false;
     if (button.id === 'btnAttackBubble') keyboard.THROW = false;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = false;
-    if (button.id === 'btnAttackFin') keyboard.SPACE = false;
-
+    if (button.id === 'btnAttackFin') {
+        keyboard.SPACE = false;
+        event.preventDefault();
+    }
 });
 
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
-    
+
     intervalIds.push(id);
     return id;
 }
@@ -160,26 +146,33 @@ function restartGame(screenId) {
     gameEnd.pause();
     startGame(screenId);
     hadFirstContact = false;
-    endbossIsIntroduced = false;
+    isDeadAnimationPlayed = false;
+    playDead = false;
     backgroundHappy.volume = 1;
     restoreSoundStatus();
 }
 
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
+
+    gameEnd.pause();
+    screen.classList.add('d-none');
+    startScreenSettings();
+    hadFirstContact = false;
+    isDeadAnimationPlayed = false;
+    playDead = false;
+    backgroundHappy.volume = 1;
+    restoreSoundStatus();
+}
+
+function startScreenSettings() {
     const startScreen = document.getElementById('startScreen');
     const playBtnRef = document.getElementById('playBtn');
     const replayBtnRef = document.getElementById('replayBtn');
 
-    gameEnd.pause();
-    screen.classList.add('d-none');
     startScreen.style.display = 'flex';
     playBtnRef.classList.add('d-none');
     replayBtnRef.classList.remove('d-none');
-    hadFirstContact = false;
-    endbossIsIntroduced = false;
-    backgroundHappy.volume = 1;
-    restoreSoundStatus();
 }
 
 window.addEventListener('resize', function () {

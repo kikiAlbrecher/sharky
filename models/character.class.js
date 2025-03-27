@@ -2,7 +2,7 @@ class Character extends MovableObject {
     x = 0;
     width = 280;
     height = 280;
-    speed = 10;
+    speed = 12;
     idleTime = 0;
     coinAmount = 0;
     coinDelta = 20;
@@ -130,7 +130,6 @@ class Character extends MovableObject {
         'img/1.Sharkie/6.Dead/1.Poisoned/9.png',
     ];
 
-
     world;
 
     constructor() {
@@ -186,7 +185,7 @@ class Character extends MovableObject {
         else if (this.isHurtPoison() && !this.isDead()) this.sharkyFeelsPain();
         else if (this.isDead() && !this.playDead) this.sharkyDies();
         else if (this.isDead() && this.playDead) this.sharkyIsDead();
-        else this.sharkyDoesNothing();
+        else if (!this.isDead()) this.sharkyDoesNothing();
     }
 
     sharkySwims() {
@@ -202,7 +201,7 @@ class Character extends MovableObject {
         if (this.coinAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_BUBBLE);
-        } else if (this.coinAmount < 1 && !this.isDead()) this.throwBubbleEmpty();
+        } else if (this.coinAmount === 0 && !this.isDead()) this.throwBubbleEmpty();
     }
 
     throwBubbleEmpty() {
@@ -216,7 +215,7 @@ class Character extends MovableObject {
         if (this.poisonAmount > 0 && !this.isDead()) {
             throwingBubbles.play();
             this.playAnimation(this.IMAGES_ATTACK_POISONED_BUBBLE);
-        } else if (this.coinAmount < 1 && !this.isDead()) this.throwBubbleEmpty();
+        } else if (this.coinAmount === 0 && !this.isDead()) this.throwBubbleEmpty();
     }
 
     sharkySlapsWithTailfin() {
@@ -256,7 +255,7 @@ class Character extends MovableObject {
 
         setTimeout(() => {
             this.playDead = true;
-        }, 1000);
+        }, 1600);
     }
 
     sharkyIsDead() {
@@ -264,15 +263,15 @@ class Character extends MovableObject {
 
         this.startGameOverSound();
         let moveUpInterval = setInterval(() => {
-            if (timeSpent < 2200) {
+            if (timeSpent < 2800) {
                 this.playAnimation(this.IMAGES_DEAD_END);
-                this.y -= 5;
+                this.y -= 8;
                 timeSpent += 100;
-            } else if (timeSpent >= 2200) {
+            } else if (timeSpent >= 2800) {
                 clearInterval(moveUpInterval);
                 this.showGameOver();
             }
-        }, 100);
+        }, 1000 / 16);
         clearAllIntervals();
     }
 
