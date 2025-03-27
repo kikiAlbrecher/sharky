@@ -98,10 +98,7 @@ window.addEventListener('touchstart', (event) => {
     if (button.id === 'btnLeft') keyboard.LEFT = true;
     if (button.id === 'btnAttackBubble') keyboard.THROW = true;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
-    if (button.id === 'btnAttackFin') {
-        keyboard.SPACE = true;
-        event.preventDefault();
-    }
+    if (button.id === 'btnAttackFin') keyboard.SPACE = true;
 });
 
 window.addEventListener('touchend', (event) => {
@@ -116,10 +113,7 @@ window.addEventListener('touchend', (event) => {
     if (button.id === 'btnLeft') keyboard.LEFT = false;
     if (button.id === 'btnAttackBubble') keyboard.THROW = false;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = false;
-    if (button.id === 'btnAttackFin') {
-        keyboard.SPACE = false;
-        event.preventDefault();
-    }
+    if (button.id === 'btnAttackFin') keyboard.SPACE = false;
 });
 
 function setStoppableInterval(fn, time) {
