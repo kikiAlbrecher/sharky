@@ -1,4 +1,51 @@
-@media only screen and (max-width: 1000px) {
+@media (max-width: 1026px) {
+    #instructions {
+        right: 16px;
+    }
+
+    .footer-integration {
+        display: none;
+    }
+
+    .responsive-footer {
+        display: flex;
+        z-index: 8000;
+    }
+
+    .resp-footer-btn {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: 16px;
+        top: 96px;
+    }
+
+    .footer-img {
+        height: 34px;
+        width: 28px;
+    }
+
+    .resp-footer-box {
+        background: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 54px;
+        right: 56px;
+        width: 80px;
+        text-align: right;
+    }
+
+    .mute-btn {
+        right: 16px;
+        top: 160px;
+    }
+
+    .fullscreen {
+        right: 16px;
+        bottom: 24px;
+    }
+}
+
+@media (max-width: 1000px) {
     .instruction-space {
         display: none;
     }
@@ -11,9 +58,13 @@
     }
 }
 
-@media (max-width: 944px) {
+@media (max-width: 934px) {
     .close-overlay {
         padding-right: 48px;
+    }
+
+    .max-width {
+        height: 100vh;
     }
 
     .h2-variant {
@@ -37,7 +88,6 @@
     }
 
     .screen-btn {
-        border-radius: 50%;
         height: 40px;
         width: 40px;
     }
@@ -52,19 +102,26 @@
         width: 30px;
     }
 
-}
-
-@media (max-width: 916px) {
-    .close-overlay {
-        padding-right: 48px;
+    .resp-footer-btn {
+        top: 80px;
     }
 
-    .max-width {
-        height: calc(100vh - 72px);
+    .footer-img {
+        height: 26px;
+        width: 22px;
+    }
+
+    .mute-btn {
+        top: 128px;
+    }
+
+    .fullscreen {
+        right: 16px;
+        bottom: 24px;
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media (max-width: 720px) {
     h1 {
         display: none;
     }
@@ -96,8 +153,18 @@
         right: 8px;
     }
 
+    .resp-footer-btn {
+        top: 56px;
+        right: 8px;
+    }
+
     .mute-btn {
         top: 104px;
+        right: 8px;
+    }
+
+    .fullscreen {
+        top: 152px;
         right: 8px;
     }
 
@@ -110,51 +177,13 @@
         border-radius: 14px;
     }
 
-    .whitespace {
-        width: 40px;
-    }
-
-    .fullscreen {
-        right: 8px;
-        bottom: 24px;
-    }
-
-    .footer-integration {
-        display: none;
-    }
-
-    .responsive-footer {
-        display: flex;
-        z-index: 8000;
-    }
-
-    .resp-footer-btn {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 8px;
-        top: 56px;
-    }
-
-    .footer-img {
-        height: 26px;
-        width: 22px;
-    }
-
-    .resp-footer-box {
-        background: rgba(0, 0, 0, 0.2);
-        position: absolute;
-        top: 54px;
-        right: 56px;
-        width: 80px;
-        text-align: right;
-    }
-
     .space-alternative-middle {
         display: none;
     }
 
-
+    .whitespace {
+        width: 40px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -242,19 +271,11 @@
     .space-alternative-middle {
         display: none;
     }
-
-
-
 }
 
-
-@media only screen and (max-height: 480px) {
+@media (max-height: 480px) {
     h1 {
         display: none;
-    }
-
-    .max-width {
-        height: 100vh;
     }
 
     canvas {
@@ -296,31 +317,6 @@
         text-align: right;
     }
 
-    .touchscreen-btn {
-        border: 2px solid rgb(255, 255, 255);
-        border-radius: 50%;
-        background-color: rgb(127, 255, 224);
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .attack-btn {
-        background-color: rgb(47, 49, 141);
-    }
-
-    .touch-btn-img {
-        width: 28px;
-        height: 28px;
-    }
-
-    .attack-btn-img {
-        width: 24px;
-        height: 24px;
-    }
-
     .black-overlay {
         flex-direction: row;
     }
@@ -350,26 +346,9 @@
         right: 8px;
         bottom: 24px;
     }
-
-
-
-
-
 }
 
-@media (max-width: 464px) {
-    .max-width {
-        height: calc(100vh - 64px);
-    }
-}
-
-/* @media only screen and (max-width: 680px) {
-    .overlay-frame {
-        justify-content: space-between;
-    }
-} */
-
-@media only screen and (max-width: 440px) {
+@media (max-width: 440px) {
     .close-overlay {
         padding: 8px 8px 0 0;
     }
@@ -381,9 +360,4 @@
     .collect {
         padding-left: 32px;
     }
-
-
-
-
-
 }

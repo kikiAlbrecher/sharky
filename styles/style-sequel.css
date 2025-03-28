@@ -1,0 +1,58 @@
+.instruction-img-height {
+    height: 48px;
+}
+
+.endboss-img-height {
+    height: 56px;
+}
+
+.pufferfish-collection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.overlay-screen {
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.imitated-play-button {
+    border-radius: 16px;
+    border: 3px solid rgb(255, 255, 255);
+    background: rgb(127, 255, 224);
+}
+
+.responsive-footer {
+    display: none;
+}
+
+.touchscreen-btn {
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: rgb(127, 255, 224);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.attack-btn {
+    background-color: rgb(47, 49, 141);
+}
+
+.touch-btn-img {
+    width: 28px;
+    height: 28px;
+}
+
+.attack-btn-img {
+    width: 24px;
+    height: 24px;
+}

@@ -37,22 +37,6 @@ canvas {
     display: block;
 }
 
-.touch-game-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.mobile-btn-section {
-    height: 40px;
-    width: 100%;
-    background: rgb(47, 39, 113);
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
 h1 {
     text-align: center;
     font-size: 64px;
@@ -109,8 +93,8 @@ button:hover {
 }
 
 .game-over-screen {
-    background-color: rgba(0, 0, 0, 0.2);
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .game-over-lettering {
@@ -120,7 +104,7 @@ button:hover {
 
 .loading {
     display: none;
-    z-index: 9;
+    z-index: 800;
     position: fixed;
     top: 0;
     left: 0;
@@ -214,8 +198,28 @@ button:hover {
     bottom: 104px;
 }
 
+.touch-game-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mobile-btn-section {
+    height: 40px;
+    width: 100%;
+    background: rgb(47, 39, 113);
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.screen-layer {
+    display: none;
+}
+
 #instructions {
-    z-index: 9000;
+    z-index: 8000;
     position: absolute;
     top: 32px;
     right: 32px;
@@ -391,38 +395,4 @@ h2 {
 
 .pufferfish-img-height {
     height: 20px;
-}
-
-.instruction-img-height {
-    height: 48px;
-}
-
-.endboss-img-height {
-    height: 56px;
-}
-
-.pufferfish-collection {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-}
-
-.overlay-screen {
-    z-index: 500;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-}
-
-.imitated-play-button {
-    border-radius: 16px;
-    border: 3px solid rgb(255, 255, 255);
-    background: rgb(127, 255, 224);
-}
-
-.responsive-footer {
-    display: none;
 }
