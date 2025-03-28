@@ -33,7 +33,6 @@ function startGame(screenId) {
         init();
         hideLoadingSpinner();
     }, 2000);
-    touchscreenGameBtns();
 }
 
 /**
