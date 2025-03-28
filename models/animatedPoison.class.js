@@ -1,6 +1,8 @@
 /**
  * Class representing a poison object in the game.
  * This class handles the loading and animation of poison images.
+ * 
+ * @extends MovableObject
  */
 class AnimatedPoison extends MovableObject {
     width = 50;
@@ -12,11 +14,6 @@ class AnimatedPoison extends MovableObject {
         left: 10
     };
 
-    /**
-     * Array of image paths for animated poison images.
-     * These images are used for the animation of the poison object.
-     * @constant {string[]} IMAGES_POISON
-     */
     IMAGES_POISON = [
         'img/4.Marcadores/Posión/Animada/1.png',
         'img/4.Marcadores/Posión/Animada/2.png',

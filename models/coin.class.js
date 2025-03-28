@@ -1,3 +1,9 @@
+/**
+ * Represents a coin in the game that can be collected by the player.
+ * The coin has an image and random coordinates for its initial position.
+ * 
+ * @extends MovableObject
+ */
 class Coin extends MovableObject {
     width = 40;
     height = 40;
@@ -6,6 +12,10 @@ class Coin extends MovableObject {
         'img/4.Marcadores/1. Coins/4.png'
     ];
 
+    /**
+     * Creates an instance of the Coin class.
+     * The coin is placed at a random position within the game world.
+     */
     constructor() {
         super().loadImg(this.IMAGES_COIN);
         this.x = 280 + Math.random() * 440 * 4;

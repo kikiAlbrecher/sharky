@@ -1,3 +1,10 @@
+/**
+ * Represents an animated coin object class in the game.
+ * The coin will animate its appearance by cycling through a series of images.
+ * It is randomly positioned on the screen when created.
+ * 
+ * @extends MovableObject
+ */
 class AnimatedCoin extends MovableObject {
     width = 40;
     height = 40;
@@ -9,6 +16,9 @@ class AnimatedCoin extends MovableObject {
         'img/4.Marcadores/1. Coins/4.png'
     ];
 
+    /**
+     * Creates an instance of AnimatedCoin, loading images and positioning it randomly.
+     */
     constructor() {
         super().loadImg(this.IMAGES_COIN[0]);
         this.loadImages(this.IMAGES_COIN);
@@ -17,6 +27,10 @@ class AnimatedCoin extends MovableObject {
         this.animateCoin();
     }
 
+    /**
+     * Animates the coin by cycling through its images at a regular interval.
+     * The animation is controlled by changing the `img` property to the next image in the sequence.
+     */
     animateCoin() {
         setStoppableInterval(() => {
             let i = this.currentImage % this.IMAGES_COIN.length;

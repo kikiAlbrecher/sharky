@@ -3,8 +3,12 @@ let canvas;
 let keyboard = new Keyboard();
 
 /**
- * Starts the game by setting up sound settings, storing the sound status, and initializing the game.
+ * Starts the game and sets the sound settings.
  * 
+ * This function updates the sessionStorage to indicate that the sound is turned on,
+ * then calls the `startGame` function to begin the game with the specified screen ID.
+ * It also adjusts the volume settings by calling the `volumeSettings` function.
+ *
  * @param {string} screenId - The ID of the screen to hide before starting the game.
  */
 function play(screenId) {
@@ -16,7 +20,7 @@ function play(screenId) {
 /**
  * Initializes and starts the game by hiding the current screen, displaying the game screen, showing a loading spinner,
  * and initializing the first level. 
- * The loading spinner is hidden after 2 seconds.
+ * The loading spinner is hidden after a specified timespan.
  *
  * @param {string} screenId - The ID of the screen to stop before starting the game.
  */
@@ -84,50 +88,4 @@ function hideLoadingSpinner() {
     const spinnerRef = document.getElementById('loadingSpinner');
 
     spinnerRef.style.display = 'none';
-}
-
-/**
- * Displays the touchscreen buttons if the screen width or height is below 720px x 480px, otherwise hides them.
- */
-function touchscreenGameBtns() {
-    const mobileBtnRef = document.getElementById('mobileBtns');
-
-    if (window.innerWidth < 720 || window.innerHeight < 480) {
-        mobileBtnRef.style.display = 'flex';
-    } else if (window.innerWidth > 720 || window.innerHeight > 480) {
-        mobileBtnRef.style.display = 'none';
-    }
-}
-
-/**
- * Displays the instructions overlay by removing the 'd-none' class and adding the 'black-overlay' class.
- * Also handles the scrollbar visibility.
- */
-function showInstructions() {
-    const blackOverlayRef = document.getElementById('blackOverlay');
-
-    blackOverlayRef.classList.remove('d-none');
-    blackOverlayRef.classList.add('black-overlay');
-    handleScrollbar();
-}
-
-/**
- * Closes the instructions overlay by toggling the 'd-none' and 'black-overlay' classes.
- */
-function closeOverlay() {
-    const blackOverlayRef = document.getElementById('blackOverlay');
-
-    blackOverlayRef.classList.toggle('d-none');
-    blackOverlayRef.classList.toggle('black-overlay');
-}
-
-/**
- * Handles the visibility of the scrollbar when the overlay is active.
- * If the overlay is shown, it adds 'overlay-active' class to the body, else removes it.
- */
-function handleScrollbar() {
-    const blackOverlayRef = document.getElementById('blackOverlay');
-
-    blackOverlayRef.classList.contains('d-none') ? document.body.classList.remove('overlay-active') :
-        document.body.classList.add('overlay-active');
 }

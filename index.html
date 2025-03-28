@@ -35,21 +35,34 @@
     <script src="./models/coin.class.js"></script>
     <script src="./models/throwableBubble.class.js"></script>
     <script src="./models/throwablePoison.class.js"></script>
-
     <script src="./js/audio.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/start.js"></script>
     <script src="./js/landscapeMode.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/footer.js"></script>
-
 </head>
 
-<body onload="includeHTML(), initLandscapeMode()">
+<body onload="includeHTML()">
     <div class="max-width">
+        <section class="screen-content start-screen" id="startScreen">
+            <button class="play-button" id="playBtn" onclick="play('startScreen')">
+                <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
+            </button>
+            <button class="play-button d-none" id="replayBtn" onclick="startGame('startScreen')">
+                <img class="play-img" src="./img/6.Botones/Start/2.png" alt="restart button">
+            </button>
+        </section>
+
+        <section class="d-none" id="loadingSpinner">
+            <div class="loading">
+                <img class="loading-spinner" src="./img/sharky-loading-spinner.png" alt="loading spinner">
+            </div>
+        </section>
+
         <section class="d-none" id="gameScreen">
             <h1 id="gameName">Sharky</h1>
-            <div class="touch-game-screen">
+            <div class="touch-game-screen" id="touchGameScreen">
                 <canvas width="720" height="480" id="canvas"></canvas>
                 <div class="mobile-btn-section d-none" id="mobileBtns">
                     <button class="touchscreen-btn" id="btnUp">
@@ -80,7 +93,7 @@
             </div>
         </section>
 
-        <div class="screen-layer d-none" id="portraitMessage">
+        <div class="screen-layer" id="portraitMessage">
             <div class="portrait-message">
                 <div class="mobile-device-rotation">
                     <img class="mobile-device" src="./img/icons/mobile-device.png" alt="rotating device image">
@@ -88,15 +101,6 @@
                 <p class="device-portrait">Please rotate your device.</p>
             </div>
         </div>
-
-        <section class="screen-content start-screen" id="startScreen">
-            <button class="play-button" id="playBtn" onclick="play('startScreen')">
-                <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
-            </button>
-            <button class="play-button d-none" id="replayBtn" onclick="startGame('startScreen')">
-                <img class="play-img" src="./img/6.Botones/Start/2.png" alt="restart button">
-            </button>
-        </section>
 
         <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart()">
             <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
@@ -188,8 +192,8 @@
                                     <img class="instruction-img-height"
                                         src="./img/2.Enemy/2 Jellyfish/Regular damage/Yellow 1.png"
                                         alt="yellow jellyfish">
-                                    <img class="instruction-img-height" src="./img/2.Enemy/2 Jellyfish/Súper dangerous/Pink 1.png"
-                                        alt="pink jellyfish">
+                                    <img class="instruction-img-height"
+                                        src="./img/2.Enemy/2 Jellyfish/Súper dangerous/Pink 1.png" alt="pink jellyfish">
                                 </div>
                                 <img class="endboss-img-height" src="./img/7.Instructions/endboss-head.png"
                                     alt="endboss">
@@ -199,12 +203,6 @@
                 </div>
             </section>
         </div>
-
-        <section class="d-none" id="loadingSpinner">
-            <div class="loading">
-                <img class="loading-spinner" src="./img/sharky-loading-spinner.png" alt="loading spinner">
-            </div>
-        </section>
 
         <section class="d-none" id="winScreen">
             <div class="screen-content win-screen">

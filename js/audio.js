@@ -106,6 +106,10 @@ function stopAllAudios() {
     });
 }
 
+/**
+ * Toggles the volume icon on the start screen and controls the sound based on the current status.
+ * It checks if the start screen is visible, then either starts the background music or all sounds if play is active.
+ */
 function toggleVolumeStart() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
     const loudspeakerOnRef = document.getElementById('volumeOn');
@@ -115,21 +119,38 @@ function toggleVolumeStart() {
     loudspeakerOnRef.classList.toggle('d-none');
 
     startScreenRef && !startScreenRef.classList.contains('d-none') ? toggleSoundStart() : toggleSound();
+    startScreenSound();
+    storeSoundStatus();
+}
+
+/**
+ * Handles the sound toggling when the start screen is displayed.
+ * It checks if the start screen is visible and applies the appropriate sound settings.
+ */
+function startScreenSound() {
+    const startScreenRef = document.getElementById('startScreen');
 
     if (startScreenRef) {
         const displayStyle = window.getComputedStyle(startScreenRef).display;
 
         displayStyle === 'flex' ? toggleSoundStart() : toggleSound();
     }
-    storeSoundStatus();
 }
 
+/**
+ * Stores the current sound status (on or off) in the sessionStorage.
+ * If the volume is off, it stores 'off'; if the volume is on, it stores 'on'.
+ */
 function storeSoundStatus() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
 
     loudspeakerOffRef.classList.contains('d-none') ? sessionStorage.setItem('soundStatus', 'on') : sessionStorage.setItem('soundStatus', 'off');
 }
 
+/**
+ * Restores the sound status based on the value stored in sessionStorage.
+ * If the sound status is 'on', it enables the sound; otherwise, it disables the sound.
+ */
 function restoreSoundStatus() {
     const soundStatus = sessionStorage.getItem('soundStatus');
 
@@ -142,12 +163,19 @@ function restoreSoundStatus() {
     }
 }
 
+/**
+ * Starts or stops the background sound when the volume icon is toggled on the start screen.
+ */
 function toggleSoundStart() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
 
     loudspeakerOffRef.classList.contains('d-none') ? backgroundHappy.play() : backgroundHappy.pause();
 }
 
+/**
+ * Toggles the sound for all audio elements on the page.
+ * If the volume icon is off, it mutes all audio; if it is on, it unmutes all audio.
+ */
 function toggleSound() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
 
@@ -162,6 +190,10 @@ function toggleSound() {
     }
 }
 
+/**
+ * Plays or stops the background sound based on the current sound status stored in sessionStorage.
+ * If the sound status is 'off', it stops all audio; if the sound status is 'on', it plays the background sound.
+ */
 function playSoundByStatus() {
     const soundStatus = sessionStorage.getItem('soundStatus');
 

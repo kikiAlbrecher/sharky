@@ -29,8 +29,6 @@ async function includeHTML() {
  * This function checks for an element with the ID 'responsiveFooter' and toggles the 'd-none' class 
  * to show or hide the footer menu when triggered. This is commonly used for responsive web design to 
  * show/hide the footer menu on mobile or tablet devices.
- * 
- * @returns {void} This function does not return anything.
  */
 function toggleFooterMenu() {
     const respFooterRef = document.getElementById('responsiveFooter');

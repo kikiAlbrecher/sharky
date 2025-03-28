@@ -1,3 +1,9 @@
+/**
+ * Represents the Endboss in the game, the main - strongest - antagonist of Sharky.
+ * Handles animations, attacks, movement, and death sequences for the Endboss.
+ * 
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
     x = 2860 + 200;
     y = 40;
@@ -13,6 +19,9 @@ class Endboss extends MovableObject {
         left: 26
     };
 
+    /**
+     * Images representing the different stages / moves of the Endboss.
+     */
     IMAGES_INTRODUCING = [
         'img/2.Enemy/3 Final-enemy/1.Introduce/1.png',
         'img/2.Enemy/3 Final-enemy/1.Introduce/2.png',
@@ -70,6 +79,10 @@ class Endboss extends MovableObject {
         'img/2.Enemy/3 Final-enemy/Dead/Mesa de trabajo 2 copia 10.png'
     ];
 
+    /**
+     * Creates an instance of Endboss.
+     * Loads images for all the different states / movements (introducing, swimming, attacking, hurt, dead) of this antagonist.
+     */
     constructor() {
         super();
         this.loadImg(this.IMAGES_INTRODUCING[0]);
@@ -81,24 +94,68 @@ class Endboss extends MovableObject {
         this.loadImg(this.IMAGES_DEAD_END);
     }
 
+    /**
+     * Plays the animation for the introduction of the Endboss.
+     */
+    playImagesIntroducing() {
+        this.playAnimation(this.IMAGES_INTRODUCING);
+    }
+
+    /**
+     * Plays the animation for the Endboss swimming.
+     */
+    playImagesSwimming() {
+        this.playAnimation(this.IMAGES_SWIMMING);
+    }
+
+    /**
+     * Plays the animation for when the Endboss is hurt.
+     */
+    playImagesHurt() {
+        this.playAnimation(this.IMAGES_HURT);
+        endbossPain.play();
+    }
+
+    /**
+     * Plays the animation for the Endboss dead state.
+     */
+    playImagesDead() {
+        this.playAnimation(this.IMAGES_DEAD);
+    }
+
+    /**
+     * Lifts the Endboss upwards (used when it is dead).
+     */
+    liftUpEndboss() {
+        this.playAnimation(this.IMAGES_DEAD_END);
+        this.y -= 5;
+    }
+
+    /**
+     * Stops any currently playing audios and plays the winning audio after a short delay.
+     */
     stopPlayStartWinAudios() {
         stopAllAudios()
             .then(() => {
-                setTimeout(() => {
-                    return win.play();
-                }, 200);
+                setTimeout(() => win.play(), 300);
             })
             .catch((e) => {
-                if (e) return ``;
-            })
+                if (e) win.pause();
+            });
     }
 
+    /**
+     * Displays the win screen and plays the game end audio.
+     */
     showWin() {
-            win.pause();
-            this.displayWinScreen();
-            gameEnd.play();
+        win.pause();
+        this.displayWinScreen();
+        gameEnd.play();
     }
 
+    /**
+     * Displays the win message and hides the game screen.
+     */
     displayWinScreen() {
         const winMessage = document.getElementById('winScreen');
 
