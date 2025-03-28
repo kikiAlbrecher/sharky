@@ -7,6 +7,7 @@
     <link rel="icon" href="./img/icons/logo.png">
     <title>Sharky</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/style-sequel.css">
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./styles/landscape-mode.css">
@@ -62,20 +63,20 @@
 
         <section class="d-none" id="gameScreen">
             <h1 id="gameName">Sharky</h1>
-            <div class="touch-game-screen" id="touchGameScreen">
+            <div class="touch-game-screen">
                 <canvas width="720" height="480" id="canvas"></canvas>
                 <div class="mobile-btn-section d-none" id="mobileBtns">
                     <button class="touchscreen-btn" id="btnUp">
                         <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
                     </button>
-                    <button class="touchscreen-btn" id="btnRight">
-                        <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
+                    <button class="touchscreen-btn" id="btnDown">
+                        <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
                     </button>
                     <button class="touchscreen-btn" id="btnLeft">
                         <img class="touch-btn-img" src="./img/icons/left.png" alt="left">
                     </button>
-                    <button class="touchscreen-btn" id="btnDown">
-                        <img class="touch-btn-img" src="./img/icons/down.png" alt="down">
+                    <button class="touchscreen-btn" id="btnRight">
+                        <img class="touch-btn-img" src="./img/icons/right.png" alt="right">
                     </button>
                     <button class="touchscreen-btn attack-btn" id="btnAttackBubble">
                         <img class="touch-btn-img attack-btn-img" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png"
@@ -93,7 +94,7 @@
             </div>
         </section>
 
-        <div class="screen-layer" id="portraitMessage">
+        <div class="screen-layer d-none" id="portraitMessage">
             <div class="portrait-message">
                 <div class="mobile-device-rotation">
                     <img class="mobile-device" src="./img/icons/mobile-device.png" alt="rotating device image">

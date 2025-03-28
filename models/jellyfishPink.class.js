@@ -1,3 +1,9 @@
+/**
+ * Class representing a pink jellyfish, which is a more dangerous variant of the Jellyfish (quicker swimming).
+ * Inherits from the Jellyfish class and overrides the swimming and dead images.
+ * 
+ * @extends Jellyfish
+ */
 class JellyfishPink extends Jellyfish {
     IMAGES_SWIMMING = [
         'img/2.Enemy/2 Jellyfish/Súper dangerous/Pink 1.png',
@@ -13,10 +19,16 @@ class JellyfishPink extends Jellyfish {
         'img/2.Enemy/2 Jellyfish/Dead/Pink/P4.png'
     ];
 
+    /**
+     * Creates an instance of the JellyfishPink class.
+     * Initializes the jellyfish's position, speed, and animations based on the given x-coordinate.
+     * 
+     * @param {number} x - The starting x-coordinate of the jellyfish.
+     */
     constructor(x) {
         super().loadImg(this.IMAGES_SWIMMING[0]);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = x;
+        this.x = x - Math.random() * 340;
         this.y = 384 - Math.random() * 160;
         this.angleX = Math.random() > Math.random() ? 1 : -1;
         this.angleY = Math.random() > Math.random() ? 1 : -1;
@@ -24,7 +36,4 @@ class JellyfishPink extends Jellyfish {
         this.loadImages(this.IMAGES_DEAD);
         this.animateJelly();
     }
-
-
-
 }
