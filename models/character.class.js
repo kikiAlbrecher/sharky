@@ -186,6 +186,10 @@ class Character extends MovableObject {
         this.world.camera_x = -this.x + 80;
     }
 
+    /**
+     * Handles the horizontal movements of the character. It checks if Sharky is swimming right or left, and moves accordingly.
+     * It is also updates the direction of the shark if it's swimming left.
+     */
     horizontalMovements() {
         if (this.sharkySwimsRight()) this.moveRight();
         else if (this.sharkySwimsLeft()) {
@@ -194,45 +198,62 @@ class Character extends MovableObject {
         }
     }
 
-    sharkySwimsRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
-    }
-
-    sharkySwimsLeft() {
-        return this.world.keyboard.LEFT && this.x > -1420;
-    }
-
+    /**
+     * Handles the vertical movements of the character. It checks if Sharky is swimming up or down, and moves accordingly.
+     */
     verticalMovements() {
         if (this.sharkySwimsUp()) this.moveUp();
         else if (this.sharkySwimsDown()) this.moveDown();
     }
 
-    sharkySwimsUp() {
-        return this.world.keyboard.UP && this.y > -110;
-    }
-
-    sharkySwimsDown() {
-        return this.world.keyboard.DOWN && this.isAboveGround();
-    }
-
+    /**
+     * Handles diagonal movements of the character. It checks all combinations of vertical and horizontal movements and moves accordingly.
+     */
     diagonalMovements() {
-        if (this.sharkySwimsUp() && this.sharkySwimsRight()) {
-            this.x += this.speed / 2;
-            this.otherDirection = false;
-            this.y -= 2.5;
-        } else if (this.sharkySwimsUp() && this.sharkySwimsLeft()) {
-            this.x -= this.speed / 2;
-            this.otherDirection = true;
-            this.y -= 2.5;
-        } else if (this.sharkySwimsDown() && this.sharkySwimsRight()) {
-            this.x += this.speed / 2;
-            this.otherDirection = false;
-            this.y += 2.5;
-        } else if (this.sharkySwimsDown() && this.sharkySwimsLeft()) {
-            this.x -= this.speed / 2;
-            this.otherDirection = true;
-            this.y += 2.5;
-        }
+        if (this.sharkySwimsUp() && this.sharkySwimsRight()) this.sharkySwimsRightUp();
+        else if (this.sharkySwimsUp() && this.sharkySwimsLeft()) this.sharkySwimsLeftUp();
+        else if (this.sharkySwimsDown() && this.sharkySwimsRight()) this.sharkySwimsRightDown();
+        else if (this.sharkySwimsDown() && this.sharkySwimsLeft()) this.sharkySwimsLeftDown();
+    }
+
+    /**
+     * Moves the shark diagonally to the right and up.
+     * This method increases the shark's x-position by half of its speed and decreases its y-position.
+     */
+    sharkySwimsRightUp() {
+        this.x += this.speed / 2;
+        this.otherDirection = false;
+        this.y -= 2.5;
+    }
+
+    /**
+     * Moves the shark diagonally to the left and up.
+     * This method decreases the shark's x-position by half of its speed and decreases its y-position.
+     */
+    sharkySwimsLeftUp() {
+        this.x -= this.speed / 2;
+        this.otherDirection = true;
+        this.y -= 2.5;
+    }
+
+    /**
+     * Moves the shark diagonally to the right and down.
+     * This method increases the shark's x-position by half of its speed and increases its y-position.
+     */
+    sharkySwimsRightDown() {
+        this.x += this.speed / 2;
+        this.otherDirection = false;
+        this.y += 2.5;
+    }
+
+    /**
+     * Moves the shark diagonally to the left and down.
+     * This method decreases the shark's x-position by half of its speed and increases its y-position.
+     */
+    sharkySwimsLeftDown() {
+        this.x -= this.speed / 2;
+        this.otherDirection = true;
+        this.y += 2.5;
     }
 
     /**
@@ -290,7 +311,7 @@ class Character extends MovableObject {
         } else if (this.coinAmount === 0 && !this.isDead()) this.throwBubbleEmpty();
     }
 
-    /**
+   /**
     * Makes the character perform a tailfin slap.
     * Pauses the 'snore' sound, plays the 'slap' sound, and displays the tailfin slap animation.
     * After 160ms the character can perform his next tailfin slap.
@@ -318,8 +339,7 @@ class Character extends MovableObject {
 
     /**
      * Makes the character experience pain (from poison).
-     * Plays the 'hurt' animation and the 'pain' sound.
-     * The character will stop feeling hurt after 160ms.
+     * Plays the 'hurt' animation and the 'pain' sound. The character will stop feeling hurt after 160ms.
      */
     sharkyFeelsPain() {
         this.isSharkyHurt = true;
@@ -331,7 +351,6 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the character die.
      * Plays the 'dead' animation, and triggers the 'game over' state after a delay of 1600ms.
      */
     sharkyDies() {
@@ -343,13 +362,12 @@ class Character extends MovableObject {
 
     /**
      * Handles the character's death and initiates the end game sequence.
-     * Plays the final 'dead' animation and moves the character upward.
-     * After 2800ms, it shows the game over screen.
+     * Plays the final 'dead' animation and moves the character upward. Thereafter, the game over screen is shown.
      */
     sharkyIsDead() {
         let timeSpent = 0;
 
-        this.startGameOverSound();
+        startGameOverSound();
         let moveUpInterval = setInterval(() => {
             if (timeSpent < 2800) {
                 this.playAnimation(this.IMAGES_DEAD_END);
@@ -357,38 +375,16 @@ class Character extends MovableObject {
                 timeSpent += 100;
             } else if (timeSpent >= 2800) {
                 clearInterval(moveUpInterval);
-                this.showGameOver();
+                showGameOver();
             }
         }, 1000 / 16);
         clearAllIntervals();
     }
 
     /**
-     * Starts the 'game over' sound after stopping all other sounds.
-     * Waits for 300ms before playing the 'gameOver' sound.
-     */
-    startGameOverSound() {
-        stopAllAudios()
-            .then(() => {
-                setTimeout(() => gameOver.play(), 300);
-            })
-            .catch((e) => {
-                if (e) gameOver.pause();
-            });
-    }
-
-    /**
-     * Displays the game over screen and plays the 'gameEnd' sound.
-     */
-    showGameOver() {
-        this.displayGameOver();
-        gameEnd.play();
-    }
-
-    /**
      * Makes the character do nothing (idle state).
      * Plays the 'idle' animation and the 'backgroundHappy' sound.
-     * After 2500ms, the character will switch to the 'long idle' animation and play the 'snore' sound.
+     * After 2500ms, the character will switch to the 'long idle' animation. The 'snore' sound will be played.
      */
     sharkyDoesNothing() {
         this.idleTime += 1000 / 12;
@@ -400,15 +396,5 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_LONG_IDLE);
             snore.play();
         }
-    }
-
-    /**
-     * Displays the 'game over' screen by removing the 'noGameScreen' and showing the 'gameOverScreen' element.
-     */
-    displayGameOver() {
-        const gameOver = document.getElementById('gameOverScreen');
-
-        noGameScreen();
-        gameOver.classList.remove('d-none');
     }
 }

@@ -139,8 +139,7 @@ class Endboss extends MovableObject {
             .then(() => {
                 setTimeout(() => win.play(), 300);
             })
-            .catch((e) => {
-                if (e) win.pause();
+            .catch(() => {
             });
     }
 

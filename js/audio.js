@@ -110,11 +110,12 @@ function stopAllAudios() {
  * Toggles the volume icon on the start screen and controls the sound based on the current status.
  * It checks if the start screen is visible, then either starts the background music or all sounds if play is active.
  */
-function toggleVolumeStart() {
+function toggleVolumeStart(event) {
     const loudspeakerOffRef = document.getElementById('volumeOff');
     const loudspeakerOnRef = document.getElementById('volumeOn');
     const startScreenRef = document.getElementById('startScreen');
 
+    event.preventDefault();
     loudspeakerOffRef.classList.toggle('d-none');
     loudspeakerOnRef.classList.toggle('d-none');
 

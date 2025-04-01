@@ -30,8 +30,9 @@ async function includeHTML() {
  * to show or hide the footer menu when triggered. This is commonly used for responsive web design to 
  * show/hide the footer menu on mobile or tablet devices.
  */
-function toggleFooterMenu() {
+function toggleFooterMenu(event) {
     const respFooterRef = document.getElementById('responsiveFooter');
 
+    event.preventDefault();
     respFooterRef.classList.toggle('d-none');
 }

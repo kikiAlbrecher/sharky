@@ -86,10 +86,11 @@ window.addEventListener('touchend', (event) => {
  * Toggles the fullscreen mode and updates the fullscreen button images.
  * Displays the appropriate image for entering or exiting fullscreen.
  */
-function toggleFullscreenImg() {
+function toggleFullscreenImg(event) {
     const fullscreenImgRef = document.getElementById('fullscreenOn');
     const exitFullscreenImgRef = document.getElementById('fullscreenOff');
 
+    event.preventDefault();
     if (fullscreenImgRef.classList.contains('d-none')) {
         exitFullscreenImgRef.classList.add('d-none');
         fullscreenImgRef.classList.remove('d-none');
@@ -160,6 +161,37 @@ function clearAllIntervals() {
 }
 
 /**
+ * Starts the 'game over' sound after stopping all other sounds.
+ * Waits for 300ms before playing the 'gameOver' sound.
+ */
+function startGameOverSound() {
+    stopAllAudios()
+        .then(() => {
+            setTimeout(() => gameOver.play(), 300);
+        })
+        .catch(() => {
+        });
+}
+
+/**
+ * Displays the game over screen and plays the 'gameEnd' sound.
+ */
+function showGameOver() {
+    displayGameOver();
+    gameEnd.play();
+}
+
+/**
+ * Displays the 'game over' screen by removing the 'noGameScreen' and showing the 'gameOverScreen' element.
+ */
+function displayGameOver() {
+    const gameOver = document.getElementById('gameOverScreen');
+
+    noGameScreen();
+    gameOver.classList.remove('d-none');
+}
+
+/**
  * Hides the game screen and displays the "no game" screen.
  */
 function noGameScreen() {
@@ -225,9 +257,10 @@ function startScreenSettings() {
  * Displays the instructions overlay by removing the 'd-none' class and adding the 'black-overlay' class.
  * Also handles the scrollbar visibility.
  */
-function showInstructions() {
+function showInstructions(event) {
     const blackOverlayRef = document.getElementById('blackOverlay');
 
+    event.preventDefault();
     blackOverlayRef.classList.remove('d-none');
     blackOverlayRef.classList.add('black-overlay');
     handleScrollbar();

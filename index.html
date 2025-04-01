@@ -65,7 +65,7 @@
         </section>
 
         <section class="d-none" id="gameScreen">
-            <div class="touch-game-screen">
+            <div class="game-screen">
                 <canvas width="720" height="480" id="canvas"></canvas>
                 <div class="mobile-btn-section" id="mobileBtns">
                     <button class="touchscreen-btn" id="btnUp">
@@ -106,11 +106,11 @@
         </section>
 
         <section class="btn-placing">
-            <button class="screen-btn" id="instructions" onclick="showInstructions()">
+            <button class="screen-btn" id="instructions" onclick="showInstructions(event)">
                 <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
             </button>
 
-            <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart()">
+            <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart(event)">
                 <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
                     alt="loudspeaker off button">
                 <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
@@ -118,7 +118,7 @@
             </button>
 
             <div class="responsive-footer">
-                <button class="screen-btn btn-supplementary resp-footer-btn" onclick="toggleFooterMenu()">
+                <button class="screen-btn btn-supplementary resp-footer-btn" onclick="toggleFooterMenu(event)">
                     <img class="repeating-screen-img footer-img" src="./img/icons/policy-icon.png"
                         alt="Links to Imprint & Privacy Policy">
                 </button>
@@ -128,7 +128,7 @@
                 </div>
             </div>
 
-            <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
+            <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg(event)">
                 <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn"
                     src="./img/icons/fullscreen.png" alt="fullscreen">
                 <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"

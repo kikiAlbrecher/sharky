@@ -111,6 +111,46 @@ class MovableObject extends DrawableObject {
     }
 
     /**
+     * Determines if the shark is swimming to the right.
+     * The shark can swim right if the RIGHT key is pressed and it hasn't reached the level's end.
+     * 
+     * @returns {boolean} True if the shark is swimming to the right, otherwise false.
+     */
+    sharkySwimsRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+    /**
+     * Determines if the shark is swimming to the left.
+     * The shark can swim left if the LEFT key is pressed and it hasn't crossed the left boundary.
+     * 
+     * @returns {boolean} True if the shark is swimming to the left, otherwise false.
+     */
+    sharkySwimsLeft() {
+        return this.world.keyboard.LEFT && this.x > -1420;
+    }
+
+    /**
+     * Determines if the shark is swimming upwards.
+     * The shark can swim up if the UP key is pressed and it hasn't reached the upper boundary.
+     * 
+     * @returns {boolean} True if the shark is swimming up, otherwise false.
+     */
+    sharkySwimsUp() {
+        return this.world.keyboard.UP && this.y > -110;
+    }
+
+    /**
+     * Determines if the shark is swimming downwards.
+     * The shark can swim down if the DOWN key is pressed and it is above the ground.
+     * 
+     * @returns {boolean} True if the shark is swimming down, otherwise false.
+     */
+    sharkySwimsDown() {
+        return this.world.keyboard.DOWN && this.isAboveGround();
+    }
+
+    /**
      * Collects coins. The coin amount will increase by a fixed delta up to a maximum of 100.
      * Plays the 'collectedCoin' sound and calls the collectBubbles method.
      */
