@@ -111,6 +111,37 @@ class MovableObject extends DrawableObject {
     }
 
     /**
+     * Collects coins. The coin amount will increase by a fixed delta up to a maximum of 100.
+     * Plays the 'collectedCoin' sound and calls the collectBubbles method.
+     */
+    collectCoins() {
+        if (this.coinAmount < 100) {
+            this.coinAmount += this.coinDelta;
+            collectedCoin.play();
+            this.collectBubbles();
+        }
+    }
+
+    /**
+     * Collects poison. The poison amount will increase by a fixed delta up to a maximum of 100.
+     * Plays the 'collectedPoison' sound and calls the collectBubbles method.
+     */
+    collectPoison() {
+        if (this.poisonAmount < 100) {
+            this.poisonAmount += this.poisonDelta;
+            collectedPoison.play();
+            this.collectBubbles();
+        }
+    }
+
+    /**
+     * Collects bubbles. The bubbles amount will increase by a fixed delta up to a maximum of 100.
+     */
+    collectBubbles() {
+        if (this.bubblesAmount < 100) this.bubblesAmount += this.bubblesDelta;
+    }
+
+    /**
      * Reduces the object's energy when it is hit, and updates the timestamp of the last hit.
      */
     hit() {

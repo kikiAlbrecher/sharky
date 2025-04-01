@@ -1,8 +1,4 @@
 @media (max-width: 1026px) {
-    #instructions {
-        right: 16px;
-    }
-
     .footer-integration {
         display: none;
     }
@@ -14,10 +10,6 @@
 
     .resp-footer-btn {
         display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 16px;
-        top: 96px;
     }
 
     .footer-img {
@@ -28,20 +20,19 @@
     .resp-footer-box {
         background: rgba(0, 0, 0, 0.2);
         position: absolute;
-        top: 54px;
-        right: 56px;
+        top: 146px;
+        right: 64px;
         width: 80px;
         text-align: right;
+        padding: 4px;
     }
 
-    .mute-btn {
-        right: 16px;
-        top: 160px;
+    .imprint-link {
+        padding-bottom: 6px;
     }
 
-    .fullscreen {
-        right: 16px;
-        bottom: 24px;
+    .btn-placing {
+        right: 2%;
     }
 }
 
@@ -102,22 +93,14 @@
         width: 30px;
     }
 
-    .resp-footer-btn {
-        top: 80px;
+    .resp-footer-box {
+        top: 106px;
+        right: 48px;
     }
 
     .footer-img {
         height: 26px;
         width: 22px;
-    }
-
-    .mute-btn {
-        top: 128px;
-    }
-
-    .fullscreen {
-        right: 16px;
-        bottom: 24px;
     }
 }
 
@@ -146,26 +129,6 @@
 
     .instruction-keyboard-arrows {
         padding-top: 4px;
-    }
-
-    #instructions {
-        top: 8px;
-        right: 8px;
-    }
-
-    .resp-footer-btn {
-        top: 56px;
-        right: 8px;
-    }
-
-    .mute-btn {
-        top: 104px;
-        right: 8px;
-    }
-
-    .fullscreen {
-        top: 152px;
-        right: 8px;
     }
 
     .space-alternative {
@@ -279,42 +242,12 @@
     }
 
     canvas {
-        height: calc(100vh - 40px);
+        height: calc(100vh - 52px);
+        min-height: 250px;
     }
 
     .screen-content {
         height: clamp(250px, 100vh, 480px);
-    }
-
-    .footer-integration {
-        display: none;
-    }
-
-    .responsive-footer {
-        display: flex;
-    }
-
-    .resp-footer-btn {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 8px;
-        top: 56px;
-    }
-
-    .footer-img {
-        height: 26px;
-        width: 22px;
-    }
-
-    .resp-footer-box {
-        z-index: 2000;
-        background: rgba(0, 0, 0, 0.2);
-        position: absolute;
-        top: 54px;
-        right: 56px;
-        width: 80px;
-        text-align: right;
     }
 
     .black-overlay {
@@ -330,21 +263,6 @@
 
     .range-width {
         width: 64px;
-    }
-
-    #instructions {
-        top: 8px;
-        right: 8px;
-    }
-
-    .mute-btn {
-        top: 104px;
-        right: 8px;
-    }
-
-    .fullscreen {
-        right: 8px;
-        bottom: 24px;
     }
 }
 

@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="google" content="notranslate">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="icon" href="./img/icons/logo.png">
     <title>Sharky</title>
+    <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/style-sequel.css">
     <link rel="stylesheet" href="./styles/responsive.css">
-    <link rel="stylesheet" href="./styles/footer.css">
     <link rel="stylesheet" href="./styles/landscape-mode.css">
 
     <script src="./models/world.class.js"></script>
@@ -39,13 +42,13 @@
     <script src="./js/audio.js"></script>
     <script src="./js/game.js"></script>
     <script src="./js/start.js"></script>
-    <script src="./js/landscapeMode.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/footer.js"></script>
 </head>
 
 <body onload="includeHTML()">
     <div class="max-width">
+        <h1 id="gameName">Sharky</h1>
         <section class="screen-content start-screen" id="startScreen">
             <button class="play-button" id="playBtn" onclick="play('startScreen')">
                 <img class="play-img" src="./img/6.Botones/Start/2.png" alt="start button">
@@ -62,10 +65,9 @@
         </section>
 
         <section class="d-none" id="gameScreen">
-            <h1 id="gameName">Sharky</h1>
             <div class="touch-game-screen">
                 <canvas width="720" height="480" id="canvas"></canvas>
-                <div class="mobile-btn-section d-none" id="mobileBtns">
+                <div class="mobile-btn-section" id="mobileBtns">
                     <button class="touchscreen-btn" id="btnUp">
                         <img class="touch-btn-img" src="./img/icons/up.png" alt="up">
                     </button>
@@ -94,32 +96,45 @@
             </div>
         </section>
 
-        <div class="screen-layer d-none" id="portraitMessage">
+        <section class="screen-layer d-none" id="portraitMessage">
             <div class="portrait-message">
                 <div class="mobile-device-rotation">
                     <img class="mobile-device" src="./img/icons/mobile-device.png" alt="rotating device image">
                 </div>
                 <p class="device-portrait">Please rotate your device.</p>
             </div>
-        </div>
+        </section>
 
-        <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart()">
-            <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
-                alt="loudspeaker off button">
-            <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
-                src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
-        </button>
+        <section class="btn-placing">
+            <button class="screen-btn" id="instructions" onclick="showInstructions()">
+                <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
+            </button>
 
-        <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
-            <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn"
-                src="./img/icons/fullscreen.png" alt="fullscreen">
-            <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"
-                src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
-        </button>
+            <button class="screen-btn btn-supplementary mute-btn" onclick="toggleVolumeStart()">
+                <img class="repeating-screen-img repeating-img-supplementary" id="volumeOff" src="./img/icons/mute.png"
+                    alt="loudspeaker off button">
+                <img class="repeating-screen-img repeating-img-supplementary round-img d-none" id="volumeOn"
+                    src="./img/icons/loudspeaker-on.png" alt="loudspeaker on button">
+            </button>
 
-        <button class="screen-btn" id="instructions" onclick="showInstructions()">
-            <img class="repeating-screen-img" src="./img/icons/information.png" alt="instructions">
-        </button>
+            <div class="responsive-footer">
+                <button class="screen-btn btn-supplementary resp-footer-btn" onclick="toggleFooterMenu()">
+                    <img class="repeating-screen-img footer-img" src="./img/icons/policy-icon.png"
+                        alt="Links to Imprint & Privacy Policy">
+                </button>
+                <div class="resp-footer-box d-none" id="responsiveFooter">
+                    <a class="menu-links imprint-link" href="imprint.html">Imprint</a>
+                    <a class="menu-links" href="privacy-policy.html">Policy</a>
+                </div>
+            </div>
+
+            <button class="screen-btn btn-supplementary fullscreen" onclick="toggleFullscreenImg()">
+                <img class="repeating-screen-img repeating-img-supplementary" id="fullscreenOn"
+                    src="./img/icons/fullscreen.png" alt="fullscreen">
+                <img class="repeating-screen-img repeating-img-supplementary d-none" id="fullscreenOff"
+                    src="./img/icons/exit-fullscreen.png" alt="exit fullscreen">
+            </button>
+        </section>
 
         <div class="d-none" id="blackOverlay">
             <section class="max-width instruction-screen">
@@ -227,18 +242,6 @@
                 </button>
             </div>
         </section>
-
-        <section class="responsive-footer">
-            <button class="screen-btn btn-supplementary resp-footer-btn" onclick="toggleFooterMenu()">
-                <img class="repeating-screen-img footer-img" src="./img/icons/policy-icon.png"
-                    alt="Links to Imprint & Privacy Policy">
-            </button>
-            <div class="resp-footer-box d-none" id="responsiveFooter">
-                <a class="menu-links" href="imprint.html">Imprint</a>
-                <a class="menu-links" href="privacy-policy.html">Policy</a>
-            </div>
-        </section>
-
     </div>
 
     <div class="footer-integration" w3-include-html="footer.html"></div>

@@ -13,8 +13,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
-    min-height: 100vh;
-    min-width: 100vw;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
 }
 
 @font-face {
@@ -44,6 +45,7 @@ h1 {
     color: rgb(25, 67, 76);
     letter-spacing: 6px;
     text-shadow: 6px 8px 8px rgba(9, 239, 227, 0.6);
+    margin: 16px 0;
 }
 
 .d-none {
@@ -184,18 +186,22 @@ button:hover {
     box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
 }
 
-.mute-btn {
+.btn-placing {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
     z-index: 8000;
-    position: absolute;
-    top: 96px;
-    right: 32px;
+    position: fixed;
+    top: calc(50% - 104px);
+    right: calc(50% - 440px);
 }
 
-.fullscreen {
+.mute-btn,
+.fullscreen,
+#instructions {
     z-index: 8000;
-    position: absolute;
-    right: 32px;
-    bottom: 104px;
 }
 
 .touch-game-screen {
@@ -206,23 +212,17 @@ button:hover {
 }
 
 .mobile-btn-section {
-    height: 40px;
+    height: 52px;
     width: 100%;
     background: rgb(47, 39, 113);
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    display: none;
 }
 
 .screen-layer {
     display: none;
-}
-
-#instructions {
-    z-index: 8000;
-    position: absolute;
-    top: 32px;
-    right: 32px;
 }
 
 .black-overlay {
@@ -304,10 +304,7 @@ h2 {
     padding-bottom: 24px;
 }
 
-.instruction-space {
-    height: 48px;
-}
-
+.instruction-space,
 .instruction-keyboard-letter {
     height: 48px;
 }

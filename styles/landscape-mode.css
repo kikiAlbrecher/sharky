@@ -1,4 +1,4 @@
-@media (orientation: portrait) {
+@media (pointer: coarse) and (orientation: portrait) {
     .screen-layer {
         z-index: 8500;
         position: fixed;
@@ -57,5 +57,11 @@
         font-weight: 400;
         text-align: center;
         padding: 16px;
+    }
+}
+
+@media (pointer: coarse) {
+    .mobile-btn-section {
+        display: flex;
     }
 }

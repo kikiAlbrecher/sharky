@@ -180,13 +180,59 @@ class Character extends MovableObject {
      * Handles the movements of the character based on keyboard input.
      */
     moveCharacter() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) this.moveRight();
-        else if (this.world.keyboard.LEFT && this.x > -1420) {
+        this.horizontalMovements();
+        this.verticalMovements();
+        this.diagonalMovements();
+        this.world.camera_x = -this.x + 80;
+    }
+
+    horizontalMovements() {
+        if (this.sharkySwimsRight()) this.moveRight();
+        else if (this.sharkySwimsLeft()) {
             this.moveLeft();
             this.otherDirection = true;
-        } else if (this.world.keyboard.UP && this.y > -110) this.moveUp();
-        else if (this.world.keyboard.DOWN && this.isAboveGround()) this.moveDown();
-        this.world.camera_x = -this.x + 80;
+        }
+    }
+
+    sharkySwimsRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+    sharkySwimsLeft() {
+        return this.world.keyboard.LEFT && this.x > -1420;
+    }
+
+    verticalMovements() {
+        if (this.sharkySwimsUp()) this.moveUp();
+        else if (this.sharkySwimsDown()) this.moveDown();
+    }
+
+    sharkySwimsUp() {
+        return this.world.keyboard.UP && this.y > -110;
+    }
+
+    sharkySwimsDown() {
+        return this.world.keyboard.DOWN && this.isAboveGround();
+    }
+
+    diagonalMovements() {
+        if (this.sharkySwimsUp() && this.sharkySwimsRight()) {
+            this.x += this.speed / 2;
+            this.otherDirection = false;
+            this.y -= 2.5;
+        } else if (this.sharkySwimsUp() && this.sharkySwimsLeft()) {
+            this.x -= this.speed / 2;
+            this.otherDirection = true;
+            this.y -= 2.5;
+        } else if (this.sharkySwimsDown() && this.sharkySwimsRight()) {
+            this.x += this.speed / 2;
+            this.otherDirection = false;
+            this.y += 2.5;
+        } else if (this.sharkySwimsDown() && this.sharkySwimsLeft()) {
+            this.x -= this.speed / 2;
+            this.otherDirection = true;
+            this.y += 2.5;
+        }
     }
 
     /**
@@ -354,37 +400,6 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_LONG_IDLE);
             snore.play();
         }
-    }
-
-    /**
-     * Collects coins. The coin amount will increase by a fixed delta up to a maximum of 100.
-     * Plays the 'collectedCoin' sound and calls the collectBubbles method.
-     */
-    collectCoins() {
-        if (this.coinAmount < 100) {
-            this.coinAmount += this.coinDelta;
-            collectedCoin.play();
-            this.collectBubbles();
-        }
-    }
-
-    /**
-     * Collects poison. The poison amount will increase by a fixed delta up to a maximum of 100.
-     * Plays the 'collectedPoison' sound and calls the collectBubbles method.
-     */
-    collectPoison() {
-        if (this.poisonAmount < 100) {
-            this.poisonAmount += this.poisonDelta;
-            collectedPoison.play();
-            this.collectBubbles();
-        }
-    }
-
-    /**
-     * Collects bubbles. The bubbles amount will increase by a fixed delta up to a maximum of 100.
-     */
-    collectBubbles() {
-        if (this.bubblesAmount < 100) this.bubblesAmount += this.bubblesDelta;
     }
 
     /**

@@ -50,6 +50,7 @@ window.addEventListener('touchstart', (event) => {
 
     if (!button) return;
     if (event.defaultPrevented) return;
+    event.preventDefault();
     event.stopPropagation();
     if (button.id === 'btnUp') keyboard.UP = true;
     if (button.id === 'btnRight') keyboard.RIGHT = true;
@@ -58,7 +59,7 @@ window.addEventListener('touchstart', (event) => {
     if (button.id === 'btnAttackBubble') keyboard.THROW = true;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = true;
     if (button.id === 'btnAttackFin') keyboard.SPACE = true;
-});
+}, { passive: false });
 
 /**
  * Listens for touchend events on touchscreen buttons and updates the `keyboard` object.
@@ -70,6 +71,7 @@ window.addEventListener('touchend', (event) => {
 
     if (!button) return;
     if (event.defaultPrevented) return;
+    event.preventDefault();
     event.stopPropagation();
     if (button.id === 'btnUp') keyboard.UP = false;
     if (button.id === 'btnRight') keyboard.RIGHT = false;
@@ -78,7 +80,7 @@ window.addEventListener('touchend', (event) => {
     if (button.id === 'btnAttackBubble') keyboard.THROW = false;
     if (button.id === 'btnAttackPoison') keyboard.THROW_POISON = false;
     if (button.id === 'btnAttackFin') keyboard.SPACE = false;
-});
+}, { passive: false });
 
 /**
  * Toggles the fullscreen mode and updates the fullscreen button images.
@@ -172,13 +174,8 @@ function noGameScreen() {
  * @param {string} screenId - The ID of the screen to load when restarting the game.
  */
 function restartGame(screenId) {
-    gameEnd.pause();
+    restartHomeSettings();
     startGame(screenId);
-    hadFirstContact = false;
-    isDeadAnimationPlayed = false;
-    playDead = false;
-    backgroundHappy.volume = 1;
-    restoreSoundStatus();
 }
 
 /**
@@ -188,10 +185,22 @@ function restartGame(screenId) {
  */
 function backHome(screenPrefix) {
     const screen = document.getElementById(screenPrefix);
+    const gameNameRef = document.getElementById('gameName');
 
-    gameEnd.pause();
+    restartHomeSettings();
     screen.classList.add('d-none');
     startScreenSettings();
+    gameNameRef.classList.remove('d-none');
+}
+
+/**
+ * Resets the restart and home screen settings to their initial values.
+ * This function is called when restarting the game after a game over or when returning to the home screen.
+ * It pauses the game, resets game-related flags, restores the background sound, 
+ * and ensures the correct sound settings are applied.
+ */
+function restartHomeSettings() {
+    gameEnd.pause();
     hadFirstContact = false;
     isDeadAnimationPlayed = false;
     playDead = false;
