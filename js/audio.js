@@ -48,17 +48,22 @@ let allAudios = [
 ];
 
 /**
- * Manages the volume settings based on the stored sound status in sessionStorage.
+ * Manages the volume settings based on the stored sound status in localStorage.
  * If the sound status is 'on', loudspeakers are turned on. If 'off', audio is stopped and loudspeakers are turned off.
+ * If there is no entry in the localStorage of the player, audio is stopped and loudspeakers are turned off.
  */
 function volumeSettings() {
-    const soundStatusRef = sessionStorage.getItem('soundStatus');
+    const soundStatusRef = localStorage.getItem('soundStatus');
 
     if (soundStatusRef === 'off') {
         putLoudspeakersOff();
         stopAllAudios();
     } else if (soundStatusRef === 'on') {
         putLoudspeakersOn();
+    } else if (soundStatusRef == null) {
+        putLoudspeakersOff();
+        stopAllAudios();
+        storeSoundStatus();
     }
 }
 
@@ -134,33 +139,7 @@ function startScreenSound() {
     if (startScreenRef) {
         const displayStyle = window.getComputedStyle(startScreenRef).display;
 
-        displayStyle === 'flex' ? toggleSoundStart() : toggleSound();
-    }
-}
-
-/**
- * Stores the current sound status (on or off) in the sessionStorage.
- * If the volume is off, it stores 'off'; if the volume is on, it stores 'on'.
- */
-function storeSoundStatus() {
-    const loudspeakerOffRef = document.getElementById('volumeOff');
-
-    loudspeakerOffRef.classList.contains('d-none') ? sessionStorage.setItem('soundStatus', 'on') : sessionStorage.setItem('soundStatus', 'off');
-}
-
-/**
- * Restores the sound status based on the value stored in sessionStorage.
- * If the sound status is 'on', it enables the sound; otherwise, it disables the sound.
- */
-function restoreSoundStatus() {
-    const soundStatus = sessionStorage.getItem('soundStatus');
-
-    if (soundStatus === 'on') {
-        putLoudspeakersOn();
-        backgroundHappy.play();
-    } else {
-        putLoudspeakersOff();
-        backgroundHappy.pause();
+        if (displayStyle === 'flex') toggleSoundStart();
     }
 }
 
@@ -192,15 +171,27 @@ function toggleSound() {
 }
 
 /**
- * Plays or stops the background sound based on the current sound status stored in sessionStorage.
- * If the sound status is 'off', it stops all audio; if the sound status is 'on', it plays the background sound.
+ * Stores the current sound status (on or off) in the localStorage.
+ * If the volume is off, it stores 'off'; if the volume is on, it stores 'on'.
  */
-function playSoundByStatus() {
-    const soundStatus = sessionStorage.getItem('soundStatus');
+function storeSoundStatus() {
+    const loudspeakerOffRef = document.getElementById('volumeOff');
 
-    if (soundStatus === 'off') {
-        stopAllAudios();
-    } else {
+    loudspeakerOffRef.classList.contains('d-none') ? localStorage.setItem('soundStatus', 'on') : localStorage.setItem('soundStatus', 'off');
+}
+
+/**
+ * Restores the sound status based on the value stored in localStorage.
+ * If the sound status is 'on', it enables the sound; otherwise, it disables the sound.
+ */
+function restoreSoundStatus() {
+    const soundStatus = localStorage.getItem('soundStatus');
+
+    if (soundStatus === 'on') {
+        putLoudspeakersOn();
         backgroundHappy.play();
+    } else {
+        putLoudspeakersOff();
+        backgroundHappy.pause();
     }
 }

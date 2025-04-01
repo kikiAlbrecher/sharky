@@ -2,19 +2,23 @@ let world;
 let canvas;
 let keyboard = new Keyboard();
 
+function initGame() {
+    includeHTML();
+    volumeSettings();
+}
+
 /**
  * Starts the game and sets the sound settings.
  * 
- * This function updates the sessionStorage to indicate that the sound is turned on,
+ * This function updates the localStorage to indicate that the sound is turned on,
  * then calls the `startGame` function to begin the game with the specified screen ID.
  * It also adjusts the volume settings by calling the `volumeSettings` function.
  *
  * @param {string} screenId - The ID of the screen to hide before starting the game.
  */
 function play(screenId) {
-    sessionStorage.setItem('soundStatus', 'on');
     startGame(screenId);
-    volumeSettings();
+    // toggleSound();
 }
 
 /**
