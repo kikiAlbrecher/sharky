@@ -49,17 +49,22 @@ let allAudios = [
 
 /**
  * Manages the volume settings based on the stored sound status in localStorage.
- * If the sound status is 'on', loudspeakers are turned on. If 'off', audio is stopped and loudspeakers are turned off.
+ * If the sound status is 'on', loudspeakers are turned on. The button will be marked grey, because - without the player´s
+ * intervention - no sound can be played. The playing of sounds is prevented by the browser.
+ * If 'off', audio is stopped and loudspeakers are turned off.
  * If there is no entry in the localStorage of the player, audio is stopped and loudspeakers are turned off.
  */
 function volumeSettings() {
     const soundStatusRef = localStorage.getItem('soundStatus');
+    const volumeBtnOnRef = document.getElementById('volumeBtn');
 
     if (soundStatusRef === 'off') {
         putLoudspeakersOff();
         stopAllAudios();
+        volumeBtnOnRef.style.backgroundColor = '';
     } else if (soundStatusRef === 'on') {
         putLoudspeakersOn();
+        volumeBtnOnRef.style.backgroundColor = 'rgb(181, 180, 180)';
     } else if (soundStatusRef == null) {
         putLoudspeakersOff();
         stopAllAudios();
@@ -119,10 +124,12 @@ function toggleVolumeStart(event) {
     const loudspeakerOffRef = document.getElementById('volumeOff');
     const loudspeakerOnRef = document.getElementById('volumeOn');
     const startScreenRef = document.getElementById('startScreen');
+    const volumeBtnOnRef = document.getElementById('volumeBtn');
 
     event.preventDefault();
     loudspeakerOffRef.classList.toggle('d-none');
     loudspeakerOnRef.classList.toggle('d-none');
+    volumeBtnOnRef.style.backgroundColor = '';
 
     startScreenRef && !startScreenRef.classList.contains('d-none') ? toggleSoundStart() : toggleSound();
     startScreenSound();
@@ -158,7 +165,9 @@ function toggleSoundStart() {
  */
 function toggleSound() {
     const loudspeakerOffRef = document.getElementById('volumeOff');
+    const volumeBtnOnRef = document.getElementById('volumeBtn');
 
+    volumeBtnOnRef.style.backgroundColor = '';
     if (loudspeakerOffRef.classList.contains('d-none')) {
         allAudios.forEach(audio => {
             audio.muted = false;

@@ -18,7 +18,7 @@ function initGame() {
  */
 function play(screenId) {
     startGame(screenId);
-    // toggleSound();
+    toggleSound();
 }
 
 /**

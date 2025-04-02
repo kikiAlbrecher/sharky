@@ -13,9 +13,9 @@ class Endboss extends MovableObject {
     energyReduction = 20;
 
     offset = {
-        top: 192,
-        right: 30,
-        bottom: 74,
+        top: 202,
+        right: 32,
+        bottom: 88,
         left: 26
     };
 

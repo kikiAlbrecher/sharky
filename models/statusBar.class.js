@@ -10,7 +10,6 @@ class StatusBar extends DrawableObject {
     height = 50;
     percentage = 100;
 
-
     /**
      * Creates an instance of the StatusBar class.
      */

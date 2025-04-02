@@ -9,10 +9,10 @@ class Poison extends MovableObject {
     height = 60;
 
     offset = {
-        top: 27,
-        right: 10,
-        bottom: 3,
-        left: 10
+        top: 29,
+        right: 5,
+        bottom: 5,
+        left: 16
     };
 
     IMAGES_POISON = [

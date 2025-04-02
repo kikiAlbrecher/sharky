@@ -6,11 +6,12 @@
  */
 class Pufferfish extends MovableObject {
     energy = 10;
+
     offset = {
-        top: 3,
-        right: 6,
-        bottom: 18,
-        left: 1
+        top: 8,
+        right: 8,
+        bottom: 20,
+        left: 3
     };
 
     IMAGES_SWIMMING = [

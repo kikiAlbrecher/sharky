@@ -7,8 +7,9 @@
 class AnimatedPoison extends MovableObject {
     width = 50;
     height = 60;
+
     offset = {
-        top: 27,
+        top: 29,
         right: 10,
         bottom: 3,
         left: 10

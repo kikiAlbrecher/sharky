@@ -19,11 +19,12 @@ class Character extends MovableObject {
     bubblesDelta = 10;
     isSharkyHurt = false;
     playDead = false;
+
     offset = {
-        top: 132,
+        top: 151,
         right: 56,
-        bottom: 60,
-        left: 56
+        bottom: 74,
+        left: 60
     };
 
     IMAGES_IDLE = [
@@ -217,8 +218,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the shark diagonally to the right and up.
-     * This method increases the shark's x-position by half of its speed and decreases its y-position.
+     * Moves the character diagonally to the right and up.
+     * This method increases the protagonist's x-position by half of its speed and decreases its y-position.
      */
     sharkySwimsRightUp() {
         this.x += this.speed / 2;
@@ -227,8 +228,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the shark diagonally to the left and up.
-     * This method decreases the shark's x-position by half of its speed and decreases its y-position.
+     * Moves the character diagonally to the left and up.
+     * This method decreases the protagonist's x-position by half of its speed and decreases its y-position.
      */
     sharkySwimsLeftUp() {
         this.x -= this.speed / 2;
@@ -237,8 +238,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the shark diagonally to the right and down.
-     * This method increases the shark's x-position by half of its speed and increases its y-position.
+     * Moves the character diagonally to the right and down.
+     * This method increases the protagonist's x-position by half of its speed and increases its y-position.
      */
     sharkySwimsRightDown() {
         this.x += this.speed / 2;
@@ -247,8 +248,8 @@ class Character extends MovableObject {
     }
 
     /**
-     * Moves the shark diagonally to the left and down.
-     * This method decreases the shark's x-position by half of its speed and increases its y-position.
+     * Moves the character diagonally to the left and down.
+     * This method decreases the protagonist's x-position by half of its speed and increases its y-position.
      */
     sharkySwimsLeftDown() {
         this.x -= this.speed / 2;
@@ -311,11 +312,11 @@ class Character extends MovableObject {
         } else if (this.coinAmount === 0 && !this.isDead()) this.throwBubbleEmpty();
     }
 
-   /**
-    * Makes the character perform a tailfin slap.
-    * Pauses the 'snore' sound, plays the 'slap' sound, and displays the tailfin slap animation.
-    * After 160ms the character can perform his next tailfin slap.
-    */
+    /**
+     * Makes the character perform a tailfin slap.
+     * Pauses the 'snore' sound, plays the 'slap' sound, and displays the tailfin slap animation.
+     * After 160ms the character can perform his next tailfin slap.
+     */
     sharkySlapsWithTailfin() {
         this.idleTime = 0;
 
@@ -382,7 +383,6 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the character do nothing (idle state).
      * Plays the 'idle' animation and the 'backgroundHappy' sound.
      * After 2500ms, the character will switch to the 'long idle' animation. The 'snore' sound will be played.
      */

@@ -8,11 +8,12 @@ class Jellyfish extends MovableObject {
     width = 80;
     height = 80;
     energy = 10;
+
     offset = {
-        top: 5,
-        right: 3,
-        bottom: 10,
-        left: 1
+        top: 9,
+        right: 5,
+        bottom: 12,
+        left: 3
     };
 
     IMAGES_SWIMMING = [
