@@ -254,6 +254,18 @@ function startScreenSettings() {
 }
 
 /**
+ * Prevents the default behavior (e. g., context menu) when the user finishes touching a screen button.
+ * This function listens for the `touchend` event on all elements with the class `.screen-btn`,
+ * and calls `event.preventDefault()` to prevent the default action, such as triggering unwanted touch actions after the touch ends.
+ * 
+ */
+document.querySelectorAll('.screen-btn').forEach(button => {
+    button.addEventListener('touchend', function (event) {
+        event.preventDefault();
+    });
+});
+
+/**
  * Displays the instructions overlay by removing the 'd-none' class and adding the 'black-overlay' class.
  * Also handles the scrollbar visibility.
  */
