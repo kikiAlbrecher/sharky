@@ -165,7 +165,7 @@ function clearAllIntervals() {
  * Waits for 300ms before playing the 'gameOver' sound.
  */
 function startGameOverSound() {
-    stopAllAudios()
+    stopAllAudios([1])
         .then(() => {
             setTimeout(() => gameOver.play(), 300);
         })

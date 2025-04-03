@@ -135,7 +135,7 @@ class Endboss extends MovableObject {
      * Stops any currently playing audios and plays the winning audio after a short delay.
      */
     stopPlayStartWinAudios() {
-        stopAllAudios()
+        stopAllAudios([0])
             .then(() => {
                 setTimeout(() => win.play(), 300);
             })
@@ -147,7 +147,6 @@ class Endboss extends MovableObject {
      * Displays the win screen and plays the game end audio.
      */
     showWin() {
-        win.pause();
         this.displayWinScreen();
         gameEnd.play();
     }

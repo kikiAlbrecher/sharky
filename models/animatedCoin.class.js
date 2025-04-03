@@ -13,7 +13,7 @@ class AnimatedCoin extends MovableObject {
         top: 4,
         right: 4,
         bottom: 4,
-        left: 4
+        left: 3
     };
 
     IMAGES_COIN = [

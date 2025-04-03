@@ -9,10 +9,10 @@ class AnimatedPoison extends MovableObject {
     height = 60;
 
     offset = {
-        top: 29,
-        right: 10,
-        bottom: 3,
-        left: 10
+        top: 28,
+        right: 12,
+        bottom: 4,
+        left: 12
     };
 
     IMAGES_POISON = [

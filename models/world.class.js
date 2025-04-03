@@ -16,10 +16,12 @@ class World {
     throwablePoison = [];
     lastBubbleThrowTime = 0;
     lastPoisonThrowTime = 0;
-    throwCooldown = 400;
+    THROWCOOLDOWN = 400;
     endboss;
     hadFirstContact = false;
     endbossIsHurt = false;
+    lastSlapTime = 0;
+    SLAPCOOLDOWN = 1000;
     isDeadAnimationPlayed = false;
 
     /**
@@ -79,6 +81,8 @@ class World {
     addToMap(movableObject) {
         if (movableObject.otherDirection) movableObject.moveOtherDirection(this.ctx);
         movableObject.draw(this.ctx);
+        movableObject.drawFrame(this.ctx);
+        movableObject.drawOffsetFrame(this.ctx);
         if (movableObject.otherDirection) movableObject.reverseMoveOtherDirection(this.ctx);
     }
 
@@ -112,10 +116,11 @@ class World {
     checkCharacterCollisionsWithEnemy() {
         if (!this.character) return;
         this.level.enemies.forEach((enemy) => {
-            if (enemy instanceof Jellyfish || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
+            if (enemy instanceof Jellyfish || enemy instanceof JellyfishPink || enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
                 if (this.character.isColliding(enemy) && !enemy.isDead()) {
                     this.character.hit();
                     this.statusBarLife.setPercentage(this.character.energy);
+                    this.character.playAnimation(this.character.IMAGES_HURT_POISON);
                 }
             }
         });
@@ -132,7 +137,6 @@ class World {
                 this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].forEach(object => {
                     if (enemy.isColliding(object)) {
                         const objectIndex = this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].indexOf(object);
-
                         enemy.hit();
                         if (objectIndex >= 0) this[`throwable${type.charAt(0).toUpperCase() + type.slice(1)}`].splice(objectIndex, 1);
                     };
@@ -142,15 +146,70 @@ class World {
     }
 
     /**
-     * Checks if the character is performing a fin slap and if it hits any enemies.
+     * Main check function for handling fin slap collisions.
+     * It checks whether the character is slapping, if the slap duration has reached a threshold,
+     * handles collisions with enemies and the Endboss, and applies damage if necessary.
      */
     checkCollisionsFinSlap() {
+        const currentTime = Date.now();
+        const slapDuration = currentTime - this.lastSlapTime;
+
         if (this.character.isSlapping && !this.character.isDead()) {
-            this.level.enemies.forEach(enemy => {
-                if (enemy instanceof Pufferfish || enemy instanceof PufferfishRose || enemy instanceof Endboss) {
-                    if (enemy.isColliding(this.character)) enemy.hit();
+            this.handlePufferfishCollisions();
+            this.handleContinuousSlapping(slapDuration);
+            this.handleEndbossCollision(currentTime);
+        }
+    }
+
+    /**
+     * Handles collisions between the character and enemies such as Pufferfish and PufferfishRose.
+     * If a collision occurs, the enemy will take damage.
+     */
+    handlePufferfishCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (enemy instanceof Pufferfish || enemy instanceof PufferfishRose) {
+                if (enemy.isColliding(this.character)) {
+                    enemy.hit();
                 }
-            });
+            }
+        });
+    }
+
+    /**
+     * Handles the continuous slapping behavior by checking the slap duration.
+     * If the slap lasts for more than 200ms, Sharky will lose energy.
+     * 
+     * @param {number} slapDuration - The duration of the slap in milliseconds.
+     */
+    handleContinuousSlapping(slapDuration) {
+        if (slapDuration > 200 && slapDuration % 200 < 50) {
+            this.reduceSharkyEnergy();
+        }
+    }
+
+    /**
+     * Reduces Sharky's energy by 10 each time the slap continues beyond 200ms.
+     * The energy is capped at a minimum of 0.
+     */
+    reduceSharkyEnergy() {
+        this.character.energy -= 10;
+        if (this.character.energy < 0) {
+            this.character.energy = 0;
+        }
+    }
+
+    /**
+     * Handles collisions with the Endboss and applies damage if the character is slapping.
+     * It checks if the cooldown has passed since the last slap and whether the Endboss is in contact with the character.
+     * 
+     * @param {number} currentTime - The current timestamp in milliseconds.
+     */
+    handleEndbossCollision(currentTime) {
+        if (currentTime - this.lastSlapTime > this.SLAPCOOLDOWN) {
+            if (this.endboss.isColliding(this.character)) {
+                this.endboss.hit();
+                this.lastSlapTime = currentTime;
+            }
         }
     }
 
@@ -234,7 +293,7 @@ class World {
 
         if (!this.character) return { itemX: 0, itemY: 0 };
         if (!this.character.otherDirection) itemX = this.character.x + this.character.width - this.character.offset.right;
-        else itemX = this.character.x + this.character.offset.left;
+        else itemX = this.character.x + this.character.offset.left - 10;
         itemY = this.character.y + this.character.height - this.character.offset.top;
         return { itemX, itemY };
     }
@@ -248,7 +307,7 @@ class World {
         if (this.keyboard.THROW && this.character.coinAmount > 0) {
             let currentTime = Date.now();
 
-            if (currentTime - this.lastBubbleThrowTime >= this.throwCooldown) {
+            if (currentTime - this.lastBubbleThrowTime >= this.THROWCOOLDOWN) {
                 let bubble = new ThrowableBubble(itemX, itemY, this.character.otherDirection);
                 this.throwableBubble.push(bubble);
                 this.updateStatusbar('coin');
@@ -266,7 +325,7 @@ class World {
         if (this.keyboard.THROW_POISON && this.character.poisonAmount > 0) {
             let currentTime = Date.now();
 
-            if (currentTime - this.lastPoisonThrowTime >= this.throwCooldown) {
+            if (currentTime - this.lastPoisonThrowTime >= this.THROWCOOLDOWN) {
                 let poison = new ThrowablePoison(itemX, itemY, this.character.otherDirection);
                 this.throwablePoison.push(poison);
                 this.updateStatusbar('poison');
@@ -310,7 +369,7 @@ class World {
             else if (this.character && this.endboss.isDead() && !this.isDeadAnimationPlayed) this.endbossDies();
             else if (this.character && this.endboss.isDead() && this.isDeadAnimationPlayed) this.endbossIsDead();
             else if (this.character) this.endboss.playImagesSwimming();
-        }, 176);
+        }, 250);
     }
 
     /**

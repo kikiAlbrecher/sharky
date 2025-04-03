@@ -5,6 +5,9 @@
  * @extends Jellyfish
  */
 class JellyfishPink extends Jellyfish {
+    energy = 15;
+    energyReduction = 15;
+
     IMAGES_SWIMMING = [
         'img/2.Enemy/2 Jellyfish/Súper dangerous/Pink 1.png',
         'img/2.Enemy/2 Jellyfish/Súper dangerous/Pink 2.png',

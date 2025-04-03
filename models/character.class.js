@@ -9,7 +9,7 @@ class Character extends MovableObject {
     x = 0;
     width = 280;
     height = 280;
-    speed = 12;
+    speed = 14;
     idleTime = 0;
     coinAmount = 0;
     coinDelta = 20;
@@ -17,13 +17,14 @@ class Character extends MovableObject {
     poisonDelta = 20;
     bubblesAmount = 0;
     bubblesDelta = 10;
+    energyReduction = 4;
     isSharkyHurt = false;
     playDead = false;
 
     offset = {
         top: 151,
         right: 56,
-        bottom: 74,
+        bottom: 68,
         left: 60
     };
 
@@ -314,8 +315,7 @@ class Character extends MovableObject {
 
     /**
      * Makes the character perform a tailfin slap.
-     * Pauses the 'snore' sound, plays the 'slap' sound, and displays the tailfin slap animation.
-     * After 160ms the character can perform his next tailfin slap.
+     * Pauses the 'snore' sound, plays the 'slap' sound, and displays the tailfin slap animation. After 160ms the character can perform his next tailfin slap.
      */
     sharkySlapsWithTailfin() {
         this.idleTime = 0;
@@ -330,7 +330,7 @@ class Character extends MovableObject {
     /**
      * Triggers the encounter with the end boss by playing the appropriate sounds.
      * Pauses the 'backgroundHappy' sound and starts the 'endbossFight' sound.
-     * Reduces the background volume while the endboss fight sound is playing.
+     * Sets the background volume 0 while the endboss fight sound is playing.
      */
     sharkyEncounterEndboss() {
         backgroundHappy.pause();
@@ -339,7 +339,7 @@ class Character extends MovableObject {
     }
 
     /**
-     * Makes the character experience pain (from poison).
+     * Makes the character experience pain.
      * Plays the 'hurt' animation and the 'pain' sound. The character will stop feeling hurt after 160ms.
      */
     sharkyFeelsPain() {
@@ -348,7 +348,7 @@ class Character extends MovableObject {
 
         this.playAnimation(this.IMAGES_HURT_POISON);
         pain.play();
-        setTimeout(() => this.isSharkyHurt = false, 160);
+        setTimeout(() => this.isSharkyHurt = false, 600);
     }
 
     /**
@@ -358,7 +358,7 @@ class Character extends MovableObject {
         this.isSharkyHurt = false;
         this.playAnimation(this.IMAGES_DEAD);
 
-        setTimeout(() => this.playDead = true, 1600);
+        setTimeout(() => this.playDead = true, 1000);
     }
 
     /**

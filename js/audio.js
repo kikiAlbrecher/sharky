@@ -1,11 +1,11 @@
 backgroundHappy = new Audio('audio/happy-background-music.wav');
-backgroundHappy.loop = 'true';
+backgroundHappy.loop = true;
 
 slap = new Audio('audio/slap.mp3');
 slap.volume = 0.5;
 
 snore = new Audio('audio/snore.mp3');
-snore.loop = 'true';
+snore.loop = true;
 
 collectedCoin = new Audio('audio/coin.mp3');
 collectedCoin.volume = 0.5;
@@ -18,19 +18,19 @@ throwingBubbles = new Audio('audio/throw.mp3');
 pain = new Audio('audio/ouch.mp3');
 
 endbossFight = new Audio('audio/endboss-shortened.mp3');
-endbossFight.loop = 'true';
+endbossFight.loop = true;
 
 endbossPain = new Audio('audio/endboss-pain.mp3');
 
 win = new Audio('audio/win.mp3');
 win.playbackRate = 1.4;
-win.loop = 'false';
+win.loop = false;
 
 gameOver = new Audio('audio/lost.mp3');
 gameOver.playbackRate = 1.6;
 
 gameEnd = new Audio('audio/hopeful.mp3');
-gameEnd.loop = 'true';
+gameEnd.loop = true;
 
 let allAudios = [
     win,
@@ -48,28 +48,56 @@ let allAudios = [
 ];
 
 /**
- * Manages the volume settings based on the stored sound status in localStorage.
- * If the sound status is 'on', loudspeakers are turned on. The button will be marked grey, because - without the player´s
- * intervention - no sound can be played. The playing of sounds is prevented by the browser.
- * If 'off', audio is stopped and loudspeakers are turned off.
- * If there is no entry in the localStorage of the player, audio is stopped and loudspeakers are turned off.
+ * Manages the volume settings based on the stored sound status in `localStorage`.
+ * If the sound status is 'off', the sound is turned off and audios are stopped.
+ * If the sound status is 'on', the sound is enabled, when the start button is clicked, and volume is set accordingly.
+ * If the sound status is undefined in `localStorage`, it will be set to 'off' and audios will be stopped.
  */
 function volumeSettings() {
     const soundStatusRef = localStorage.getItem('soundStatus');
-    const volumeBtnOnRef = document.getElementById('volumeBtn');
 
     if (soundStatusRef === 'off') {
-        putLoudspeakersOff();
-        stopAllAudios();
-        volumeBtnOnRef.style.backgroundColor = '';
+        soundStatusOff();
     } else if (soundStatusRef === 'on') {
-        putLoudspeakersOn();
-        volumeBtnOnRef.style.backgroundColor = 'rgb(181, 180, 180)';
+        soundStatusOn();
     } else if (soundStatusRef == null) {
-        putLoudspeakersOff();
-        stopAllAudios();
-        storeSoundStatus();
+        soundStatusUndefined();
     }
+}
+
+/**
+ * Disables sound and stops all audios when the sound status is set to 'off'.
+ * It also updates the volume button's background color to its default state.
+ */
+function soundStatusOff() {
+    const volumeBtnOnRef = document.getElementById('volumeBtn');
+
+    putLoudspeakersOff();
+    stopAllAudios();
+    volumeBtnOnRef.style.backgroundColor = '';
+}
+
+/**
+ * If the sound status is 'on', the icon presented shows turned on loudspeakers. 
+ * The button will be marked grey, because - without the player´s intervention - no sound can be played. 
+ * The playing of sounds is prevented by the browser.
+ * When the game starts (player´s intervention), the sounds will be played.
+ */
+function soundStatusOn() {
+    const volumeBtnOnRef = document.getElementById('volumeBtn');
+
+    putLoudspeakersOn();
+    volumeBtnOnRef.style.backgroundColor = 'rgb(181, 180, 180)';
+}
+
+/**
+ * Handles the case where the sound status is undefined in `localStorage`.
+ * The sound is turned off, all audios are stopped, and the sound status is stored.
+ */
+function soundStatusUndefined() {
+    putLoudspeakersOff();
+    stopAllAudios();
+    storeSoundStatus();
 }
 
 /**
@@ -96,22 +124,24 @@ function putLoudspeakersOn() {
 
 /**
  * Stops all audio elements in the `allAudios` array by pausing them and resetting their current time to 0.
- * This function returns a Promise that resolves when all audios have been paused, or rejects if an error occurs during the process.
+ * Audio elements listed in the `exceptArray` will be ignored and not stopped.
+ * If an error occurs while pausing an audio, it will be ignored and not logged in the console.
  * 
- * @returns {Promise<void>} A promise that resolves when all audios are successfully stopped, or rejects if an error occurs.
- * 
- * @throws {Error} If there is an issue pausing or resetting the audio elements, the promise will be rejected with an error.
+ * @param {Audio[]} exceptArray - An array of audio elements that should not be stopped.
+ * @returns {Promise<void>} A promise that resolves when all audios are successfully stopped.
  */
-function stopAllAudios() {
-    return new Promise((resolve, reject) => {
+function stopAllAudios(exceptArray = []) {
+    return new Promise((resolve) => {
         try {
             allAudios.forEach(audio => {
-                audio.pause();
-                audio.currentTime = 0;
+                if (!exceptArray.includes(audio)) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
             });
-            resolve();
         } catch (error) {
-            reject(error);
+        } finally {
+            resolve();
         }
     });
 }

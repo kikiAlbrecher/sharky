@@ -194,9 +194,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object is currently hurt by poison (within a certain time span of the last hit).
+     * Checks if the object is currently hurt (within a certain time span of the last hit).
      *
-     * @returns {boolean} `true` if the object is hurt by poison, `false` otherwise.
+     * @returns {boolean} `true` if the object is hurt, `false` otherwise.
      */
     isHurtPoison() {
         let timeNow = new Date().getTime();
