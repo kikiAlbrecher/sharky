@@ -278,4 +278,8 @@
     .collect {
         padding-left: 32px;
     }
+
+    .btn-placing {
+        gap: 12px;
+    }
 }
