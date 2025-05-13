@@ -23,6 +23,24 @@ body {
     src: url('../fonts/open-sans-regular.ttf') format('truetype');
 }
 
+html::-webkit-scrollbar {
+    width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+    background: rgb(237, 237, 237);
+}
+
+html::-webkit-scrollbar-thumb {
+    background: rgb(127, 255, 224);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: rgb(62, 253, 205);
+}
+
 .policy-section {
     max-width: 1920px;
     width: 100%;
